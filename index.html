@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fundora — Invest in Ideas. Grow Together.</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #080b18;
+    --card: #11172a;
+    --purple: #8155ff;
+    --blue: #3988ff;
+    --text: #ffffff;
+    --muted: #9ba5bd;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+    width: 90%;
+    max-width: 1180px;
+    margin: auto;
+}
+
+/* NAVIGATION */
+
+nav {
+    height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.logo-icon {
+    width: 37px;
+    height: 37px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #8d53ff, #287dff, #23c9df);
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: white;
+}
+
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn {
+    border: none;
+    border-radius: 9px;
+    padding: 12px 20px;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-outline {
+    background: transparent;
+    color: white;
+    border: 1px solid #343c55;
+}
+
+.btn-primary {
+    color: white;
+    background: linear-gradient(110deg, #8651ff, #367eff);
+    box-shadow: 0 5px 25px rgba(110,75,255,.2);
+}
+
+.menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 27px;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 570px;
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    align-items: center;
+    gap: 45px;
+    padding: 65px 0;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #c3aaff;
+    background: rgba(129,85,255,.12);
+    border: 1px solid rgba(129,85,255,.25);
+    padding: 8px 13px;
+    border-radius: 30px;
+    font-size: 12px;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: clamp(39px, 5vw, 65px);
+    line-height: 1.12;
+    letter-spacing: -2px;
+    max-width: 650px;
+}
+
+.gradient-text {
+    background: linear-gradient(100deg, #a879ff, #4e9cff, #36d4dc);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.hero p {
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 490px;
+    margin: 23px 0 30px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 13px;
+    flex-wrap: wrap;
+}
+
+.hero-actions .btn {
+    padding: 15px 23px;
+}
+
+.hero-visual {
+    position: relative;
+    min-height: 390px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: #663bff;
+    filter: blur(130px);
+    opacity: .3;
+}
+
+.preview-card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 420px;
+    background: linear-gradient(145deg, #19213b, #101529);
+    border: 1px solid #303a5c;
+    border-radius: 22px;
+    padding: 25px;
+    box-shadow: 0 25px 70px rgba(0,0,0,.4);
+}
+
+.preview-top {
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.preview-heading {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 35px;
+}
+
+.preview-title {
+    font-size: 34px;
+    font-weight: 800;
+    margin-top: 7px;
+}
+
+.preview-chart {
+    height: 115px;
+    margin-top: 25px;
+    border-radius: 12px;
+    background:
+    linear-gradient(180deg, rgba(112,78,255,.25), transparent),
+    linear-gradient(135deg, #1e3260, #151b34);
+    position: relative;
+    overflow: hidden;
+}
+
+.preview-chart svg {
+    width: 100%;
+    height: 100%;
+}
+
+.preview-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.preview-item {
+    background: rgba(255,255,255,.045);
+    padding: 14px;
+    border-radius: 12px;
+}
+
+.preview-item small {
+    display: block;
+    color: var(--muted);
+    margin-bottom: 7px;
+}
+
+.preview-item strong {
+    font-size: 16px;
+}
+
+/* GENERAL SECTIONS */
+
+section {
+    padding: 75px 0;
+}
+
+.section-heading {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 42px;
+}
+
+.section-heading h2 {
+    font-size: 32px;
+    margin-bottom: 13px;
+}
+
+.section-heading p {
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+/* FEATURES */
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.feature-card {
+    background: var(--card);
+    border: 1px solid #222b43;
+    padding: 25px;
+    border-radius: 16px;
+}
+
+.feature-icon {
+    width: 45px;
+    height: 45px;
+    display: grid;
+    place-items: center;
+    background: rgba(129,85,255,.15);
+    border-radius: 12px;
+    font-size: 21px;
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* OPPORTUNITIES */
+
+.opportunities {
+    background: linear-gradient(180deg, transparent, rgba(75,70,160,.08), transparent);
+}
+
+.opportunity-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.opportunity-card {
+    background: #11182b;
+    border: 1px solid #28324e;
+    padding: 25px;
+    border-radius: 16px;
+}
+
+.opportunity-card .tag {
+    color: #b69aff;
+    font-size: 11px;
+    background: rgba(129,85,255,.12);
+    padding: 6px 10px;
+    border-radius: 20px;
+}
+
+.opportunity-card h3 {
+    margin: 22px 0 10px;
+    font-size: 19px;
+}
+
+.opportunity-card p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.opportunity-card .btn {
+    margin-top: 22px;
+    width: 100%;
+}
+
+/* CTA */
+
+.cta-box {
+    text-align: center;
+    padding: 55px 25px;
+    border-radius: 22px;
+    border: 1px solid #34305c;
+    background: linear-gradient(120deg, #1b1640, #101d3d);
+}
+
+.cta-box h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.cta-box p {
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto 25px;
+    line-height: 1.7;
+}
+
+/* FOOTER */
+
+footer {
+    padding: 28px 0;
+    border-top: 1px solid rgba(255,255,255,.07);
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+    line-height: 1.8;
+}
+
+.notice {
+    color: #b7c1d8;
+    background: rgba(255,255,255,.045);
+    border: 1px solid #303a50;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 12px;
+    line-height: 1.7;
+    margin-top: 25px;
+}
+
+/* MOBILE */
+
+@media(max-width: 800px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 78px;
+        left: 0;
+        right: 0;
+        background: #101529;
+        padding: 22px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 22px;
+        z-index: 10;
+        border-bottom: 1px solid #303a50;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .nav-buttons .btn-outline {
+        display: none;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 55px 0 35px;
+        gap: 25px;
+    }
+
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .hero-visual {
+        min-height: 330px;
+    }
+
+    .features,
+    .opportunity-grid {
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding: 55px 0;
+    }
+
+    .section-heading h2,
+    .cta-box h2 {
+        font-size: 27px;
+    }
+}
+
+@media(max-width: 380px) {
+    .logo {
+        font-size: 20px;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .preview-card {
+        padding: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<nav>
+    <a href="#" class="logo">
+        <span class="logo-icon">✦</span>
+        Fundora
+    </a>
+
+    <div class="nav-links" id="navLinks">
+        <a href="#">Home</a>
+        <a href="#about">About</a>
+        <a href="#opportunities">Opportunities</a>
+        <a href="#how">How It Works</a>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="btn btn-outline" onclick="demoMessage()">Login</button>
+        <button class="btn btn-primary" onclick="demoMessage()">Get Started</button>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+</nav>
+
+<!-- HERO -->
+
+<div class="hero">
+
+    <div>
+        <div class="badge">✦ A NEW WAY TO EXPLORE OPPORTUNITIES</div>
+
+        <h1>
+            Invest in Ideas.<br>
+            <span class="gradient-text">Grow Together.</span>
+        </h1>
+
+        <p>
+            Discover business opportunities, explore ideas and follow
+            your financial activities through one simple platform.
+        </p>
+
+        <div class="hero-actions">
+            <button class="btn btn-primary" onclick="demoMessage()">
+                Explore Fundora →
+            </button>
+
+            <a href="#about" class="btn btn-outline">
+                Learn More
+            </a>
+        </div>
+
+        <div class="notice">
+            Fundora is currently in prototype development.
+            No real investments, deposits or withdrawals are being accepted.
+        </div>
+    </div>
+
+    <div class="hero-visual">
+        <div class="glow"></div>
+
+        <div class="preview-card">
+            <div class="preview-top">
+                <span>FUNDORA OVERVIEW</span>
+                <span>DEMO PREVIEW</span>
+            </div>
+
+            <div class="preview-heading">Welcome to Fundora</div>
+            <div class="preview-title">Your Dashboard</div>
+
+            <div class="preview-chart">
+                <svg viewBox="0 0 400 115" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="lineGradient">
+                            <stop offset="0%" stop-color="#8651ff"/>
+                            <stop offset="100%" stop-color="#35c9e7"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M0 90 C45 75 55 95 100 65 S165 75 205 45 S275 65 315 30 S365 40 400 10"
+                    fill="none" stroke="url(#lineGradient)"
+                    stroke-width="4" stroke-linecap="round"/>
+                </svg>
+            </div>
+
+            <div class="preview-items">
+                <div class="preview-item">
+                    <small>Account Overview</small>
+                    <strong>Demo Account</strong>
+                </div>
+
+                <div class="preview-item">
+                    <small>Activity</small>
+                    <strong>View History</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<!-- ABOUT -->
+
+<section id="about">
+<div class="container">
+
+    <div class="section-heading">
+        <h2>Everything in One Place</h2>
+        <p>
+            Fundora is being designed to make exploring business
+            opportunities and managing account activities easier.
+        </p>
+    </div>
+
+    <div class="features">
+
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Track Your Activities</h3>
+            <p>
+                Keep your account activities and transaction records
+                organized in one dashboard.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">💡</div>
+            <h3>Explore Opportunities</h3>
+            <p>
+                Discover business ideas and learn about the opportunities
+                available on the platform.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Account Management</h3>
+            <p>
+                Manage your profile and access your account information
+                from one convenient place.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+<!-- OPPORTUNITIES -->
+
+<section class="opportunities" id="opportunities">
+<div class="container">
+
+    <div class="section-heading">
+        <h2>Explore Business Ideas</h2>
+        <p>
+            A preview of how business opportunities will be presented
+            on Fundora.
+        </p>
+    </div>
+
+    <div class="opportunity-grid">
+
+        <div class="opportunity-card">
+            <span class="tag">DEMO OPPORTUNITY</span>
+            <h3>Business Development</h3>
+            <p>
+                Explore ideas focused on building and growing
+                sustainable businesses.
+            </p>
+            <button class="btn btn-outline" onclick="demoMessage()">
+                Coming Soon
+            </button>
+        </div>
+
+        <div class="opportunity-card">
+            <span class="tag">DEMO OPPORTUNITY</span>
+            <h3>Entrepreneurship</h3>
+            <p>
+                Discover innovative ideas and learn how businesses
+                can create value.
+            </p>
+            <button class="btn btn-outline" onclick="demoMessage()">
+                Coming Soon
+            </button>
+        </div>
+
+        <div class="opportunity-card">
+            <span class="tag">DEMO OPPORTUNITY</span>
+            <h3>Business Innovation</h3>
+            <p>
+                Explore ideas and opportunities across different
+                business sectors.
+            </p>
+            <button class="btn btn-outline" onclick="demoMessage()">
+                Coming Soon
+            </button>
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+<!-- HOW IT WORKS -->
+
+<section id="how">
+<div class="container">
+
+    <div class="section-heading">
+        <h2>Built Around Simplicity</h2>
+        <p>
+            Our goal is to make the Fundora experience simple,
+            organized and accessible.
+        </p>
+    </div>
+
+    <div class="features">
+
+        <div class="feature-card">
+            <div class="feature-icon">01</div>
+            <h3>Create an Account</h3>
+            <p>Set up your personal Fundora account.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">02</div>
+            <h3>Explore</h3>
+            <p>Discover information about available opportunities.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">03</div>
+            <h3>Manage</h3>
+            <p>Access your account and track recorded activities.</p>
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+<!-- CTA -->
+
+<section>
+<div class="container">
+
+    <div class="cta-box">
+        <h2>Welcome to Fundora</h2>
+        <p>
+            We're building a platform where ideas, opportunities
+            and business growth come together.
+        </p>
+
+        <button class="btn btn-primary" onclick="demoMessage()">
+            Coming Soon
+        </button>
+    </div>
+
+</div>
+</section>
+
+<footer>
+    <div class="container">
+        © 2026 Fundora. All rights reserved.<br>
+        Prototype platform — not currently accepting investments.
+    </div>
+</footer>
+
+<script>
+function toggleMenu() {
+    document.getElementById("navLinks").classList.toggle("show");
+}
+
+function demoMessage() {
+    alert("Fundora is currently under development. This feature will be available soon.");
+}
+</script>
+
+</body>
+</html>
