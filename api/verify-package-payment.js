@@ -55,12 +55,10 @@ try {
     }
 
     const user = await authResponse.json();
-
-    const databaseHeaders = {
-        apikey: SUPABASE_SERVICE_ROLE_KEY,
-        Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
-        "Content-Type": "application/json"
-    };
+const databaseHeaders = {
+    apikey: SUPABASE_SERVICE_ROLE_KEY,
+    "Content-Type": "application/json"
+};
 
     // Find this member's pending purchase
     const purchaseResponse = await fetch(
