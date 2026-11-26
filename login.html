@@ -26,7 +26,7 @@ input::placeholder{color:#71809f}
 .remember{display:flex;align-items:center;gap:7px}
 .remember input{width:auto;height:auto;accent-color:#8d4dff}
 button{width:100%;height:48px;border:0;border-radius:10px;background:linear-gradient(110deg,#963eff,#496eff);color:white;font-weight:700;font-size:14px;font-family:inherit;cursor:pointer}
-button:active{transform:scale(.99)}
+button:disabled{opacity:.6;cursor:not-allowed}
 .form-foot{text-align:center;color:#aab4d0;font-size:12px;margin-top:20px}
 .notice{display:none;margin-top:15px;padding:12px;border:1px solid #4b6d8b;background:#1b3550;border-radius:9px;color:#d9f4ff;font-size:12px;line-height:1.6}
 .notice.show{display:block}
@@ -50,17 +50,62 @@ button:active{transform:scale(.99)}
 </div><div class="options">
 <label class="remember"><input type="checkbox" id="remember"> Remember me</label>
 <a class="forgot" href="forgot-password.html">Forgot password?</a>
-</div><button type="submit">Login</button>
+</div><button type="submit" id="loginButton">Login</button>
 
 <div class="notice" id="notice" role="status"></div>
 </form><div class="form-foot">Don't have an account? <a href="register.html">Register</a></div>
-<p class="note">Sign-in will be activated after authentication is connected.</p>
-</main><script>
-document.getElementById('loginForm').addEventListener('submit',function(e){
-e.preventDefault();
-const notice=document.getElementById('notice');
-notice.textContent='Login is not active yet.';
-notice.classList.add('show');
+<p class="note">Secure sign-in powered by Fundora.</p>
+</main><script type="module">
+import { supabase } from "./supabase.js";
+
+const form = document.getElementById("loginForm");
+const button = document.getElementById("loginButton");
+const notice = document.getElementById("notice");
+
+function showMessage(message) {
+    notice.textContent = message;
+    notice.classList.add("show");
+}
+
+const { data: sessionData } = await supabase.auth.getSession();
+
+if (sessionData.session) {
+    window.location.replace("dashboard.html");
+}
+
+form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    button.disabled = true;
+    button.textContent = "Signing in...";
+    notice.classList.remove("show");
+
+    try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email,
+            password
+        });
+
+        if (error) throw error;
+
+        if (!data.session) {
+            throw new Error("Login could not be completed. Please try again.");
+        }
+
+        showMessage("Login successful. Opening your dashboard...");
+
+        setTimeout(() => {
+            window.location.replace("dashboard.html");
+        }, 700);
+
+    } catch (error) {
+        showMessage(error.message || "Unable to log in. Please check your details.");
+        button.disabled = false;
+        button.textContent = "Login";
+    }
 });
 </script></body>
 </html>
