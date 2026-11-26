@@ -62,12 +62,10 @@ try {
     ) {
         return res.status(400).send("Invalid payment details");
     }
-
-    const databaseHeaders = {
-        apikey: serviceKey,
-        Authorization: `Bearer ${serviceKey}`,
-        "Content-Type": "application/json"
-    };
+const databaseHeaders = {
+    apikey: serviceKey,
+    "Content-Type": "application/json"
+};
 
     // Find the matching Fundora purchase
     const purchaseResponse = await fetch(
