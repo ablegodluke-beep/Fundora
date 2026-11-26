@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Packages | Fundora</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #080b18;
+    color: #fff;
+    min-height: 100vh;
+    padding-bottom: 100px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #20253b;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.logo img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.profile {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #743bff, #258cff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.container {
+    max-width: 850px;
+    margin: auto;
+    padding: 25px 18px;
+}
+
+.heading {
+    margin-bottom: 25px;
+}
+
+.heading small {
+    color: #9b83ff;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.heading h1 {
+    font-size: 27px;
+    margin: 10px 0;
+}
+
+.heading p {
+    color: #9299b1;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.notice {
+    background: #171a30;
+    border: 1px solid #34365a;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 25px;
+    color: #c5c8dc;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.notice strong {
+    color: #a993ff;
+}
+
+.section-title {
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.packages {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 17px;
+}
+
+.package-card {
+    background: linear-gradient(145deg, #171b32, #101426);
+    border: 1px solid #292e4b;
+    border-radius: 18px;
+    padding: 21px;
+    position: relative;
+    overflow: hidden;
+}
+
+.package-card.featured {
+    border-color: #7550e8;
+}
+
+.package-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.package-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 13px;
+    background: linear-gradient(135deg, #743bff, #258cff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+}
+
+.badge {
+    font-size: 10px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: #292044;
+    color: #b69cff;
+}
+
+.package-card h2 {
+    font-size: 19px;
+    margin-bottom: 9px;
+}
+
+.package-card p {
+    color: #9299b1;
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 18px;
+}
+
+.divider {
+    height: 1px;
+    background: #292e45;
+    margin-bottom: 17px;
+}
+
+.details-label {
+    color: #777f9c;
+    font-size: 12px;
+    margin-bottom: 7px;
+}
+
+.details-value {
+    color: #d9dcef;
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+button {
+    width: 100%;
+    border: none;
+    padding: 13px;
+    border-radius: 10px;
+    background: linear-gradient(100deg, #743bff, #287cff);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:active {
+    opacity: 0.8;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #101426;
+    border-top: 1px solid #292e45;
+    display: flex;
+    justify-content: space-around;
+    padding: 13px 5px;
+    z-index: 10;
+}
+
+.bottom-nav a {
+    text-decoration: none;
+    color: #858ca7;
+    font-size: 11px;
+    text-align: center;
+}
+
+.bottom-nav a span {
+    display: block;
+    font-size: 19px;
+    margin-bottom: 5px;
+}
+
+.bottom-nav a.active {
+    color: #a98cff;
+}
+
+@media (min-width: 650px) {
+    .packages {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <img src="fundora-logo.png" alt="Fundora">
+        <span>Fundora</span>
+    </div>
+    <div class="profile">M</div>
+</header>
+
+<main class="container">
+
+    <section class="heading">
+        <small>Explore opportunities</small>
+        <h1>Investment Packages</h1>
+        <p>Explore the packages available on Fundora and learn more about each one.</p>
+    </section>
+
+    <div class="notice">
+        <strong>Important notice</strong><br>
+        This is a demonstration of the Fundora packages page.
+        Package amounts, terms and investment features are not yet active.
+    </div>
+
+    <h3 class="section-title">Available Packages</h3>
+
+    <section class="packages">
+
+        <div class="package-card">
+            <div class="package-top">
+                <div class="package-icon">🌱</div>
+                <span class="badge">Starter</span>
+            </div>
+
+            <h2>Starter Package</h2>
+            <p>
+                An entry-level package designed for members
+                exploring the Fundora platform.
+            </p>
+
+            <div class="divider"></div>
+
+            <div class="details-label">Package amount</div>
+            <div class="details-value">To be announced</div>
+
+            <div class="details-label">Package terms</div>
+            <div class="details-value">Coming soon</div>
+
+            <button onclick="showDetails('Starter Package')">
+                View Details
+            </button>
+        </div>
+
+        <div class="package-card featured">
+            <div class="package-top">
+                <div class="package-icon">🚀</div>
+                <span class="badge">Growth</span>
+            </div>
+
+            <h2>Growth Package</h2>
+            <p>
+                A package designed for members interested
+                in exploring more opportunities on Fundora.
+            </p>
+
+            <div class="divider"></div>
+
+            <div class="details-label">Package amount</div>
+            <div class="details-value">To be announced</div>
+
+            <div class="details-label">Package terms</div>
+            <div class="details-value">Coming soon</div>
+
+            <button onclick="showDetails('Growth Package')">
+                View Details
+            </button>
+        </div>
+
+    </section>
+
+</main>
+
+<nav class="bottom-nav">
+    <a href="dashboard.html">
+        <span>⌂</span>Home
+    </a>
+
+    <a href="packages.html" class="active">
+        <span>▦</span>Packages
+    </a>
+
+    <a href="investments.html">
+        <span>◈</span>Investments
+    </a>
+
+    <a href="referrals.html">
+        <span>♧</span>Referrals
+    </a>
+
+    <a href="settings.html">
+        <span>⚙</span>Settings
+    </a>
+</nav>
+
+<script>
+function showDetails(packageName) {
+    alert(
+        packageName +
+        "\n\nPackage details are not available yet."
+    );
+}
+</script>
+
+</body>
+</html>
