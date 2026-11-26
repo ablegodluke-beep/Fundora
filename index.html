@@ -3,892 +3,512 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fundora | Invest in Ideas. Grow Together.</title>
-<meta name="description" content="Welcome to Fundora. Join a growing platform with over four years of experience, built around helping people grow and achieve their goals.">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
-:root {
-    --bg:#080b18;
-    --card:#11172a;
-    --purple:#8057f5;
-    --blue:#3985ff;
-    --cyan:#21c5e8;
-    --text:#f5f6ff;
-    --muted:#a0a9c0;
-    --border:rgba(255,255,255,.09);
-}
-
-* {
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html {
-    scroll-behavior:smooth;
-}
-
-body {
-    background:var(--bg);
-    color:var(--text);
-    font-family:'DM Sans',sans-serif;
-    overflow-x:hidden;
-}
-
-a {
-    text-decoration:none;
-}
-
-header {
-    height:76px;
-    padding:0 7%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-bottom:1px solid var(--border);
-    background:rgba(8,11,24,.92);
-    position:sticky;
-    top:0;
-    z-index:100;
-    backdrop-filter:blur(15px);
-}
-
-.brand {
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:22px;
-    font-weight:800;
-    color:white;
-}
-
-.brand img {
-    width:39px;
-    height:39px;
-    object-fit:contain;
-}
-
-.header-actions {
-    display:flex;
-    align-items:center;
-    gap:13px;
-}
-
-.login-link {
-    color:#d5d8e9;
-    font-size:12px;
-    font-weight:600;
-}
-
-.join-button {
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    padding:12px 19px;
-    border-radius:9px;
-    color:white;
-    font-size:12px;
-    font-weight:700;
-    background:linear-gradient(100deg,var(--purple),var(--blue));
-    box-shadow:0 7px 25px rgba(91,77,230,.2);
-}
-
-.hero {
-    min-height:600px;
-    padding:90px 7% 75px;
-    display:grid;
-    grid-template-columns:1.05fr .95fr;
-    align-items:center;
-    gap:45px;
-    position:relative;
-    overflow:hidden;
-}
-
-.hero::before {
-    content:"";
-    position:absolute;
-    width:550px;
-    height:550px;
-    border-radius:50%;
-    background:rgba(103,66,238,.15);
-    filter:blur(100px);
-    top:-160px;
-    right:-100px;
-    pointer-events:none;
-}
-
-.hero-content {
-    position:relative;
-    z-index:2;
-}
-
-.eyebrow {
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    border:1px solid rgba(128,87,245,.3);
-    background:rgba(128,87,245,.1);
-    color:#c9baff;
-    padding:9px 13px;
-    border-radius:30px;
-    font-size:10px;
-    font-weight:700;
-    margin-bottom:23px;
-}
-
-.eyebrow span {
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:#8b6cff;
-}
-
-.hero h1 {
-    font-size:clamp(38px,5.3vw,66px);
-    line-height:1.09;
-    letter-spacing:-2px;
-    font-weight:800;
-    max-width:650px;
-}
-
-.gradient-text {
-    background:linear-gradient(100deg,#a78bff,#5d9bff,#47d4ed);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-}
-
-.hero-description {
-    max-width:520px;
-    color:var(--muted);
-    font-size:14px;
-    line-height:1.9;
-    margin:23px 0 27px;
-}
-
-.hero-buttons {
-    display:flex;
-    align-items:center;
-    gap:13px;
-    flex-wrap:wrap;
-}
-
-.hero-buttons .join-button {
-    padding:15px 23px;
-}
-
-.secondary-button {
-    display:inline-flex;
-    justify-content:center;
-    align-items:center;
-    padding:14px 21px;
-    border:1px solid rgba(255,255,255,.16);
-    color:white;
-    border-radius:9px;
-    font-size:12px;
-    font-weight:600;
-}
-
-.hero-note {
-    color:#78839f;
-    font-size:10px;
-    margin-top:20px;
-}
-
-.hero-visual {
-    position:relative;
-    z-index:2;
-    min-height:390px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.hero-image-wrap {
-    width:100%;
-    max-width:490px;
-    position:relative;
-}
-
-.hero-image {
-    width:100%;
-    display:block;
-    border-radius:22px;
-    object-fit:cover;
-    border:1px solid rgba(255,255,255,.13);
-    box-shadow:0 25px 80px rgba(0,0,0,.45);
-}
-
-.floating-card {
-    position:absolute;
-    background:rgba(19,27,49,.94);
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:13px;
-    padding:14px 17px;
-    box-shadow:0 15px 35px rgba(0,0,0,.3);
-    backdrop-filter:blur(15px);
-}
-
-.floating-card strong {
-    display:block;
-    font-size:13px;
-    margin-bottom:5px;
-}
-
-.floating-card small {
-    color:var(--muted);
-    font-size:10px;
-}
-
-.floating-one {
-    top:12%;
-    left:-35px;
-}
-
-.floating-two {
-    bottom:10%;
-    right:-20px;
-}
-
-.floating-icon {
-    color:#a78bff;
-    font-size:19px;
-    margin-bottom:5px;
-}
-
-.stats {
-    padding:27px 7%;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    background:#0e1425;
-    border-top:1px solid var(--border);
-    border-bottom:1px solid var(--border);
-}
-
-.stat {
-    text-align:center;
-    padding:10px;
-    border-right:1px solid var(--border);
-}
-
-.stat:last-child {
-    border-right:0;
-}
-
-.stat strong {
-    display:block;
-    font-size:27px;
-    font-weight:800;
-    margin-bottom:5px;
-    background:linear-gradient(100deg,#a78bff,#55b8ff);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-}
-
-.stat span {
-    color:var(--muted);
-    font-size:11px;
-}
-
-.section {
-    padding:85px 7%;
-}
-
-.section-heading {
-    max-width:650px;
-    margin:0 auto 40px;
-    text-align:center;
-}
-
-.section-tag {
-    color:#a995ff;
-    font-size:10px;
-    font-weight:800;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    margin-bottom:13px;
-}
-
-.section-heading h2 {
-    font-size:clamp(27px,4vw,39px);
-    letter-spacing:-1px;
-    line-height:1.2;
-}
-
-.section-heading p {
-    color:var(--muted);
-    font-size:13px;
-    line-height:1.8;
-    margin-top:14px;
-}
-
-.mission-grid {
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:17px;
-}
-
-.mission-card {
-    padding:25px;
-    border-radius:15px;
-    background:linear-gradient(145deg,#141c34,#0e1425);
-    border:1px solid var(--border);
-    transition:.25s;
-}
-
-.mission-card:hover {
-    transform:translateY(-5px);
-    border-color:rgba(128,87,245,.4);
-}
-
-.mission-icon {
-    width:47px;
-    height:47px;
-    display:grid;
-    place-items:center;
-    border-radius:13px;
-    font-size:22px;
-    background:rgba(128,87,245,.15);
-    margin-bottom:19px;
-}
-
-.mission-card h3 {
-    font-size:15px;
-    margin-bottom:10px;
-}
-
-.mission-card p {
-    color:var(--muted);
-    font-size:12px;
-    line-height:1.8;
-}
-
-.partnership {
-    padding:75px 7%;
-    background:
-    radial-gradient(circle at 50% 0%,rgba(89,68,214,.18),transparent 55%),
-    #0d1324;
-    border-top:1px solid var(--border);
-    border-bottom:1px solid var(--border);
-}
-
-.partnership-content {
-    max-width:850px;
-    margin:auto;
-    text-align:center;
-}
-
-.partnership-content h2 {
-    font-size:clamp(26px,4vw,38px);
-    margin-bottom:15px;
-}
-
-.partnership-content p {
-    max-width:680px;
-    margin:0 auto;
-    color:var(--muted);
-    font-size:13px;
-    line-height:1.9;
-}
-
-.partner-types {
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:14px;
-    margin-top:35px;
-}
-
-.partner-item {
-    padding:23px 13px;
-    background:rgba(255,255,255,.035);
-    border:1px solid var(--border);
-    border-radius:13px;
-}
-
-.partner-item span {
-    display:block;
-    font-size:27px;
-    margin-bottom:11px;
-}
-
-.partner-item strong {
-    font-size:12px;
-}
-
-.how-grid {
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:17px;
-}
-
-.step-card {
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:14px;
-    padding:23px;
-}
-
-.step-number {
-    font-size:12px;
-    font-weight:800;
-    color:#a995ff;
-    margin-bottom:17px;
-}
-
-.step-card h3 {
-    font-size:15px;
-    margin-bottom:9px;
-}
-
-.step-card p {
-    color:var(--muted);
-    font-size:12px;
-    line-height:1.8;
-}
-
-.cta {
-    margin:25px 7% 80px;
-    padding:55px 25px;
-    border-radius:20px;
-    text-align:center;
-    background:linear-gradient(115deg,#30206a,#234e9e,#176b8c);
-    position:relative;
-    overflow:hidden;
-}
-
-.cta h2 {
-    font-size:clamp(26px,4vw,38px);
-    margin-bottom:13px;
-}
-
-.cta p {
-    color:#e0e5ff;
-    font-size:13px;
-    line-height:1.8;
-    max-width:560px;
-    margin:0 auto 24px;
-}
-
-.cta-button {
-    display:inline-flex;
-    padding:14px 25px;
-    border-radius:9px;
-    background:white;
-    color:#17142d;
-    font-size:12px;
-    font-weight:800;
-}
-
-footer {
-    padding:30px 7%;
-    border-top:1px solid var(--border);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
-    flex-wrap:wrap;
-}
-
-.footer-brand {
-    display:flex;
-    align-items:center;
-    gap:9px;
-    font-weight:800;
-    font-size:16px;
-}
-
-.footer-brand img {
-    width:30px;
-    height:30px;
-    object-fit:contain;
-}
-
-footer p {
-    color:#78839f;
-    font-size:10px;
-}
-
-.footer-links {
-    display:flex;
-    gap:17px;
-}
-
-.footer-links a {
-    color:var(--muted);
-    font-size:10px;
-}
-
-@media(max-width:800px) {
-    .hero {
-        grid-template-columns:1fr;
-        padding-top:70px;
-        gap:45px;
-    }
-
-    .hero-content {
-        text-align:center;
-    }
-
-    .hero-description {
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-    .hero-buttons {
-        justify-content:center;
-    }
-
-    .hero-visual {
-        min-height:320px;
-    }
-
-    .hero-image-wrap {
-        max-width:520px;
-    }
-
-    .floating-one {
-        left:-5px;
-    }
-
-    .floating-two {
-        right:-5px;
-    }
-
-    .mission-grid,
-    .how-grid {
-        grid-template-columns:1fr;
-    }
-}
-
-@media(max-width:520px) {
-    header {
-        height:65px;
-        padding:0 4%;
-    }
-
-    .brand {
-        font-size:19px;
-    }
-
-    .brand img {
-        width:34px;
-        height:34px;
-    }
-
-    .header-actions {
-        gap:11px;
-    }
-
-    .join-button {
-        padding:10px 13px;
-        font-size:10px;
-    }
-
-    .login-link {
-        font-size:11px;
-    }
-
-    .hero {
-        padding:60px 5% 55px;
-    }
-
-    .hero h1 {
-        font-size:41px;
-        letter-spacing:-1.5px;
-    }
-
-    .hero-description {
-        font-size:12px;
-    }
-
-    .hero-visual {
-        min-height:250px;
-    }
-
-    .floating-card {
-        padding:10px 12px;
-    }
-
-    .floating-card strong {
-        font-size:10px;
-    }
-
-    .floating-card small {
-        font-size:8px;
-    }
-
-    .floating-one {
-        left:-4px;
-    }
-
-    .floating-two {
-        right:-4px;
-    }
-
-    .stats {
-        padding:20px 3%;
-    }
-
-    .stat strong {
-        font-size:21px;
-    }
-
-    .stat span {
-        font-size:9px;
-    }
-
-    .section {
-        padding:65px 5%;
-    }
-
-    .partner-types {
-        grid-template-columns:1fr;
-    }
-
-    .partnership {
-        padding:65px 5%;
-    }
-
-    .cta {
-        margin:10px 5% 60px;
-        padding:42px 18px;
-    }
-
-    footer {
-        padding:25px 5%;
-        justify-content:center;
-        text-align:center;
-    }
-
-    .footer-brand {
-        width:100%;
-        justify-content:center;
-    }
-
-    .footer-links {
-        justify-content:center;
-        width:100%;
-    }
-}
-</style></head><body><header>
+<meta name="description" content="Welcome to Fundora. An earning platform with affiliate marketing opportunities, commissions and a growing community.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');:root {
+--bg:#080b18;
+--panel:#10162b;
+--purple:#8057ff;
+--blue:#3978ff;
+--cyan:#22c9e8;
+--text:#f5f6ff;
+--muted:#a5adc4;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+background:var(--bg);
+color:var(--text);
+font-family:'DM Sans',sans-serif;
+line-height:1.6;
+}
+a{text-decoration:none;color:inherit}
+.container{width:min(1100px,92%);margin:auto}
+
+header{
+height:76px;
+display:flex;
+align-items:center;
+border-bottom:1px solid rgba(255,255,255,.07);
+}
+.nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+.brand{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:22px;
+font-weight:800;
+}
+.brand img{width:39px;height:39px;object-fit:contain}
+.nav-actions{display:flex;gap:12px;align-items:center}
+.btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:12px 21px;
+border-radius:10px;
+font-weight:700;
+font-size:14px;
+border:1px solid transparent;
+cursor:pointer;
+}
+.btn-outline{
+border-color:rgba(255,255,255,.2);
+color:#fff;
+}
+.btn-primary{
+background:linear-gradient(110deg,var(--purple),var(--blue));
+color:white;
+box-shadow:0 8px 25px rgba(89,83,255,.2);
+}
+.btn:hover{transform:translateY(-2px)}
+
+.hero{
+padding:75px 0 65px;
+background:
+radial-gradient(ellipse at 10% 20%,rgba(111,65,255,.18),transparent 45%),
+radial-gradient(ellipse at 90% 60%,rgba(28,146,255,.13),transparent 45%);
+}
+.hero-grid{
+display:grid;
+grid-template-columns:1.05fr .95fr;
+gap:45px;
+align-items:center;
+}
+.eyebrow{
+display:inline-block;
+color:#c5b8ff;
+background:rgba(128,87,255,.14);
+border:1px solid rgba(128,87,255,.28);
+padding:7px 13px;
+border-radius:30px;
+font-size:12px;
+font-weight:700;
+margin-bottom:20px;
+}
+h1{
+font-size:clamp(38px,5.5vw,61px);
+line-height:1.1;
+letter-spacing:-2px;
+margin-bottom:20px;
+}
+.gradient-text{
+background:linear-gradient(100deg,#a58aff,#52c9ff);
+-webkit-background-clip:text;
+color:transparent;
+}
+.hero p{
+color:var(--muted);
+font-size:16px;
+max-width:520px;
+margin-bottom:27px;
+}
+.hero-buttons{display:flex;gap:12px;flex-wrap:wrap}
+.hero-image{
+position:relative;
+}
+.hero-image img{
+width:100%;
+display:block;
+border-radius:22px;
+border:1px solid rgba(255,255,255,.12);
+box-shadow:0 25px 70px rgba(0,0,0,.35);
+}
+.anniversary{
+margin-top:28px;
+padding:17px 20px;
+border-radius:14px;
+border:1px solid rgba(34,201,232,.3);
+background:linear-gradient(110deg,rgba(128,87,255,.13),rgba(34,201,232,.08));
+}
+.anniversary strong{
+display:block;
+color:#80e5ff;
+font-size:15px;
+margin-bottom:3px;
+}
+.anniversary span{color:var(--muted);font-size:13px}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+padding:25px 0 55px;
+}
+.stat{
+text-align:center;
+padding:22px 12px;
+background:var(--panel);
+border:1px solid rgba(255,255,255,.07);
+border-radius:14px;
+}
+.stat h3{
+font-size:25px;
+color:#a995ff;
+}
+.stat p{font-size:12px;color:var(--muted)}
+
+section{padding:65px 0}
+.section-heading{
+text-align:center;
+max-width:680px;
+margin:0 auto 35px;
+}
+.section-heading h2{
+font-size:clamp(27px,4vw,38px);
+margin-bottom:12px;
+letter-spacing:-.8px;
+}
+.section-heading p{color:var(--muted);font-size:14px}
+
+.about-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:17px;
+}
+.card{
+background:var(--panel);
+border:1px solid rgba(255,255,255,.07);
+border-radius:16px;
+padding:25px;
+}
+.card-icon{
+width:43px;height:43px;
+display:grid;place-items:center;
+border-radius:12px;
+background:rgba(128,87,255,.16);
+font-size:21px;
+margin-bottom:17px;
+}
+.card h3{font-size:17px;margin-bottom:9px}
+.card p{font-size:13px;color:var(--muted)}
+
+.affiliate{
+background:
+radial-gradient(ellipse at 15% 50%,rgba(128,87,255,.16),transparent 45%),
+#0c1123;
+}
+.affiliate-box{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:35px;
+align-items:center;
+background:linear-gradient(130deg,#151c38,#10162b);
+border:1px solid rgba(128,87,255,.2);
+border-radius:22px;
+padding:35px;
+}
+.affiliate-box h2{
+font-size:clamp(27px,4vw,39px);
+line-height:1.2;
+margin-bottom:15px;
+}
+.affiliate-box p{color:var(--muted);font-size:14px}
+.commission{
+margin-top:20px;
+padding:20px;
+border-radius:14px;
+background:rgba(128,87,255,.13);
+border:1px solid rgba(128,87,255,.25);
+}
+.commission strong{
+display:block;
+font-size:30px;
+color:#b8a5ff;
+}
+.commission span{font-size:12px;color:var(--muted)}
+.steps{display:grid;gap:13px}
+.step{
+display:flex;
+gap:14px;
+align-items:flex-start;
+padding:15px;
+background:rgba(255,255,255,.035);
+border-radius:12px;
+}
+.step-number{
+min-width:31px;height:31px;
+border-radius:50%;
+display:grid;place-items:center;
+background:linear-gradient(120deg,var(--purple),var(--blue));
+font-weight:800;font-size:13px;
+}
+.step h3{font-size:14px;margin-bottom:3px}
+.step p{font-size:12px;color:var(--muted)}
+
+.partnerships{
+text-align:center;
+background:#0c1123;
+}
+.partnerships p{
+color:var(--muted);
+max-width:700px;
+margin:0 auto;
+font-size:15px;
+}
+.partnership-tags{
+display:flex;justify-content:center;gap:12px;flex-wrap:wrap;
+margin-top:25px;
+}
+.partnership-tags span{
+padding:11px 17px;
+border:1px solid rgba(255,255,255,.1);
+background:var(--panel);
+border-radius:30px;
+font-size:13px;
+color:#dce2f7;
+}
+
+.how-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:16px;
+}
+.cta{
+text-align:center;
+padding:65px 20px;
+background:linear-gradient(110deg,rgba(128,87,255,.18),rgba(34,201,232,.1));
+border-top:1px solid rgba(255,255,255,.06);
+border-bottom:1px solid rgba(255,255,255,.06);
+}
+.cta h2{font-size:clamp(28px,4vw,40px);margin-bottom:12px}
+.cta p{color:var(--muted);margin:0 auto 23px;max-width:560px;font-size:14px}
+
+.note{
+color:#8791aa;
+font-size:11px;
+margin-top:14px;
+line-height:1.6;
+}
+
+footer{
+padding:28px 0;
+color:#8791aa;
+font-size:12px;
+}
+.footer-inner{
+display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;
+align-items:center;
+}
+.footer-brand{font-weight:800;color:#fff;font-size:16px}
+
+@media(max-width:760px){
+header{height:66px}
+.brand{font-size:19px}
+.brand img{width:34px;height:34px}
+.nav-actions{gap:8px}
+.nav-actions .btn{padding:9px 12px;font-size:12px}
+.hero{padding:48px 0 35px}
+.hero-grid{grid-template-columns:1fr;gap:30px}
+h1{font-size:43px}
+.hero p{font-size:14px}
+.stats{gap:8px;padding:20px 0 35px}
+.stat{padding:15px 6px}
+.stat h3{font-size:20px}
+.stat p{font-size:10px}
+section{padding:48px 0}
+.about-grid,.how-grid{grid-template-columns:1fr}
+.card{padding:21px}
+.affiliate-box{grid-template-columns:1fr;padding:23px;gap:25px}
+.commission strong{font-size:27px}
+}
+</style>
+
+</head>
+<body><header>
+  <div class="container nav">
     <a href="index.html" class="brand">
-        <img src="fundora-logo.png" alt="Fundora logo">
-        <span>Fundora</span>
-    </a><div class="header-actions">
-    <a href="login.html" class="login-link">Login</a>
-    <a href="register.html" class="join-button">Join Now ↗</a>
+      <img src="fundora-logo.png" alt="Fundora logo">
+      <span>Fundora</span>
+    </a>
+    <div class="nav-actions">
+      <a class="btn btn-outline" href="login.html">Login</a>
+      <a class="btn btn-primary" href="register.html">Join Now</a>
+    </div>
+  </div>
+</header><main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">4 YEARS OF GROWTH AND EXPERIENCE</span>
+        <h1>Welcome to <span class="gradient-text">Fundora.</span><br>Connect. Promote. Earn. Grow.</h1>
+        <p>
+          Fundora has been in existence for 4 years now. We are an earning
+          platform creating opportunities through affiliate marketing,
+          commissions and a growing community. We believe in helping people
+          work towards their goals and grow together.
+        </p>
+        <div class="hero-buttons">
+          <a href="register.html" class="btn btn-primary">Join Fundora</a>
+          <a href="#how-it-works" class="btn btn-outline">Learn How It Works</a>
+        </div>    <div class="anniversary">
+      <strong>🎉 We're celebrating our anniversary!</strong>
+      <span>Join us as we celebrate 4 years of Fundora on December 1.</span>
+    </div>
+  </div>
+
+  <div class="hero-image">
+    <img src="fundora-hero-small.jpg" alt="Welcome to Fundora">
+  </div>
 </div>
 
-</header><section class="hero"><div class="hero-content">
-
-    <div class="eyebrow">
-        <span></span>
-        OVER 4 YEARS OF EXPERIENCE
+  </section>  <div class="container stats">
+    <div class="stat">
+      <h3>4 Years</h3>
+      <p>In Existence</p>
     </div>
-
-    <h1>
-        Welcome to <span class="gradient-text">Fundora.</span>
-        <br>
-        Let's grow towards your goals.
-    </h1>
-
-    <p class="hero-description">
-        A platform built to bring people together, create opportunities
-        and help individuals work towards their goals. Join our growing
-        community and become part of the Fundora journey.
-    </p>
-
-    <div class="hero-buttons">
-        <a href="register.html" class="join-button">Join the Community ↗</a>
-        <a href="#about" class="secondary-button">Discover Fundora</a>
+    <div class="stat">
+      <h3>Growing</h3>
+      <p>Membership Community</p>
     </div>
-
-    <p class="hero-note">
-        Be part of a growing community. Your journey starts here.
-    </p>
-
+    <div class="stat">
+      <h3>Together</h3>
+      <p>Working Towards Goals</p>
+    </div>
+  </div>  <section>
+    <div class="container">
+      <div class="section-heading">
+        <h2>More Than Just a Platform</h2>
+        <p>
+          Fundora brings people together and creates opportunities for
+          members to participate, promote and grow.
+        </p>
+      </div>  <div class="about-grid">
+    <div class="card">
+      <div class="card-icon">🌱</div>
+      <h3>Growth</h3>
+      <p>We encourage members to work towards their goals and explore opportunities for growth.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🤝</div>
+      <h3>Community</h3>
+      <p>Be part of a growing membership community where people connect and support shared goals.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💡</div>
+      <h3>Opportunities</h3>
+      <p>Explore affiliate marketing and qualifying referral opportunities available on Fundora.</p>
+    </div>
+  </div>
 </div>
 
-<div class="hero-visual">
+  </section>  <section class="affiliate">
+    <div class="container">
+      <div class="affiliate-box">
+        <div>
+          <span class="eyebrow">AFFILIATE MARKETING</span>
+          <h2>Promote Fundora.<br><span class="gradient-text">Earn Commissions.</span></h2>
+          <p>
+            Fundora gives eligible members an opportunity to earn through
+            affiliate marketing. Share your referral link, invite new members
+            and earn a commission when a referral completes a qualifying
+            package purchase.
+          </p>      <div class="commission">
+        <strong>₦500</strong>
+        <span>Commission for each successful qualifying referral.</span>
+      </div>
+      <p class="note">
+        Referral access becomes available after you purchase your first
+        package. Commission is recorded only after the referred member's
+        qualifying purchase has been successfully verified. Earnings are
+        not guaranteed.
+      </p>
+    </div>
 
-    <div class="hero-image-wrap">
-
-        <img
-            src="fundora-hero-small.jpg"
-            alt="Fundora platform"
-            class="hero-image"
-        >
-
-        <div class="floating-card floating-one">
-            <div class="floating-icon">✦</div>
-            <strong>Growing Together</strong>
-            <small>Building opportunities</small>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div>
+          <h3>Join Fundora</h3>
+          <p>Create your account and become a member.</p>
         </div>
-
-        <div class="floating-card floating-two">
-            <strong>4+ Years</strong>
-            <small>Of platform experience</small>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div>
+          <h3>Unlock Referrals</h3>
+          <p>Purchase your first qualifying package to access your referral link.</p>
         </div>
-
-    </div>
-
-</div>
-
-</section><section class="stats"><div class="stat">
-    <strong>4+</strong>
-    <span>Years of Experience</span>
-</div>
-
-<div class="stat">
-    <strong>Growing</strong>
-    <span>Community</span>
-</div>
-
-<div class="stat">
-    <strong>United</strong>
-    <span>By Shared Goals</span>
-</div>
-
-</section><section class="section" id="about"><div class="section-heading">
-
-    <div class="section-tag">ABOUT FUNDORA</div>
-
-    <h2>A platform with a purpose.</h2>
-
-    <p>
-        For more than four years, Fundora has been on a journey of
-        bringing people together, building relationships and creating
-        opportunities for people to work towards their goals.
-    </p>
-
-</div>
-
-<div class="mission-grid">
-
-    <div class="mission-card">
-        <div class="mission-icon">🌱</div>
-        <h3>Growth</h3>
-        <p>
-            We believe in helping people grow, discover opportunities
-            and take meaningful steps towards their goals.
-        </p>
-    </div>
-
-    <div class="mission-card">
-        <div class="mission-icon">🤝</div>
-        <h3>Community</h3>
-        <p>
-            We bring people together through shared experiences,
-            collaboration and a common desire to make progress.
-        </p>
-    </div>
-
-    <div class="mission-card">
-        <div class="mission-icon">🚀</div>
-        <h3>Opportunities</h3>
-        <p>
-            We aim to create an environment where people can connect,
-            participate and become part of something bigger.
-        </p>
-    </div>
-
-</div>
-
-</section><section class="partnership"><div class="partnership-content">
-
-    <div class="section-tag">OUR PARTNERSHIPS</div>
-
-    <h2>Growing through collaboration.</h2>
-
-    <p>
-        Fundora values meaningful partnerships and collaborations.
-        We work with organizations, government institutions and
-        charity homes to support shared goals, create connections
-        and contribute to positive community development.
-    </p>
-
-    <div class="partner-types">
-
-        <div class="partner-item">
-            <span>🏢</span>
-            <strong>Organizations</strong>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div>
+          <h3>Share Your Link</h3>
+          <p>Invite people who are interested in joining Fundora.</p>
         </div>
-
-        <div class="partner-item">
-            <span>🏛️</span>
-            <strong>Government Institutions</strong>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div>
+          <h3>Earn Your Commission</h3>
+          <p>Receive a ₦500 referral commission after a qualifying purchase is verified.</p>
         </div>
-
-        <div class="partner-item">
-            <span>❤️</span>
-            <strong>Charity Homes</strong>
-        </div>
-
+      </div>
     </div>
-
+  </div>
 </div>
 
-</section><section class="section" id="how-it-works"><div class="section-heading">
-
-    <div class="section-tag">GET STARTED</div>
-
-    <h2>Your journey with Fundora starts here.</h2>
-
-    <p>
-        Becoming part of our growing community is simple.
-    </p>
-
-</div>
-
-<div class="how-grid">
-
-    <div class="step-card">
-        <div class="step-number">STEP 01</div>
-        <h3>Create Your Account</h3>
+  </section>  <section class="partnerships">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Building Connections Beyond Fundora</h2>
         <p>
-            Register on Fundora and set up your personal member account.
+          Over the years, Fundora has built partnerships with organizations,
+          government institutions and charity homes. We believe in creating
+          connections that can make a meaningful difference.
         </p>
+      </div>
+      <div class="partnership-tags">
+        <span>Organizations</span>
+        <span>Government Institutions</span>
+        <span>Charity Homes</span>
+      </div>
     </div>
-
-    <div class="step-card">
-        <div class="step-number">STEP 02</div>
-        <h3>Explore the Platform</h3>
-        <p>
-            Access your member dashboard and discover the features
-            available to you.
-        </p>
+  </section>  <section id="how-it-works">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Getting Started Is Simple</h2>
+        <p>Take your first steps into the Fundora community.</p>
+      </div>  <div class="how-grid">
+    <div class="card">
+      <div class="card-icon">👤</div>
+      <h3>1. Create an Account</h3>
+      <p>Register with your details to become part of Fundora.</p>
     </div>
-
-    <div class="step-card">
-        <div class="step-number">STEP 03</div>
-        <h3>Be Part of the Community</h3>
-        <p>
-            Join our growing community and take part in the Fundora journey.
-        </p>
+    <div class="card">
+      <div class="card-icon">📱</div>
+      <h3>2. Explore Fundora</h3>
+      <p>Access your member dashboard and explore the opportunities available.</p>
     </div>
-
+    <div class="card">
+      <div class="card-icon">🚀</div>
+      <h3>3. Grow With Us</h3>
+      <p>Participate in the community and explore eligible affiliate opportunities.</p>
+    </div>
+  </div>
 </div>
 
-</section><section class="cta"><h2>Be part of something growing.</h2>
-
-<p>
-    Fundora has been building its journey for over four years.
-    Join our growing community and take your next step with us.
-</p>
-
-<a href="register.html" class="cta-button">Join Fundora Today ↗</a>
-
-</section><footer><a href="index.html" class="footer-brand">
-    <img src="fundora-logo.png" alt="Fundora logo">
-    <span>Fundora</span>
-</a>
-
-<p>© <span id="year"></span> Fundora. All rights reserved.</p>
-
-<div class="footer-links">
-    <a href="login.html">Login</a>
-    <a href="register.html">Join Now</a>
-</div>
-
+  </section>  <section class="cta">
+    <div class="container">
+      <h2>Your Journey Can Start Here.</h2>
+      <p>
+        Be part of a platform that has been in existence for 4 years.
+        Join Fundora and grow with our community.
+      </p>
+      <a href="register.html" class="btn btn-primary">Create Your Account</a>
+    </div>
+  </section>
+</main><footer>
+  <div class="container footer-inner">
+    <div class="footer-brand">Fundora</div>
+    <div>Invest in Ideas. Grow Together.</div>
+    <div>© <span id="year"></span> Fundora. All rights reserved.</div>
+  </div>
 </footer><script>
 document.getElementById("year").textContent = new Date().getFullYear();
 </script></body>
