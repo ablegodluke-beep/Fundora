@@ -280,6 +280,19 @@ if (selected) {
             });
 
             const result = await response.json();
+            if (result.diagnostic) {
+    const packageList = (result.packages || [])
+        .map(p => `${p.name}: ₦${Number(p.price_ngn).toLocaleString("en-NG")}`)
+        .join(", ");
+
+    showMessage(
+        `Database connection successful. Packages found: ${result.package_count}. ${packageList}`
+    );
+
+    buyButton.disabled = false;
+    buyButton.textContent = "Buy Package";
+    return;
+}
 
             if (!response.ok || !result.authorization_url) {
                throw new Error(
