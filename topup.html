@@ -603,7 +603,15 @@ form.addEventListener("submit", async event => {
         const result = await response.json();
 
         if (!response.ok || !result.authorization_url) {
-            throw new Error(result.error || "Could not start payment.");
+            throw new Error(
+    [
+        result.error,
+        result.supabase_status
+            ? "Supabase status: " + result.supabase_status
+            : "",
+        result.supabase_details || ""
+    ].filter(Boolean).join(" | ")
+);
         }
 
         window.location.href = result.authorization_url;
