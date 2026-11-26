@@ -1,9 +1,14 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b18">
 <title>Withdrawals | Fundora</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
 :root {
     --bg:#080b18;
     --card:#11172a;
@@ -12,6 +17,9 @@
     --text:#f5f6ff;
     --muted:#929bb5;
     --border:rgba(255,255,255,.08);
+    --green:#5ce0b0;
+    --orange:#ffc46b;
+    --red:#ff8585;
 }
 
 * {
@@ -21,7 +29,9 @@
 }
 
 body {
-    background:var(--bg);
+    background:
+        radial-gradient(ellipse at 75% -10%,#202052 0,transparent 35%),
+        var(--bg);
     color:var(--text);
     font-family:'DM Sans',sans-serif;
     min-height:100vh;
@@ -83,6 +93,8 @@ main {
     border-radius:18px;
     padding:23px;
     margin-bottom:17px;
+    position:relative;
+    overflow:hidden;
 }
 
 .balance-card small {
@@ -219,7 +231,110 @@ main {
     margin-top:5px;
 }
 
-.history-empty {
+.primary-button:disabled {
+    opacity:.55;
+    cursor:not-allowed;
+}
+
+.message {
+    display:none;
+    padding:12px;
+    border-radius:10px;
+    font-size:11px;
+    line-height:1.6;
+    margin-bottom:14px;
+}
+
+.message.error {
+    display:block;
+    background:#ff85851a;
+    border:1px solid #ff85854a;
+    color:#ffaaaa;
+}
+
+.message.success {
+    display:block;
+    background:#5ce0b01a;
+    border:1px solid #5ce0b04a;
+    color:#7af0c0;
+}
+
+.history-list {
+    display:flex;
+    flex-direction:column;
+    gap:11px;
+}
+
+.history-item {
+    background:#0b1122;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+}
+
+.history-left {
+    min-width:0;
+}
+
+.history-left strong {
+    display:block;
+    font-size:12px;
+    margin-bottom:5px;
+}
+
+.history-left small {
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.6;
+    display:block;
+    overflow-wrap:anywhere;
+}
+
+.history-right {
+    text-align:right;
+    flex-shrink:0;
+}
+
+.history-right strong {
+    display:block;
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+.status {
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:9px;
+    font-weight:700;
+    text-transform:capitalize;
+}
+
+.status.pending,
+.status.approved {
+    color:var(--orange);
+    background:#ffc46b18;
+}
+
+.status.completed,
+.status.paid,
+.status.successful {
+    color:var(--green);
+    background:#5ce0b018;
+}
+
+.status.rejected,
+.status.cancelled,
+.status.canceled {
+    color:var(--red);
+    background:#ff858518;
+}
+
+.empty {
     text-align:center;
     padding:28px 10px;
     color:var(--muted);
@@ -227,7 +342,7 @@ main {
     line-height:1.7;
 }
 
-.history-empty span {
+.empty span {
     display:block;
     font-size:29px;
     margin-bottom:10px;
@@ -281,207 +396,602 @@ main {
         font-size:29px;
     }
 }
-</style></head><body><header>
+</style>
+</head>
+
+<body>
+
+<header>
     <div class="brand">
         <img src="fundora-logo.png" alt="Fundora">
         <span>Fundora</span>
     </div>
+
     <a href="dashboard.html" class="header-link">Dashboard</a>
-</header><main><section class="heading">
-    <h1>Withdrawals</h1>
-    <p>Request a withdrawal to your Nigerian bank or digital bank account.</p>
-</section>
+</header>
 
-<section class="balance-card">
-    <small>Available withdrawal balance</small>
-    <div class="balance">₦0.00</div>
+<main>
 
-    <div class="balance-stats">
-        <div class="balance-stat">
-            <span>Pending withdrawals</span>
-            <strong>₦0.00</strong>
+    <section class="heading">
+        <h1>Withdrawals</h1>
+        <p>Withdraw your available Fundora wallet balance.</p>
+    </section>
+
+    <section class="balance-card">
+
+        <small>Available withdrawal balance</small>
+
+        <div class="balance" id="availableBalance">
+            ₦0.00
         </div>
 
-        <div class="balance-stat">
-            <span>Total withdrawn</span>
-            <strong>₦0.00</strong>
-        </div>
-    </div>
-</section>
+        <div class="balance-stats">
 
-<div class="notice">
-    <strong>Account notice:</strong> Your available balance and withdrawal eligibility will be calculated from verified account records. Demo balances shown here are not real funds.
-</div>
+            <div class="balance-stat">
+                <span>Pending withdrawals</span>
+                <strong id="pendingBalance">₦0.00</strong>
+            </div>
 
-<div class="section-label">Bank details</div>
+            <div class="balance-stat">
+                <span>Total withdrawn</span>
+                <strong id="totalWithdrawn">₦0.00</strong>
+            </div>
 
-<section class="panel">
-
-    <h2>Withdrawal account</h2>
-    <p class="panel-description">
-        Select your bank or digital financial service and enter your account details.
-    </p>
-
-    <form id="withdrawalForm">
-
-        <div class="field">
-            <label for="bank">Bank / Financial Institution</label>
-
-            <select id="bank" required>
-                <option value="">Select your bank</option>
-
-                <optgroup label="Traditional Banks">
-                    <option>Access Bank</option>
-                    <option>Citibank Nigeria</option>
-                    <option>Ecobank Nigeria</option>
-                    <option>Fidelity Bank</option>
-                    <option>First Bank of Nigeria</option>
-                    <option>First City Monument Bank (FCMB)</option>
-                    <option>Globus Bank</option>
-                    <option>Guaranty Trust Bank (GTBank)</option>
-                    <option>Keystone Bank</option>
-                    <option>Polaris Bank</option>
-                    <option>Premium Trust Bank</option>
-                    <option>Providus Bank</option>
-                    <option>Stanbic IBTC Bank</option>
-                    <option>Standard Chartered Bank</option>
-                    <option>Sterling Bank</option>
-                    <option>SunTrust Bank</option>
-                    <option>Union Bank</option>
-                    <option>United Bank for Africa (UBA)</option>
-                    <option>Unity Bank</option>
-                    <option>Wema Bank</option>
-                    <option>Zenith Bank</option>
-                </optgroup>
-
-                <optgroup label="Digital Banks & Fintech">
-                    <option>OPay</option>
-                    <option>Moniepoint Microfinance Bank</option>
-                    <option>PalmPay</option>
-                    <option>Kuda Bank</option>
-                    <option>VFD Microfinance Bank</option>
-                    <option>FairMoney Microfinance Bank</option>
-                    <option>Carbon</option>
-                    <option>Sparkle</option>
-                    <option>Rubies</option>
-                    <option>ALAT by Wema</option>
-                    <option>Eyowo</option>
-                    <option>SmartCash PSB</option>
-                </optgroup>
-
-                <option>Other</option>
-            </select>
         </div>
 
-        <div class="field">
-            <label for="accountNumber">Account number</label>
+    </section>
 
-            <input
-                type="text"
-                id="accountNumber"
-                inputmode="numeric"
-                maxlength="10"
-                placeholder="Enter your 10-digit account number"
-                pattern="[0-9]{10}"
-                required
-            >
-
-            <small class="field-hint">
-                Enter your correct 10-digit Nigerian account number.
-            </small>
-        </div>
-
-        <div class="field">
-            <label for="accountName">Account name</label>
-
-            <input
-                type="text"
-                id="accountName"
-                placeholder="Enter the account holder's name"
-                required
-            >
-
-            <small class="field-hint">
-                Your account name should match your bank records.
-            </small>
-        </div>
-
-        <div class="field">
-            <label for="amount">Withdrawal amount (₦)</label>
-
-            <input
-                type="number"
-                id="amount"
-                min="1"
-                step="1"
-                placeholder="Enter amount"
-                required
-            >
-        </div>
-
-        <button type="submit" class="primary-button">
-            Submit Withdrawal Request
-        </button>
-
-    </form>
-
-</section>
-
-<div class="section-label">Withdrawal history</div>
-
-<section class="panel">
-
-    <h2>Your requests</h2>
-
-    <div class="history-empty">
-        <span>🏦</span>
-        No withdrawal requests yet.<br>
-        Your withdrawal history will appear here.
+    <div class="notice">
+        <strong>Withdrawal information:</strong>
+        Your balance is calculated from successful wallet credits.
+        Pending withdrawal requests are reserved until they are
+        completed or rejected.
     </div>
 
-</section>
+    <div id="pageMessage" class="message"></div>
 
-<div class="notice">
-    <strong>Processing:</strong> Withdrawal requests will be securely submitted for review. Their status will show as pending, approved, or rejected. No payment is processed by this demo page.
-</div>
+    <div class="section-label">Bank details</div>
 
-</main><nav class="bottom-nav"><a href="dashboard.html">
-    <span>⌂</span>Home
-</a>
+    <section class="panel">
 
-<a href="packages.html">
-    <span>▦</span>Packages
-</a>
+        <h2>Withdrawal account</h2>
 
-<a href="investments.html">
-    <span>◈</span>Investments
-</a>
+        <p class="panel-description">
+            Enter the Nigerian bank account where you want to receive
+            your withdrawal.
+        </p>
 
-<a href="transactions.html">
-    <span>▤</span>History
-</a>
+        <form id="withdrawalForm">
 
-<a href="settings.html">
-    <span>⚙</span>Settings
-</a>
+            <div class="field">
 
-</nav><script>
-document.getElementById("withdrawalForm").addEventListener("submit", function(event) {
-    event.preventDefault();
+                <label for="bank">Bank / Financial Institution</label>
 
-    const bank = document.getElementById("bank").value;
-    const accountNumber = document.getElementById("accountNumber").value.trim();
-    const accountName = document.getElementById("accountName").value.trim();
-    const amount = Number(document.getElementById("amount").value);
+                <select id="bank" required>
 
-    if (!bank || !/^[0-9]{10}$/.test(accountNumber) || !accountName || amount <= 0) {
-        alert("Please enter valid bank details and withdrawal amount.");
+                    <option value="">Select your bank</option>
+
+                    <optgroup label="Traditional Banks">
+                        <option>Access Bank</option>
+                        <option>Citibank Nigeria</option>
+                        <option>Ecobank Nigeria</option>
+                        <option>Fidelity Bank</option>
+                        <option>First Bank of Nigeria</option>
+                        <option>First City Monument Bank (FCMB)</option>
+                        <option>Globus Bank</option>
+                        <option>Guaranty Trust Bank (GTBank)</option>
+                        <option>Keystone Bank</option>
+                        <option>Polaris Bank</option>
+                        <option>Premium Trust Bank</option>
+                        <option>Providus Bank</option>
+                        <option>Stanbic IBTC Bank</option>
+                        <option>Standard Chartered Bank</option>
+                        <option>Sterling Bank</option>
+                        <option>SunTrust Bank</option>
+                        <option>Union Bank</option>
+                        <option>United Bank for Africa (UBA)</option>
+                        <option>Unity Bank</option>
+                        <option>Wema Bank</option>
+                        <option>Zenith Bank</option>
+                    </optgroup>
+
+                    <optgroup label="Digital Banks & Fintech">
+                        <option>OPay</option>
+                        <option>Moniepoint Microfinance Bank</option>
+                        <option>PalmPay</option>
+                        <option>Kuda Bank</option>
+                        <option>VFD Microfinance Bank</option>
+                        <option>FairMoney Microfinance Bank</option>
+                        <option>Carbon</option>
+                        <option>Sparkle</option>
+                        <option>Rubies</option>
+                        <option>ALAT by Wema</option>
+                        <option>Eyowo</option>
+                        <option>SmartCash PSB</option>
+                    </optgroup>
+
+                </select>
+
+            </div>
+
+            <div class="field">
+
+                <label for="accountNumber">Account number</label>
+
+                <input
+                    type="text"
+                    id="accountNumber"
+                    inputmode="numeric"
+                    maxlength="10"
+                    placeholder="Enter your 10-digit account number"
+                    pattern="[0-9]{10}"
+                    required
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label for="accountName">Account name</label>
+
+                <input
+                    type="text"
+                    id="accountName"
+                    placeholder="Enter the account holder's name"
+                    required
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label for="amount">Withdrawal amount (₦)</label>
+
+                <input
+                    type="number"
+                    id="amount"
+                    min="1"
+                    step="1"
+                    placeholder="Enter amount"
+                    required
+                >
+
+                <small class="field-hint">
+                    Maximum available amount:
+                    <strong id="maximumAmount">₦0.00</strong>
+                </small>
+
+            </div>
+
+            <button
+                type="submit"
+                class="primary-button"
+                id="submitButton"
+            >
+                Submit Withdrawal Request
+            </button>
+
+        </form>
+
+    </section>
+
+    <div class="section-label">Withdrawal history</div>
+
+    <section class="panel">
+
+        <h2>Your requests</h2>
+
+        <div class="history-list" id="historyList">
+
+            <div class="empty">
+                <span>🏦</span>
+                Loading withdrawal history...
+            </div>
+
+        </div>
+
+    </section>
+
+    <div class="notice">
+        <strong>Processing:</strong>
+        Requests are submitted for admin review. A pending request
+        does not mean that a bank transfer has been completed.
+        No automatic bank transfer is performed by this page.
+    </div>
+
+</main>
+
+<nav class="bottom-nav">
+
+    <a href="dashboard.html">
+        <span>⌂</span>Home
+    </a>
+
+    <a href="packages.html">
+        <span>▦</span>Packages
+    </a>
+
+    <a href="investments.html">
+        <span>◈</span>Investments
+    </a>
+
+    <a href="transactions.html">
+        <span>▤</span>History
+    </a>
+
+    <a href="settings.html">
+        <span>⚙</span>Settings
+    </a>
+
+</nav>
+
+<script type="module">
+
+import { supabase } from "./supabase.js";
+
+const availableBalance =
+    document.getElementById("availableBalance");
+
+const pendingBalance =
+    document.getElementById("pendingBalance");
+
+const totalWithdrawn =
+    document.getElementById("totalWithdrawn");
+
+const maximumAmount =
+    document.getElementById("maximumAmount");
+
+const historyList =
+    document.getElementById("historyList");
+
+const form =
+    document.getElementById("withdrawalForm");
+
+const submitButton =
+    document.getElementById("submitButton");
+
+const pageMessage =
+    document.getElementById("pageMessage");
+
+let currentUser = null;
+let currentBalance = 0;
+
+let walletTransactions = [];
+let withdrawalRequests = [];
+
+function money(amount) {
+    return new Intl.NumberFormat("en-NG", {
+        style: "currency",
+        currency: "NGN",
+        maximumFractionDigits: 2
+    }).format(Number(amount || 0));
+}
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+    })[char]);
+}
+
+function showMessage(message, type) {
+    pageMessage.textContent = message;
+    pageMessage.className = "message " + type;
+    pageMessage.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+
+function calculateBalances() {
+
+    // Successful wallet credits only
+    const credits = walletTransactions
+        .filter(transaction =>
+            !String(transaction.transaction_type || "")
+                .toLowerCase()
+                .includes("withdraw")
+        )
+        .reduce((total, transaction) =>
+            total + Number(transaction.amount_ngn || 0), 0
+        );
+
+    // Requests not rejected or cancelled still reserve funds
+    const reserved = withdrawalRequests
+        .filter(request => {
+            const status = String(request.status).toLowerCase();
+
+            return ![
+                "rejected",
+                "cancelled",
+                "canceled"
+            ].includes(status);
+        })
+        .reduce((total, request) =>
+            total + Number(request.amount_ngn || 0), 0
+        );
+
+    const pending = withdrawalRequests
+        .filter(request =>
+            ["pending", "approved"].includes(
+                String(request.status).toLowerCase()
+            )
+        )
+        .reduce((total, request) =>
+            total + Number(request.amount_ngn || 0), 0
+        );
+
+    const withdrawn = withdrawalRequests
+        .filter(request =>
+            ["completed", "paid", "successful"].includes(
+                String(request.status).toLowerCase()
+            )
+        )
+        .reduce((total, request) =>
+            total + Number(request.amount_ngn || 0), 0
+        );
+
+    currentBalance = Math.max(0, credits - reserved);
+
+    availableBalance.textContent = money(currentBalance);
+    pendingBalance.textContent = money(pending);
+    totalWithdrawn.textContent = money(withdrawn);
+    maximumAmount.textContent = money(currentBalance);
+
+    document.getElementById("amount").max = currentBalance;
+}
+
+function maskAccount(number) {
+    const value = String(number || "");
+
+    if (value.length < 4) return value;
+
+    return "******" + value.slice(-4);
+}
+
+function renderHistory() {
+
+    if (!withdrawalRequests.length) {
+        historyList.innerHTML = `
+            <div class="empty">
+                <span>🏦</span>
+                No withdrawal requests yet.<br>
+                Your requests will appear here.
+            </div>
+        `;
         return;
     }
 
-    alert("Withdrawal requests are not active yet. Your details have not been submitted or saved. They will become available after secure backend integration.");
+    historyList.innerHTML = withdrawalRequests.map(request => {
+
+        const status = String(request.status || "pending")
+            .toLowerCase();
+
+        const date = request.requested_at
+            ? new Date(request.requested_at).toLocaleString("en-NG")
+            : "Date unavailable";
+
+        return `
+            <div class="history-item">
+
+                <div class="history-left">
+                    <strong>${escapeHTML(request.bank_name)}</strong>
+
+                    <small>
+                        ${escapeHTML(maskAccount(request.account_number))}
+                        <br>
+                        ${escapeHTML(date)}
+                    </small>
+                </div>
+
+                <div class="history-right">
+                    <strong>${money(request.amount_ngn)}</strong>
+
+                    <span class="status ${escapeHTML(status)}">
+                        ${escapeHTML(status)}
+                    </span>
+                </div>
+
+            </div>
+        `;
+
+    }).join("");
+}
+
+async function loadWithdrawals() {
+
+    submitButton.disabled = true;
+
+    const {
+        data: { session },
+        error: sessionError
+    } = await supabase.auth.getSession();
+
+    if (sessionError || !session) {
+        showMessage(
+            "Please log in to view your withdrawal balance.",
+            "error"
+        );
+
+        historyList.innerHTML = `
+            <div class="empty">
+                Please log in to continue.
+            </div>
+        `;
+
+        return;
+    }
+
+    currentUser = session.user;
+
+    const [walletResult, requestsResult] = await Promise.all([
+
+        supabase
+            .from("wallet_transactions")
+            .select("amount_ngn,transaction_type,status")
+            .eq("user_id", currentUser.id)
+            .eq("status", "successful"),
+
+        supabase
+            .from("withdrawal_requests")
+            .select(`
+                id,
+                amount_ngn,
+                service_fee_ngn,
+                net_amount_ngn,
+                bank_name,
+                account_number,
+                account_name,
+                status,
+                requested_at
+            `)
+            .eq("user_id", currentUser.id)
+            .order("requested_at", {
+                ascending: false
+            })
+
+    ]);
+
+    if (walletResult.error) {
+        showMessage(
+            "Could not load your wallet balance. " +
+            walletResult.error.message,
+            "error"
+        );
+        return;
+    }
+
+    if (requestsResult.error) {
+        showMessage(
+            "Could not load withdrawal history. " +
+            requestsResult.error.message,
+            "error"
+        );
+        return;
+    }
+
+    walletTransactions = walletResult.data || [];
+    withdrawalRequests = requestsResult.data || [];
+
+    calculateBalances();
+    renderHistory();
+
+    submitButton.disabled = false;
+}
+
+form.addEventListener("submit", async event => {
+
+    event.preventDefault();
+
+    if (!currentUser) {
+        showMessage("Please log in first.", "error");
+        return;
+    }
+
+    const bank =
+        document.getElementById("bank").value.trim();
+
+    const accountNumber =
+        document.getElementById("accountNumber").value.trim();
+
+    const accountName =
+        document.getElementById("accountName").value.trim();
+
+    const amount =
+        Number(document.getElementById("amount").value);
+
+    if (!bank) {
+        showMessage("Please select your bank.", "error");
+        return;
+    }
+
+    if (!/^[0-9]{10}$/.test(accountNumber)) {
+        showMessage(
+            "Enter a valid 10-digit account number.",
+            "error"
+        );
+        return;
+    }
+
+    if (!accountName) {
+        showMessage("Enter the account name.", "error");
+        return;
+    }
+
+    if (!Number.isSafeInteger(amount) || amount < 1) {
+        showMessage(
+            "Enter a valid withdrawal amount.",
+            "error"
+        );
+        return;
+    }
+
+    if (amount > currentBalance) {
+        showMessage(
+            "Your withdrawal amount is higher than your available balance.",
+            "error"
+        );
+        return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting request...";
+
+    try {
+
+        const { data, error } = await supabase.rpc(
+            "request_fundora_withdrawal",
+            {
+                p_amount_ngn: amount,
+                p_bank_name: bank,
+                p_account_number: accountNumber,
+                p_account_name: accountName
+            }
+        );
+
+        if (error) {
+            throw error;
+        }
+
+        if (!data || !data.success) {
+            throw new Error(
+                "Your withdrawal request could not be confirmed."
+            );
+        }
+
+        form.reset();
+
+        showMessage(
+            "Your withdrawal request has been submitted successfully. It is awaiting admin review.",
+            "success"
+        );
+
+        await loadWithdrawals();
+
+    } catch (error) {
+
+        showMessage(
+            error.message || "Unable to submit withdrawal request.",
+            "error"
+        );
+
+    } finally {
+
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit Withdrawal Request";
+
+    }
+
 });
+
+loadWithdrawals();
+
 </script>
-    <script src="shared-menu.js"></script>
+
+<script src="shared-menu.js"></script>
+
 </body>
 </html>
