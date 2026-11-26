@@ -67,11 +67,7 @@ function showMessage(message) {
     notice.classList.add("show");
 }
 
-const { data: sessionData } = await supabase.auth.getSession();
 
-if (sessionData.session) {
-    window.location.replace("dashboard.html");
-}
 
 form.addEventListener("submit", async function(event) {
     event.preventDefault();
