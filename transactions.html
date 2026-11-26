@@ -1,9 +1,13 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Transaction History | Fundora</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
 :root {
     --bg:#080b18;
     --card:#11172a;
@@ -186,7 +190,7 @@ main {
 .transaction-info p {
     color:var(--muted);
     font-size:10px;
-    line-height:1.5;
+    line-height:1.6;
     overflow-wrap:anywhere;
 }
 
@@ -309,79 +313,174 @@ main {
         padding:13px 11px;
     }
 }
-</style></head><body><header>
+</style>
+</head>
+
+<body>
+
+<header>
     <div class="brand">
         <img src="fundora-logo.png" alt="Fundora">
         <span>Fundora</span>
     </div>
+
     <a href="dashboard.html" class="header-link">Dashboard</a>
-</header><main><section class="heading">
-    <h1>Transaction History</h1>
-    <p>View and track your account transactions.</p>
-</section>
+</header>
 
-<section class="summary">
-    <div class="summary-card">
-        <span>Total Transactions</span>
-        <h2 id="totalCount">0</h2>
+<main>
+
+    <section class="heading">
+        <h1>Transaction History</h1>
+        <p>View and track your account transactions.</p>
+    </section>
+
+    <section class="summary">
+
+        <div class="summary-card">
+            <span>Total Transactions</span>
+            <h2 id="totalCount">0</h2>
+        </div>
+
+        <div class="summary-card">
+            <span>Successful Transactions</span>
+            <h2 id="successCount">0</h2>
+        </div>
+
+    </section>
+
+    <h2 class="section-title">All Transactions</h2>
+
+    <div class="filters">
+
+        <button class="filter-btn active" data-filter="all">All</button>
+
+        <button class="filter-btn" data-filter="purchase">Purchases</button>
+
+        <button class="filter-btn" data-filter="topup">Top Ups</button>
+
+        <button class="filter-btn" data-filter="withdrawal">Withdrawals</button>
+
+        <button class="filter-btn" data-filter="referral">Referral Bonuses</button>
+
     </div>
 
-    <div class="summary-card">
-        <span>Successful Transactions</span>
-        <h2 id="successCount">0</h2>
-    </div>
-</section>
+    <section class="transaction-list" id="transactionList">
 
-<h2 class="section-title">All Transactions</h2>
+        <div class="empty">
+            <div class="empty-icon">🧾</div>
+            <h2>Loading Transactions</h2>
+            <p>Please wait while we retrieve your records.</p>
+        </div>
 
-<div class="filters">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="purchase">Purchases</button>
-    <button class="filter-btn" data-filter="topup">Top Ups</button>
-    <button class="filter-btn" data-filter="withdrawal">Withdrawals</button>
-    <button class="filter-btn" data-filter="referral">Referral Bonuses</button>
-</div>
+    </section>
 
-<section class="transaction-list" id="transactionList">
+</main>
 
-    <div class="empty">
-        <div class="empty-icon">🧾</div>
-        <h2>No Transactions Yet</h2>
-        <p>Your purchases, top-ups, withdrawals and other account transactions will appear here.</p>
-    </div>
+<nav class="bottom-nav">
 
-</section>
-
-</main><nav class="bottom-nav">
     <a href="dashboard.html">
-        <span>⌂</span>Home
-    </a><a href="packages.html">
-    <span>▦</span>Packages
-</a>
+        <span>⌂</span>
+        Home
+    </a>
 
-<a href="investments.html">
-    <span>◈</span>Investments
-</a>
+    <a href="packages.html">
+        <span>▦</span>
+        Packages
+    </a>
 
-<a href="transactions.html" class="active">
-    <span>▤</span>History
-</a>
+    <a href="investments.html">
+        <span>◈</span>
+        Investments
+    </a>
 
-</nav><script>
-/*
-Transactions will be loaded from the secure backend later.
-No sample financial records are displayed.
-*/
+    <a href="transactions.html" class="active">
+        <span>▤</span>
+        History
+    </a>
 
-const transactions = [];
+</nav>
 
-const filterButtons = document.querySelectorAll(".filter-btn");
-const transactionList = document.getElementById("transactionList");
+<script type="module">
 
-document.getElementById("totalCount").textContent = transactions.length;
+import { supabase } from "./supabase.js";
 
-document.getElementById("successCount").textContent =
-    transactions.filter(item => item.status === "success").length;
+const transactionList =
+    document.getElementById("transactionList");
+
+const totalCount =
+    document.getElementById("totalCount");
+
+const successCount =
+    document.getElementById("successCount");
+
+const filterButtons =
+    document.querySelectorAll(".filter-btn");
+
+let transactions = [];
+
+function formatMoney(amount) {
+
+    return new Intl.NumberFormat("en-NG", {
+        style: "currency",
+        currency: "NGN",
+        maximumFractionDigits: 2
+    }).format(Number(amount || 0));
+
+}
+
+function escapeHTML(value) {
+
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    }[char]));
+
+}
+
+function getStatusClass(status) {
+
+    const value = String(status || "").toLowerCase();
+
+    if (["successful", "success", "paid", "approved"].includes(value)) {
+        return "success";
+    }
+
+    if (["pending", "processing"].includes(value)) {
+        return "pending";
+    }
+
+    return "failed";
+
+}
+
+function getStatusLabel(status) {
+
+    const value = String(status || "Unknown");
+
+    return value.charAt(0).toUpperCase() + value.slice(1);
+
+}
+
+function formatDate(date) {
+
+    if (!date) return "Date unavailable";
+
+    const parsed = new Date(date);
+
+    if (isNaN(parsed.getTime())) return "Date unavailable";
+
+    return parsed.toLocaleString("en-NG", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+
+}
 
 function displayTransactions(filter = "all") {
 
@@ -392,14 +491,33 @@ function displayTransactions(filter = "all") {
     if (filtered.length === 0) {
 
         const messages = {
-            all: ["No Transactions Yet", "Your purchases, top-ups, withdrawals and other account transactions will appear here."],
-            purchase: ["No Purchases Yet", "Your verified package purchases will appear here."],
-            topup: ["No Top Ups Yet", "Your verified account top-ups will appear here."],
-            withdrawal: ["No Withdrawals Yet", "Your withdrawal records will appear here."],
-            referral: ["No Referral Bonuses Yet", "Your verified referral bonus records will appear here."]
+            all: [
+                "No Transactions Yet",
+                "Your account transactions will appear here."
+            ],
+
+            purchase: [
+                "No Purchases Yet",
+                "Your package purchases will appear here."
+            ],
+
+            topup: [
+                "No Top Ups Yet",
+                "Your verified top-ups will appear here."
+            ],
+
+            withdrawal: [
+                "No Withdrawals Yet",
+                "Your withdrawal records will appear here."
+            ],
+
+            referral: [
+                "No Referral Bonuses Yet",
+                "Your referral bonuses will appear here."
+            ]
         };
 
-        const message = messages[filter];
+        const message = messages[filter] || messages.all;
 
         transactionList.innerHTML = `
             <div class="empty">
@@ -410,58 +528,251 @@ function displayTransactions(filter = "all") {
         `;
 
         return;
+
     }
+
+    const icons = {
+        purchase: "📦",
+        topup: "💳",
+        withdrawal: "🏦",
+        referral: "🎁"
+    };
 
     transactionList.innerHTML = filtered.map(item => {
 
-        const icons = {
-            purchase: "📦",
-            topup: "💳",
-            withdrawal: "🏦",
-            referral: "🎁"
-        };
-
-        const statuses = {
-            success: "Successful",
-            pending: "Pending",
-            failed: "Failed"
-        };
-
         return `
             <article class="transaction-card">
+
                 <div class="transaction-left">
-                    <div class="transaction-icon">${icons[item.type] || "🧾"}</div>
-                    <div class="transaction-info">
-                        <h3>${item.title}</h3>
-                        <p>${item.date}<br>Ref: ${item.reference}</p>
+
+                    <div class="transaction-icon">
+                        ${icons[item.type] || "🧾"}
                     </div>
+
+                    <div class="transaction-info">
+
+                        <h3>${escapeHTML(item.title)}</h3>
+
+                        <p>
+                            ${escapeHTML(formatDate(item.date))}
+                            <br>
+                            Ref: ${escapeHTML(item.reference || "Not available")}
+                        </p>
+
+                    </div>
+
                 </div>
 
                 <div class="transaction-right">
-                    <div class="amount">${item.amount}</div>
-                    <span class="status ${item.status}">
-                        ${statuses[item.status] || "Unknown"}
+
+                    <div class="amount">
+                        ${formatMoney(item.amount)}
+                    </div>
+
+                    <span class="status ${getStatusClass(item.status)}">
+                        ${escapeHTML(getStatusLabel(item.status))}
                     </span>
+
                 </div>
+
             </article>
         `;
+
     }).join("");
+
 }
 
+async function loadTransactions() {
+
+    transactionList.innerHTML = `
+        <div class="empty">
+            <h2>Loading Transactions...</h2>
+            <p>Please wait.</p>
+        </div>
+    `;
+
+    const { data: sessionData, error: sessionError } =
+        await supabase.auth.getSession();
+
+    if (sessionError) throw sessionError;
+
+    const user = sessionData.session?.user;
+
+    if (!user) {
+        window.location.replace("login.html");
+        return;
+    }
+
+    const [purchaseResult, walletResult] = await Promise.all([
+
+        supabase
+            .from("package_purchases")
+            .select(`
+                id,
+                amount_ngn,
+                payment_status,
+                purchased_at,
+                payment_reference,
+                affiliate_packages(name)
+            `)
+            .eq("user_id", user.id)
+            .order("purchased_at", { ascending: false }),
+
+        supabase
+            .from("wallet_transactions")
+            .select(`
+                id,
+                amount_ngn,
+                transaction_type,
+                status,
+                description,
+                created_at
+            `)
+            .eq("user_id", user.id)
+            .order("created_at", { ascending: false })
+
+    ]);
+
+    if (purchaseResult.error) {
+        throw purchaseResult.error;
+    }
+
+    if (walletResult.error) {
+        throw walletResult.error;
+    }
+
+    // Package purchases
+
+    const purchases = (purchaseResult.data || []).map(row => ({
+
+        id: "purchase-" + row.id,
+
+        type: "purchase",
+
+        title:
+            (row.affiliate_packages?.name || "Package") +
+            " Package Purchase",
+
+        amount: row.amount_ngn,
+
+        status: row.payment_status,
+
+        date: row.purchased_at,
+
+        reference: row.payment_reference
+
+    }));
+
+    // Wallet transactions
+
+    const walletTransactions = (walletResult.data || []).map(row => {
+
+        const rawType =
+            String(row.transaction_type || "").toLowerCase();
+
+        let type = "other";
+
+        if (rawType.includes("withdraw")) {
+
+            type = "withdrawal";
+
+        } else if (
+            rawType.includes("topup") ||
+            rawType.includes("top_up") ||
+            rawType.includes("deposit")
+        ) {
+
+            type = "topup";
+
+        } else if (
+            rawType.includes("referral") ||
+            rawType.includes("commission") ||
+            rawType.includes("bonus")
+        ) {
+
+            type = "referral";
+
+        }
+
+        return {
+
+            id: "wallet-" + row.id,
+
+            type,
+
+            title: row.description ||
+                rawType.replaceAll("_", " ") ||
+                "Wallet Transaction",
+
+            amount: row.amount_ngn,
+
+            status: row.status,
+
+            date: row.created_at,
+
+            reference: row.id
+
+        };
+
+    });
+
+    transactions = [
+        ...purchases,
+        ...walletTransactions
+    ].sort((a, b) =>
+        new Date(b.date || 0).getTime() -
+        new Date(a.date || 0).getTime()
+    );
+
+    totalCount.textContent = transactions.length;
+
+    successCount.textContent = transactions.filter(item =>
+        ["successful", "success", "paid", "approved"].includes(
+            String(item.status || "").toLowerCase()
+        )
+    ).length;
+
+    displayTransactions("all");
+
+}
+
+// Filter buttons
+
 filterButtons.forEach(button => {
+
     button.addEventListener("click", () => {
 
-        filterButtons.forEach(item => item.classList.remove("active"));
+        filterButtons.forEach(item =>
+            item.classList.remove("active")
+        );
 
         button.classList.add("active");
 
         displayTransactions(button.dataset.filter);
+
     });
+
 });
 
-displayTransactions();
-    
+// Load records
+
+loadTransactions().catch(error => {
+
+    console.error("Transaction history error:", error);
+
+    transactionList.innerHTML = `
+        <div class="empty">
+            <div class="empty-icon">⚠️</div>
+            <h2>Couldn't Load Transactions</h2>
+            <p>${escapeHTML(error.message || "Please refresh and try again.")}</p>
+        </div>
+    `;
+
+});
+
 </script>
+
 <script src="shared-menu.js"></script>
+
 </body>
 </html>
