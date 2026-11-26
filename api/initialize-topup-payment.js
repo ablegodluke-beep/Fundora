@@ -47,7 +47,6 @@ module.exports = async (req, res) => {
         }
 
         const user = await authResponse.json();
-
         const amount = Number(req.body?.amount);
 
         if (
@@ -101,14 +100,19 @@ module.exports = async (req, res) => {
         if (!transactionResponse.ok) {
             const details = await transactionResponse.text();
 
-            console.error("Transaction creation failed:", details);
+            console.error("SUPABASE TOPUP ERROR:", {
+                status: transactionResponse.status,
+                details
+            });
 
             return res.status(500).json({
-                error: "Could not create your top-up record."
+                error: "Supabase rejected the top-up transaction.",
+                supabase_status: transactionResponse.status,
+                supabase_details: details
             });
         }
 
-        // Initialize Paystack payment
+        // Initialize Paystack
         const paymentResponse = await fetch(
             "https://api.paystack.co/transaction/initialize",
             {
@@ -121,7 +125,7 @@ module.exports = async (req, res) => {
                     email: user.email,
                     amount: amount * 100,
                     currency: "NGN",
-                    reference: reference,
+                    reference,
                     callback_url:
                         "https://fundora-zeta.vercel.app/topup-callback.html"
                 })
@@ -131,6 +135,7 @@ module.exports = async (req, res) => {
         const paymentData = await paymentResponse.json();
 
         if (!paymentResponse.ok || !paymentData.status) {
+
             await fetch(
                 `${SUPABASE_URL}/rest/v1/wallet_transactions?payment_reference=eq.${encodeURIComponent(reference)}&status=eq.pending`,
                 {
@@ -143,15 +148,16 @@ module.exports = async (req, res) => {
                 }
             );
 
-            throw new Error(
-                paymentData.message || "Paystack could not initialize payment."
-            );
+            return res.status(500).json({
+                error: "Paystack initialization failed.",
+                paystack_details: paymentData.message
+            });
         }
 
         return res.status(200).json({
             success: true,
             authorization_url: paymentData.data.authorization_url,
-            reference: reference
+            reference
         });
 
     } catch (error) {
