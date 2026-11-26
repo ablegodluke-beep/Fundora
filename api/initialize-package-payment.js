@@ -59,12 +59,11 @@ module.exports = async (req, res) => {
                 error: "Invalid package amount."
             });
         }
-
-        const databaseHeaders = {
-            apikey: SUPABASE_SERVICE_ROLE_KEY,
-            Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
-            "Content-Type": "application/json"
-        };
+const databaseHeaders = {
+    apikey: SUPABASE_SERVICE_ROLE_KEY,
+    "Content-Type": "application/json"
+};
+        
 
         // Find the active package in Supabase
         const packageResponse = await fetch(
