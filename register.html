@@ -4,8 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#080b20">
 <title>Register | Fundora</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{min-height:100vh;background:radial-gradient(ellipse at 80% 5%,#20205e 0,transparent 42%),#080b20;color:#f7f8ff;font-family:'DM Sans',Arial,sans-serif;display:flex;flex-direction:column}
 a{color:inherit;text-decoration:none}
@@ -25,62 +24,115 @@ input::placeholder{color:#71809f}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .check{display:flex;align-items:flex-start;gap:8px;margin:5px 0 20px;font-size:11px;color:#aab4d0;line-height:1.5}
 .check input{width:auto;height:auto;margin-top:2px;accent-color:#8d4dff}
+.check label{font-weight:400;margin:0}
 button{width:100%;height:48px;border:0;border-radius:10px;background:linear-gradient(110deg,#963eff,#496eff);color:white;font-weight:700;font-size:14px;font-family:inherit;cursor:pointer}
-button:active{transform:scale(.99)}
+button:disabled{opacity:.6;cursor:not-allowed}
 .form-foot{text-align:center;color:#aab4d0;font-size:12px;margin-top:20px}
 .notice{display:none;margin-top:15px;padding:12px;border:1px solid #4b6d8b;background:#1b3550;border-radius:9px;color:#d9f4ff;font-size:12px;line-height:1.6}
 .notice.show{display:block}
 .note{color:#8492b2;font-size:10px;line-height:1.6;text-align:center;margin-top:16px}
 @media(max-width:480px){.card{padding:25px 20px;margin-top:25px}.row{grid-template-columns:1fr}.topbar{height:68px}}
-</style>
-</head>
-<body>
-<header class="topbar">
-<a class="brand" href="index.html"><img src="fundora-logo.png" alt="">Fundora</a>
+</style></head><body><header class="topbar">
+<a class="brand" href="index.html">
+<img src="fundora-logo.png" alt="Fundora">
+Fundora
+</a>
 <div class="top-link">Already registered? <a href="login.html">Login</a></div>
 </header><main class="card">
 <h2>Create Account</h2>
-<p class="sub">Enter your details below.</p><form id="registerForm">
-<div class="field">
+<p class="sub">Enter your details below.</p><form id="registerForm"><div class="field">
 <label for="fullname">Full name</label>
-<input id="fullname" name="fullname" type="text" placeholder="Enter your full name" autocomplete="name" required minlength="2">
+<input id="fullname" type="text" placeholder="Enter your full name" autocomplete="name" required minlength="2">
 </div><div class="field">
 <label for="email">Email address</label>
-<input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+<input id="email" type="email" placeholder="you@example.com" autocomplete="email" required>
 </div><div class="field">
 <label for="phone">Phone number</label>
-<input id="phone" name="phone" type="tel" placeholder="e.g. 08012345678" autocomplete="tel" required>
+<input id="phone" type="tel" placeholder="e.g. 08012345678" autocomplete="tel" required>
 </div><div class="row">
 <div class="field">
 <label for="password">Password</label>
-<input id="password" name="password" type="password" placeholder="At least 8 characters" autocomplete="new-password" minlength="8" required>
+<input id="password" type="password" placeholder="At least 8 characters" autocomplete="new-password" minlength="8" required>
 </div><div class="field">
 <label for="confirm">Confirm password</label>
-<input id="confirm" name="confirm" type="password" placeholder="Repeat password" autocomplete="new-password" minlength="8" required>
+<input id="confirm" type="password" placeholder="Repeat password" autocomplete="new-password" minlength="8" required>
 </div>
-</div><label class="check">
+</div><div class="check">
 <input type="checkbox" id="terms" required>
-<span>I agree to the terms and privacy policy.</span>
-</label><button type="submit">Create Account</button>
+<label for="terms">
+I agree to the <a href="terms.html" target="_blank" style="color:#c3a1ff">Terms and Conditions</a> and <a href="privacy.html" target="_blank" style="color:#c3a1ff">Privacy Policy</a>.
+</label>
+</div><button type="submit" id="submitBtn">Create Account</button>
 
-<div class="notice" id="notice" role="status"></div>
-</form><div class="form-foot">Already have an account? <a href="login.html">Login</a></div>
-<p class="note">Account creation will be activated after authentication is connected.</p>
-</main><script>
-document.getElementById('registerForm').addEventListener('submit',function(e){
-e.preventDefault();
-const password=document.getElementById('password').value;
-const confirm=document.getElementById('confirm').value;
-const notice=document.getElementById('notice');
+<div class="notice" id="notice" role="status"></div></form><div class="form-foot">Already have an account? <a href="login.html">Login</a></div>
+</main><script type="module">
+import { supabase } from "./supabase.js";
 
-if(password!==confirm){
-notice.textContent='Your passwords do not match.';
-notice.classList.add('show');
-return;
+const form = document.getElementById("registerForm");
+const notice = document.getElementById("notice");
+const button = document.getElementById("submitBtn");
+
+function showMessage(message) {
+    notice.textContent = message;
+    notice.classList.add("show");
 }
 
-notice.textContent='The form is complete. Account creation is not active yet.';
-notice.classList.add('show');
+form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const fullName = document.getElementById("fullname").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const password = document.getElementById("password").value;
+    const confirm = document.getElementById("confirm").value;
+
+    notice.classList.remove("show");
+
+    if (password !== confirm) {
+        showMessage("Your passwords do not match.");
+        return;
+    }
+
+    if (password.length < 8) {
+        showMessage("Your password must contain at least 8 characters.");
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Creating account...";
+
+    try {
+        const { data, error } = await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+                data: {
+                    full_name: fullName,
+                    phone: phone
+                }
+            }
+        });
+
+        if (error) throw error;
+
+        if (data.session) {
+            showMessage("Account created successfully. Opening your dashboard...");
+
+            setTimeout(() => {
+                window.location.href = "dashboard.html";
+            }, 1000);
+
+        } else {
+            showMessage("Registration received. Please check your email to confirm your account before logging in.");
+            button.disabled = false;
+            button.textContent = "Create Account";
+        }
+
+    } catch (error) {
+        showMessage(error.message || "Registration failed. Please try again.");
+        button.disabled = false;
+        button.textContent = "Create Account";
+    }
 });
 </script></body>
 </html>
