@@ -1,526 +1,634 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#080b18">
 <title>Fundora | Dashboard</title>
-
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
 :root{
 --bg:#080b18;
---card:#11172a;
+--card:#11182c;
 --purple:#8057f5;
 --blue:#3985ff;
 --text:#f5f6ff;
 --muted:#929bb5;
---border:rgba(255,255,255,.07);
+--border:rgba(255,255,255,.08);
+--green:#5ce0b0;
 }
-
 *{box-sizing:border-box;margin:0;padding:0}
-
 body{
-background:var(--bg);
+background:radial-gradient(ellipse at 75% -10%,#202052 0,transparent 36%),var(--bg);
 color:var(--text);
 font-family:'DM Sans',sans-serif;
 min-height:100vh;
-padding-bottom:95px;
 }
-
 a{text-decoration:none;color:inherit}
-button{font-family:inherit;cursor:pointer}
-
+button{font:inherit;cursor:pointer}
 header{
 height:70px;
-padding:0 6%;
+padding:0 max(4%,calc((100% - 1120px)/2));
 display:flex;
 align-items:center;
 justify-content:space-between;
 border-bottom:1px solid var(--border);
-background:#0b1020;
+background:rgba(9,14,30,.88);
+backdrop-filter:blur(16px);
+position:sticky;
+top:0;
+z-index:20;
 }
-
 .brand{
 display:flex;
 align-items:center;
-gap:9px;
+gap:10px;
 font-size:20px;
 font-weight:800;
 }
-
-.brand img{
-width:34px;
-height:34px;
-object-fit:contain;
-}
-
-.profile{
-width:38px;
-height:38px;
-border-radius:50%;
-background:linear-gradient(135deg,var(--purple),var(--blue));
-display:grid;
-place-items:center;
-font-weight:700;
-}
-
-main{
-width:min(1100px,92%);
-margin:30px auto;
-}
-
+.brand img{width:36px;height:36px;object-fit:contain}
+main{width:min(1120px,92%);margin:30px auto 55px}
 .welcome{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:25px;
-gap:15px;
+gap:14px;
+margin-bottom:22px;
 }
-
-.welcome h1{
-font-size:25px;
-margin-bottom:5px;
-}
-
-.welcome p,.muted{color:var(--muted);font-size:13px}
-
-.demo-label{
-color:#c6b5ff;
-background:rgba(128,87,245,.13);
-border:1px solid rgba(128,87,245,.25);
+.welcome h1{font-size:25px;letter-spacing:-.6px;margin-bottom:5px}
+.welcome p{color:var(--muted);font-size:13px}
+.account-chip{
+border:1px solid var(--border);
+background:#111a30;
 padding:8px 12px;
-border-radius:20px;
+border-radius:30px;
+color:#c4b3ff;
 font-size:11px;
 white-space:nowrap;
 }
-
-.balance-card{
+.hero-grid{
+display:grid;
+grid-template-columns:1.3fr .7fr;
+gap:15px;
+margin-bottom:16px;
+}
+.wallet-card{
 background:linear-gradient(120deg,#38216f,#244b9d 65%,#176b8c);
 border-radius:19px;
-padding:25px;
+padding:24px;
 position:relative;
 overflow:hidden;
-margin-bottom:22px;
+min-height:190px;
 }
-
-.balance-card:after{
+.wallet-card:after{
 content:"";
 position:absolute;
-width:190px;
-height:190px;
-border:1px solid rgba(255,255,255,.12);
+width:200px;
+height:200px;
+border:1px solid #ffffff20;
 border-radius:50%;
-right:-50px;
-top:-75px;
-box-shadow:0 0 0 25px rgba(255,255,255,.025),
-0 0 0 50px rgba(255,255,255,.02);
+right:-55px;
+top:-85px;
+box-shadow:0 0 0 28px #ffffff08,0 0 0 56px #ffffff06;
 pointer-events:none;
 }
-
-.balance-card small{opacity:.85;font-size:13px}
-
-.balance{
+.eyebrow{font-size:12px;color:#e2ddff;opacity:.9}
+.wallet-amount{
 font-size:34px;
 font-weight:800;
-margin:12px 0 20px;
+margin:11px 0 18px;
+letter-spacing:-1px;
 }
-
-.balance-actions{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-position:relative;
-z-index:1;
-}
-
-.action-btn{
-border:1px solid rgba(255,255,255,.25);
-color:white;
-background:rgba(255,255,255,.12);
-border-radius:9px;
-padding:10px 16px;
+.actions{display:flex;gap:9px;flex-wrap:wrap;position:relative;z-index:1}
+.btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:10px 15px;
+border-radius:10px;
 font-size:12px;
 font-weight:700;
+border:1px solid #ffffff45;
+background:#ffffff16;
+color:white;
 }
-
-.action-btn.primary{
-background:white;
-color:#25204b;
+.btn.primary{background:#fff;color:#27204c;border-color:#fff}
+.earnings-card{
+border:1px solid var(--border);
+border-radius:19px;
+background:linear-gradient(145deg,#151e37,#101629);
+padding:21px;
+display:flex;
+flex-direction:column;
+justify-content:center;
 }
-
+.earnings-card h2{font-size:14px;margin-bottom:5px}
+.earnings-card .total{
+font-size:27px;
+font-weight:800;
+margin:5px 0 13px;
+color:#d9ccff;
+}
+.earning-line{
+display:flex;
+justify-content:space-between;
+gap:10px;
+font-size:11px;
+color:var(--muted);
+padding:8px 0;
+border-top:1px solid var(--border);
+}
+.earning-line strong{color:#fff;font-weight:700}
+.disclaimer{font-size:10px;color:#9ca7c2;line-height:1.5;margin-top:8px}
 .stats{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:14px;
-margin-bottom:30px;
+gap:12px;
+margin:16px 0 28px;
 }
-
-.stat-card,.panel{
+.stat{
 background:var(--card);
 border:1px solid var(--border);
-border-radius:15px;
-padding:19px;
+border-radius:14px;
+padding:17px;
 }
-
-.stat-card span{
-color:var(--muted);
-font-size:12px;
-}
-
-.stat-card h2{
-font-size:23px;
-margin-top:10px;
-}
-
-.section-heading{
+.stat span{display:block;color:var(--muted);font-size:11px}
+.stat strong{display:block;font-size:22px;margin-top:8px}
+.section-head{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin:28px 0 15px;
 gap:10px;
+margin:27px 0 13px;
 }
-
-.section-heading h2{font-size:18px}
-
-.section-heading a{
-color:#a992ff;
-font-size:12px;
+.section-head h2{font-size:17px}
+.section-head a{font-size:12px;color:#bba7ff}
+.package-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.package{
+background:linear-gradient(145deg,#171f39,#11182c);
+border:1px solid var(--border);
+border-radius:14px;
+padding:17px;
+display:flex;
+justify-content:space-between;
+gap:12px;
+align-items:center;
 }
-
-.package-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:14px;
-}
-
-.package-card{
-background:linear-gradient(145deg,#171c35,#11172a);
-border:1px solid rgba(128,87,245,.2);
-padding:20px;
-border-radius:15px;
-}
-
+.package-left{display:flex;gap:12px;align-items:center;min-width:0}
 .package-icon{
-width:39px;
-height:39px;
-border-radius:11px;
+width:42px;
+height:42px;
+border-radius:12px;
+background:#8057f526;
 display:grid;
 place-items:center;
-background:rgba(128,87,245,.16);
-font-size:19px;
-margin-bottom:14px;
+font-size:20px;
+flex-shrink:0;
 }
-
-.package-card h3{font-size:15px;margin-bottom:7px}
-
-.package-card p{
-color:var(--muted);
-font-size:12px;
-line-height:1.6;
+.package h3{font-size:13px;margin-bottom:5px}
+.package p{font-size:11px;color:var(--muted);line-height:1.5}
+.package-value{text-align:right;flex-shrink:0}
+.package-value strong{font-size:14px;display:block}
+.package-value small{font-size:10px;color:var(--muted)}
+.panel{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:15px;
+overflow:hidden;
 }
-
-.package-price{
-font-size:18px;
-font-weight:800;
-margin-top:12px;
-}
-
-.package-card button{
-width:100%;
-padding:11px;
-margin-top:17px;
-border:0;
-border-radius:9px;
-color:white;
-background:linear-gradient(100deg,var(--purple),var(--blue));
-font-weight:700;
-font-size:12px;
-}
-
-.panel{margin-bottom:15px}
-
-.empty{
-text-align:center;
-padding:25px 10px;
-color:var(--muted);
-font-size:13px;
-}
-
-.empty strong{
-display:block;
-color:white;
-margin-bottom:7px;
-font-size:14px;
-}
-
-.quick-links{
-display:grid;
-grid-template-columns:repeat(3,1fr);
+.activity-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
 gap:12px;
+padding:14px 16px;
+border-bottom:1px solid var(--border);
 }
-
+.activity-row:last-child{border-bottom:0}
+.activity-main{min-width:0}
+.activity-main strong{display:block;font-size:12px;margin-bottom:4px}
+.activity-main small{font-size:10px;color:var(--muted)}
+.activity-amount{font-size:12px;font-weight:700;white-space:nowrap}
+.positive{color:var(--green)}
+.negative{color:#ff9d9d}
+.empty{
+padding:25px 15px;
+text-align:center;
+color:var(--muted);
+font-size:12px;
+line-height:1.7;
+}
+.empty strong{display:block;color:#fff;font-size:13px;margin-bottom:5px}
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .quick-link{
+display:flex;
+align-items:center;
+gap:10px;
+padding:14px 12px;
 background:var(--card);
 border:1px solid var(--border);
 border-radius:13px;
-padding:17px 10px;
-text-align:center;
-font-size:12px;
-transition:.2s;
+font-size:11px;
+font-weight:600;
+color:#dbe0f2;
 }
-
-.quick-link:active{transform:scale(.97)}
-
 .quick-link span{
-display:block;
-font-size:21px;
-margin-bottom:8px;
+width:32px;
+height:32px;
+border-radius:10px;
+background:#8057f526;
+display:grid;
+place-items:center;
+color:#c8b7ff;
+font-size:16px;
+flex-shrink:0;
 }
-
-.referral-note{
-margin-top:20px;
-padding:16px;
-border:1px solid rgba(128,87,245,.2);
-background:rgba(128,87,245,.08);
-border-radius:13px;
+.referral-banner{
+margin-top:17px;
+padding:18px;
+border:1px solid #8057f54d;
+background:linear-gradient(100deg,#8057f51b,#3985ff12);
+border-radius:15px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px;
 }
-
-.referral-note h3{
-font-size:14px;
-margin-bottom:6px;
-}
-
-.referral-note p{
-font-size:12px;
+.referral-banner h3{font-size:14px;margin-bottom:5px}
+.referral-banner p{
+font-size:11px;
 color:var(--muted);
 line-height:1.6;
+max-width:620px;
 }
-
-.referral-note a{
-display:inline-block;
-margin-top:10px;
-color:#c3a1ff;
+.referral-banner a{
 font-size:12px;
+color:#c6b5ff;
 font-weight:700;
+white-space:nowrap;
 }
-
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-height:72px;
-background:#101629;
-border-top:1px solid var(--border);
-display:flex;
-justify-content:space-around;
-align-items:center;
-z-index:10;
-padding:0 4px;
+.status{
+padding:13px 15px;
+border:1px solid #8057f544;
+background:#8057f512;
+border-radius:12px;
+color:#d4c8ff;
+font-size:12px;
+line-height:1.6;
+margin:12px 0;
 }
-
-.bottom-nav a{
-color:var(--muted);
-font-size:10px;
-text-align:center;
-flex:1;
+.loading{color:var(--muted);font-size:12px;padding:18px}
+@media(max-width:720px){
+.hero-grid{grid-template-columns:1fr}
+.earnings-card{min-height:0}
+.quick-grid{grid-template-columns:repeat(2,1fr)}
 }
-
-.bottom-nav a span{
-display:block;
-font-size:19px;
-margin-bottom:4px;
-}
-
-.bottom-nav a.active{color:#b49cff}
-
-@media(max-width:600px){
+@media(max-width:560px){
 header{height:62px;padding:0 5%}
-main{margin:23px auto;width:91%}
+main{width:91%;margin:22px auto 40px}
+.welcome{align-items:flex-start}
 .welcome h1{font-size:21px}
-.balance-card{padding:21px}
-.balance{font-size:29px}
+.account-chip{font-size:10px;padding:7px 9px}
+.wallet-card{padding:21px}
+.wallet-amount{font-size:30px}
 .stats{gap:8px}
-.stat-card{padding:13px 10px}
-.stat-card h2{font-size:19px}
-.stat-card span{font-size:10px}
-.package-grid{grid-template-columns:1fr}
-.quick-links{gap:8px}
-.quick-link{padding:15px 7px;font-size:11px}
-.bottom-nav a{font-size:9px}
-.bottom-nav a span{font-size:18px}
+.stat{padding:13px 10px}
+.stat span{font-size:10px;line-height:1.4}
+.stat strong{font-size:18px}
+.package-list{grid-template-columns:1fr}
+.quick-grid{gap:8px}
+.quick-link{padding:12px 9px}
+.referral-banner{align-items:flex-start;flex-direction:column}
 }
-</style>
-</head>
-
-<body>
-
-<header>
+</style></head><body><header>
 <a class="brand" href="dashboard.html">
 <img src="fundora-logo.png" alt="Fundora">
 <span>Fundora</span>
 </a>
-
-<a href="settings.html" class="profile" aria-label="Open settings">M</a>
-</header>
-
-<main>
-
-<section class="welcome">
+</header><main><section class="welcome">
 <div>
-<h1>Welcome back, Member 👋</h1>
-<p>Here's an overview of your account.</p>
+<h1 id="welcomeTitle">Welcome back</h1>
+<p>Your account overview, updated from your Fundora records.</p>
 </div>
-<span class="demo-label">DEMO ACCOUNT</span>
-</section>
-
-<section class="balance-card">
-<small>Account balance</small>
-<div class="balance">₦0.00</div>
-
-<div class="balance-actions">
-<a href="topup.html" class="action-btn primary">＋ Top Up</a>
-<a href="withdrawals.html" class="action-btn">Withdraw</a>
-<a href="packages.html" class="action-btn">Explore Packages</a>
+<span class="account-chip">MEMBER DASHBOARD</span>
+</section><div id="pageMessage" class="status" hidden></div><section class="hero-grid"><div class="wallet-card">
+<div class="eyebrow">Available wallet balance</div>
+<div class="wallet-amount" id="walletBalance">Loading...</div>
+<div class="actions">
+<a class="btn primary" href="topup.html">＋ Top Up</a>
+<a class="btn" href="withdrawals.html">Withdraw</a>
+<a class="btn" href="packages.html">Browse packages</a>
 </div>
-</section>
-
-<section class="stats">
-
-<div class="stat-card">
-<span>Active Packages</span>
-<h2>0</h2>
+</div><div class="earnings-card">
+<h2>Combined earnings display</h2>
+<div class="total" id="combinedEarnings">Loading...</div>
+<div class="earning-line">
+<span>Potential package earnings</span>
+<strong id="potentialEarnings">Loading...</strong>
 </div>
-
-<div class="stat-card">
-<span>Total Package Purchases</span>
-<h2>₦0</h2>
+<div class="earning-line">
+<span>Verified commissions</span>
+<strong id="actualCommissions">Loading...</strong>
 </div>
-
-<div class="stat-card">
-<span>Successful Referrals</span>
-<h2>0</h2>
+<p class="disclaimer">
+This combined figure is an informational display only. Potential package earnings are not cash, wallet funds or guaranteed income.
+</p>
+</div></section><section class="stats">
+<div class="stat">
+<span>Successful package purchases</span>
+<strong id="packageCount">—</strong>
 </div>
-
-</section>
-
-<section id="packages">
-
-<div class="section-heading">
-<h2>Affiliate Packages</h2>
-<a href="packages.html">View all →</a>
+<div class="stat">
+<span>Total spent on packages</span>
+<strong id="packageSpend">—</strong>
 </div>
-
-<div class="package-grid">
-
-<div class="package-card">
-<div class="package-icon">🌱</div>
-<h3>Starter Package</h3>
-<p>Start exploring Fundora's affiliate programme.</p>
-<div class="package-price">₦3,000</div>
-<button onclick="location.href='package-details.html?amount=3000'">
-View Package
-</button>
+<div class="stat">
+<span>Qualified referrals</span>
+<strong id="referralCount">—</strong>
 </div>
-
-<div class="package-card">
-<div class="package-icon">🚀</div>
-<h3>Growth Package</h3>
-<p>Explore the Growth package and its available benefits.</p>
-<div class="package-price">₦30,000</div>
-<button onclick="location.href='package-details.html?amount=30000'">
-View Package
-</button>
+</section><section>
+<div class="section-head">
+<h2>My Packages</h2>
+<a href="packages.html">Browse packages →</a>
 </div>
-
+<div class="package-list" id="myPackages">
+<div class="panel loading">Loading your package records...</div>
 </div>
-</section>
-
-<section id="activity">
-
-<div class="section-heading">
-<h2>Recent Activity</h2>
+</section><section>
+<div class="section-head">
+<h2>Recent Wallet Activity</h2>
 <a href="transactions.html">View history →</a>
 </div>
-
-<div class="panel">
-<div class="empty">
-<strong>No recent activity</strong>
-Your transactions and account activity will appear here.
+<div class="panel" id="recentActivity">
+<div class="loading">Loading your transactions...</div>
 </div>
-</div>
-
-</section>
-
-<section>
-
-<div class="section-heading">
+</section><section>
+<div class="section-head">
 <h2>Quick Access</h2>
+</div><div class="quick-grid">
+<a class="quick-link" href="packages.html"><span>▦</span>Affiliate packages</a>
+<a class="quick-link" href="transactions.html"><span>◷</span>Transaction history</a>
+<a class="quick-link" href="topup.html"><span>＋</span>Top up wallet</a>
+<a class="quick-link" href="withdrawals.html"><span>↗</span>Withdrawals</a>
+<a class="quick-link" href="referrals.html"><span>♧</span>Referral programme</a>
+<a class="quick-link" href="settings.html"><span>⚙</span>Account settings</a>
+</div><div class="referral-banner">
+<div>
+<h3>Invite and earn</h3>
+<p>
+Earn a ₦500 referral commission when someone you refer completes a qualifying package purchase and the payment is verified. Referral access unlocks after your first qualifying package purchase.
+</p>
 </div>
-
-<div class="quick-links">
-
-<a class="quick-link" href="packages.html">
-<span>📦</span>Packages
-</a>
-
-<a class="quick-link" href="transactions.html">
-<span>🧾</span>History
-</a>
-
-<a class="quick-link" href="topup.html">
-<span>💳</span>Top Up
-</a>
-
-<a class="quick-link" href="withdrawals.html">
-<span>🏦</span>Withdrawals
-</a>
-
-<a class="quick-link" href="referrals.html">
-<span>👥</span>Referrals
-</a>
-
-<a class="quick-link" href="settings.html">
-<span>⚙️</span>Settings
-</a>
-
+<a href="referrals.html">View referrals →</a>
 </div>
+</section></main><script type="module">
+import { supabase } from "./supabase.js";
 
-<div class="referral-note">
-<h3>Invite and Earn</h3>
-<p>Eligible members can earn ₦500 for each successful qualifying referral after the referred member completes a verified package purchase. Referral access unlocks after your first qualifying package purchase.</p>
-<a href="referrals.html">View Referral Programme →</a>
-</div>
+const money = value => new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    maximumFractionDigits: 2
+}).format(Number(value || 0));
 
-</section>
+const number = value => new Intl.NumberFormat("en-NG").format(Number(value || 0));
+const el = id => document.getElementById(id);
 
-</main>
+function showPageMessage(message) {
+    el("pageMessage").textContent = message;
+    el("pageMessage").hidden = false;
+}
 
-<nav class="bottom-nav">
+function renderEmpty(target, title, detail) {
+    target.innerHTML =
+        '<div class="empty"><strong>' + title + '</strong>' + detail + '</div>';
+}
 
-<a class="active" href="dashboard.html">
-<span>⌂</span>Home
-</a>
+async function loadDashboard() {
 
-<a href="packages.html">
-<span>▣</span>Packages
-</a>
+    const { data: sessionData, error: sessionError } =
+        await supabase.auth.getSession();
 
-<a href="transactions.html">
-<span>▤</span>History
-</a>
+    if (sessionError) throw sessionError;
 
-<a href="referrals.html">
-<span>♧</span>Referrals
-</a>
+    const user = sessionData.session?.user;
 
-<a href="settings.html">
-<span>⚙</span>Settings
-</a>
+    if (!user) {
+        window.location.replace("login.html");
+        return;
+    }
 
-</nav>
-  <script src="shared-menu.js"></script>
-</body>
+    const [
+        profileResult,
+        purchasesResult,
+        commissionsResult,
+        walletResult,
+        referralsResult
+    ] = await Promise.all([
+
+        supabase.from("profiles")
+            .select("full_name, referral_code")
+            .eq("id", user.id)
+            .maybeSingle(),
+
+        supabase.from("package_purchases")
+            .select("id, amount_ngn, payment_status, purchased_at, affiliate_packages(name, code, icon, potential_earnings_ngn)")
+            .eq("user_id", user.id)
+            .eq("payment_status", "successful")
+            .order("purchased_at", {ascending:false}),
+
+        supabase.from("commissions")
+            .select("id, amount_ngn, status, commission_type, description, created_at")
+            .eq("user_id", user.id)
+            .in("status", ["approved", "paid"]),
+
+        supabase.from("wallet_transactions")
+            .select("id, amount_ngn, transaction_type, status, description, created_at")
+            .eq("user_id", user.id)
+            .eq("status", "successful")
+            .order("created_at", {ascending:false}),
+
+        supabase.from("referrals")
+            .select("id, status")
+            .eq("referrer_user_id", user.id)
+
+    ]);
+
+    const results = [
+        profileResult,
+        purchasesResult,
+        commissionsResult,
+        walletResult,
+        referralsResult
+    ];
+
+    for (const result of results) {
+        if (result.error) throw result.error;
+    }
+
+    const profile = profileResult.data;
+    const purchases = purchasesResult.data || [];
+    const commissions = commissionsResult.data || [];
+    const walletTransactions = walletResult.data || [];
+    const referrals = referralsResult.data || [];
+
+    const firstName = (
+        profile?.full_name ||
+        user.user_metadata?.full_name ||
+        user.email?.split("@")[0] ||
+        "Member"
+    ).trim().split(/\s+/)[0];
+
+    el("welcomeTitle").textContent =
+        "Welcome back, " + firstName + " 👋";
+
+    const potential = purchases.reduce((sum, item) =>
+        sum + Number(item.affiliate_packages?.potential_earnings_ngn || 0), 0);
+
+    const actual = commissions.reduce((sum, item) =>
+        sum + Number(item.amount_ngn || 0), 0);
+
+    const combined = potential + actual;
+
+    const packageSpend = purchases.reduce((sum, item) =>
+        sum + Number(item.amount_ngn || 0), 0);
+
+    const qualifiedReferrals =
+        referrals.filter(item => item.status === "qualified").length;
+
+    const walletBalance = walletTransactions.reduce((sum, item) => {
+        const amount = Number(item.amount_ngn || 0);
+        return sum + (
+            item.transaction_type === "withdrawal"
+                ? -amount
+                : amount
+        );
+    }, 0);
+
+    el("walletBalance").textContent = money(walletBalance);
+    el("potentialEarnings").textContent = money(potential);
+    el("actualCommissions").textContent = money(actual);
+    el("combinedEarnings").textContent = money(combined);
+
+    el("packageCount").textContent = number(purchases.length);
+    el("packageSpend").textContent = money(packageSpend);
+    el("referralCount").textContent = number(qualifiedReferrals);
+
+    const packageTarget = el("myPackages");
+
+    if (!purchases.length) {
+        renderEmpty(
+            packageTarget,
+            "No purchased packages yet",
+            "Your verified package purchases will appear here."
+        );
+    } else {
+
+        packageTarget.innerHTML = purchases.map(item => {
+
+            const pkg = item.affiliate_packages || {};
+
+            const date = item.purchased_at
+                ? new Date(item.purchased_at).toLocaleDateString(
+                    "en-NG",
+                    {day:"numeric", month:"short", year:"numeric"}
+                )
+                : "Date unavailable";
+
+            return `
+                <article class="package">
+                    <div class="package-left">
+                        <div class="package-icon">${pkg.icon || "◇"}</div>
+                        <div>
+                            <h3>${pkg.name || "Affiliate package"}</h3>
+                            <p>Purchased ${date} · Payment verified</p>
+                        </div>
+                    </div>
+                    <div class="package-value">
+                        <strong>${money(item.amount_ngn)}</strong>
+                        <small>Purchase amount</small>
+                    </div>
+                </article>
+            `;
+
+        }).join("");
+    }
+
+    const activityTarget = el("recentActivity");
+
+    if (!walletTransactions.length) {
+
+        renderEmpty(
+            activityTarget,
+            "No wallet activity yet",
+            "Verified wallet transactions will appear here."
+        );
+
+    } else {
+
+        activityTarget.innerHTML = walletTransactions
+            .slice(0, 5)
+            .map(item => {
+
+                const isWithdrawal =
+                    item.transaction_type === "withdrawal";
+
+                const title = item.description ||
+                    item.transaction_type
+                    .replaceAll("_", " ")
+                    .replace(/\b\w/g, c => c.toUpperCase());
+
+                const date = item.created_at
+                    ? new Date(item.created_at).toLocaleString(
+                        "en-NG",
+                        {day:"numeric", month:"short", hour:"2-digit", minute:"2-digit"}
+                    )
+                    : "";
+
+                return `
+                    <div class="activity-row">
+                        <div class="activity-main">
+                            <strong>${title}</strong>
+                            <small>${date}</small>
+                        </div>
+                        <div class="activity-amount ${isWithdrawal ? "negative" : "positive"}">
+                            ${isWithdrawal ? "−" : "+"}${money(item.amount_ngn)}
+                        </div>
+                    </div>
+                `;
+
+            }).join("");
+    }
+
+    if (!profile) {
+        showPageMessage(
+            "Your profile record was not found. Please contact support if this continues."
+        );
+    }
+}
+
+loadDashboard().catch(error => {
+
+    console.error("Dashboard loading error:", error);
+
+    showPageMessage(
+        "We couldn't load your account records. " +
+        (error.message || "Please refresh and try again.")
+    );
+
+    renderEmpty(
+        el("myPackages"),
+        "Packages could not be loaded",
+        "Please refresh the page."
+    );
+
+    renderEmpty(
+        el("recentActivity"),
+        "Activity could not be loaded",
+        "Please refresh the page."
+    );
+
+    el("walletBalance").textContent = "Unavailable";
+    el("potentialEarnings").textContent = "Unavailable";
+    el("actualCommissions").textContent = "Unavailable";
+    el("combinedEarnings").textContent = "Unavailable";
+});
+</script><script src="shared-menu.js"></script></body>
 </html>
