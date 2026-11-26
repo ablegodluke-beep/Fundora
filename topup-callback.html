@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifying Payment - Fundora</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #080b18;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 390px;
+            padding: 35px 25px;
+            text-align: center;
+            background: #11172a;
+            border: 1px solid #252d49;
+            border-radius: 20px;
+        }
+
+        .loader {
+            width: 45px;
+            height: 45px;
+            margin: 0 auto 22px;
+            border: 4px solid #303957;
+            border-top-color: #8b5cf6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        h2 {
+            margin-bottom: 12px;
+        }
+
+        p {
+            color: #aab3ca;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .success {
+            color: #4ade80;
+        }
+
+        .error {
+            color: #fb7185;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 12px 22px;
+            color: white;
+            background: #7047eb;
+            border-radius: 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <div class="loader" id="loader"></div>
+
+        <h2 id="title">Verifying your payment</h2>
+
+        <p id="message">
+            Please wait while we confirm your payment with Paystack.
+            Do not close this page.
+        </p>
+
+        <div id="action"></div>
+    </div>
+
+    <script type="module">
+        import { supabase } from "./supabase.js";
+
+        const title = document.getElementById("title");
+        const message = document.getElementById("message");
+        const loader = document.getElementById("loader");
+        const action = document.getElementById("action");
+
+        function showError(text) {
+            loader.style.display = "none";
+            title.textContent = "Payment verification failed";
+            title.className = "error";
+            message.textContent = text;
+
+            action.innerHTML =
+                '<a href="topup.html">Return to Top Up</a>';
+        }
+
+        async function verifyTopup() {
+            try {
+                const params = new URLSearchParams(
+                    window.location.search
+                );
+
+                const reference =
+                    params.get("reference") ||
+                    params.get("trxref");
+
+                if (!reference) {
+                    throw new Error(
+                        "Payment reference was not found."
+                    );
+                }
+
+                const { data, error } =
+                    await supabase.auth.getSession();
+
+                if (error || !data.session) {
+                    throw new Error(
+                        "Your login session has expired. Please log in again and contact support with payment reference: " +
+                        reference
+                    );
+                }
+
+                const response = await fetch(
+                    "/api/verify-topup-payment",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization":
+                                "Bearer " + data.session.access_token
+                        },
+                        body: JSON.stringify({
+                            reference: reference
+                        })
+                    }
+                );
+
+                const result = await response.json();
+
+                if (!response.ok || !result.success) {
+                    throw new Error(
+                        result.error || "Payment could not be verified."
+                    );
+                }
+
+                loader.style.display = "none";
+                title.textContent = "Payment successful!";
+                title.className = "success";
+
+                message.textContent =
+                    "Your wallet has been credited successfully. Redirecting you to your dashboard...";
+
+                action.innerHTML =
+                    '<a href="dashboard.html">Go to Dashboard</a>';
+
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 2500);
+
+            } catch (error) {
+                console.error(error);
+                showError(error.message);
+            }
+        }
+
+        verifyTopup();
+    </script>
+
+</body>
+</html>
