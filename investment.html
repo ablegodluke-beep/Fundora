@@ -1,0 +1,388 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Investments | Fundora</title><style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #080b18;
+    color: #fff;
+    min-height: 100vh;
+    padding-bottom: 85px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #20253b;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.logo img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+}
+
+.header-link {
+    color: #b69cff;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.container {
+    max-width: 650px;
+    margin: auto;
+    padding: 24px 15px;
+}
+
+.heading {
+    margin-bottom: 22px;
+}
+
+.heading h1 {
+    font-size: 23px;
+    margin-bottom: 7px;
+}
+
+.heading p {
+    color: #9299b1;
+    font-size: 12px;
+}
+
+.summary {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.summary-card {
+    background: #12172a;
+    border: 1px solid #292e45;
+    border-radius: 13px;
+    padding: 16px;
+}
+
+.summary-card p {
+    color: #9299b1;
+    font-size: 11px;
+    margin-bottom: 9px;
+}
+
+.summary-card h2 {
+    font-size: 20px;
+}
+
+.section-title {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.investment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.investment-card {
+    background: #12172a;
+    border: 1px solid #292e45;
+    border-radius: 15px;
+    padding: 17px;
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 17px;
+}
+
+.package-info {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.package-icon {
+    width: 43px;
+    height: 43px;
+    border-radius: 12px;
+    background: linear-gradient(135deg,#743bff,#258cff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.package-info h3 {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.package-info p {
+    color: #9299b1;
+    font-size: 10px;
+}
+
+.status {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    background: #202b36;
+    color: #a6d9bd;
+}
+
+.status.pending {
+    background: #302a1b;
+    color: #eacb82;
+}
+
+.status.completed {
+    background: #202044;
+    color: #b69cff;
+}
+
+.investment-amount {
+    font-size: 23px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.details {
+    border-top: 1px solid #292e45;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid #252b40;
+    font-size: 11px;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-row span:first-child {
+    color: #9299b1;
+}
+
+.detail-row span:last-child {
+    text-align: right;
+}
+
+.empty-state {
+    background: #12172a;
+    border: 1px solid #292e45;
+    border-radius: 16px;
+    padding: 35px 20px;
+    text-align: center;
+}
+
+.empty-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 17px;
+    border-radius: 18px;
+    background: #282044;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 29px;
+}
+
+.empty-state h3 {
+    font-size: 16px;
+    margin-bottom: 9px;
+}
+
+.empty-state p {
+    color: #9299b1;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.button {
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 10px;
+    background: linear-gradient(100deg,#743bff,#287cff);
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #101426;
+    border-top: 1px solid #292e45;
+    display: flex;
+    justify-content: space-around;
+    padding: 11px 3px;
+}
+
+.bottom-nav a {
+    text-decoration: none;
+    color: #858ca7;
+    font-size: 10px;
+    text-align: center;
+}
+
+.bottom-nav a span {
+    display: block;
+    font-size: 19px;
+    margin-bottom: 4px;
+}
+
+.bottom-nav a.active {
+    color: #a98cff;
+}
+</style></head><body><header>
+    <div class="logo">
+        <img src="fundora-logo.png" alt="Fundora">
+        <span>Fundora</span>
+    </div><a href="dashboard.html" class="header-link">Dashboard</a>
+
+</header><main class="container"><section class="heading">
+    <h1>My Investments</h1>
+    <p>View and track your purchased packages.</p>
+</section>
+
+<section class="summary">
+    <div class="summary-card">
+        <p>Total Investments</p>
+        <h2 id="totalInvestments">0</h2>
+    </div>
+
+    <div class="summary-card">
+        <p>Active Investments</p>
+        <h2 id="activeInvestments">0</h2>
+    </div>
+</section>
+
+<h2 class="section-title">Investment History</h2>
+
+<section class="investment-list" id="investmentList"></section>
+
+<section class="empty-state" id="emptyState">
+    <div class="empty-icon">📊</div>
+    <h3>No Investments Yet</h3>
+    <p>
+        Your purchased packages will appear here.
+        Start by exploring the available packages.
+    </p>
+    <a href="packages.html" class="button">Explore Packages</a>
+</section>
+
+</main><nav class="bottom-nav">
+    <a href="dashboard.html">
+        <span>⌂</span>Home
+    </a><a href="packages.html">
+    <span>▦</span>Packages
+</a>
+
+<a href="investments.html" class="active">
+    <span>◈</span>Investments
+</a>
+
+</nav><script>
+/*
+Investment records will be loaded from the secure
+Fundora backend after payment integration.
+
+Never create an active investment from a browser
+redirect alone. Payment must first be verified.
+*/
+
+const investments = [];
+
+const list = document.getElementById("investmentList");
+const emptyState = document.getElementById("emptyState");
+
+document.getElementById("totalInvestments").textContent =
+    investments.length;
+
+document.getElementById("activeInvestments").textContent =
+    investments.filter(item => item.status === "Active").length;
+
+if (investments.length > 0) {
+    emptyState.style.display = "none";
+
+    investments.forEach(item => {
+        const card = document.createElement("article");
+        card.className = "investment-card";
+
+        const statusClass =
+            item.status === "Completed" ? "completed" :
+            item.status === "Pending" ? "pending" : "";
+
+        card.innerHTML = `
+            <div class="card-top">
+                <div class="package-info">
+                    <div class="package-icon">💎</div>
+                    <div>
+                        <h3></h3>
+                        <p>Fundora Package</p>
+                    </div>
+                </div>
+                <span class="status ${statusClass}"></span>
+            </div>
+
+            <div class="investment-amount"></div>
+
+            <div class="details">
+                <div class="detail-row">
+                    <span>Purchase date</span>
+                    <span class="purchase-date"></span>
+                </div>
+                <div class="detail-row">
+                    <span>Duration</span>
+                    <span class="duration"></span>
+                </div>
+                <div class="detail-row">
+                    <span>Expected completion</span>
+                    <span class="completion-date"></span>
+                </div>
+            </div>
+        `;
+
+        card.querySelector(".package-info h3").textContent = item.name;
+        card.querySelector(".status").textContent = item.status;
+        card.querySelector(".investment-amount").textContent =
+            "₦" + Number(item.amount).toLocaleString("en-NG");
+        card.querySelector(".purchase-date").textContent = item.purchaseDate;
+        card.querySelector(".duration").textContent = item.duration;
+        card.querySelector(".completion-date").textContent = item.completionDate;
+
+        list.appendChild(card);
+    });
+} else {
+    emptyState.style.display = "block";
+}
+</script></body>
+</html>
