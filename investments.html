@@ -1,390 +1,714 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Investments | Fundora</title><style>
+<meta name="theme-color" content="#080b18">
+<title>My Investments | Fundora</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg:#080b18;
+    --card:#11182c;
+    --purple:#8057f5;
+    --blue:#3985ff;
+    --text:#f5f6ff;
+    --muted:#929bb5;
+    --border:rgba(255,255,255,.08);
+    --green:#5ce0b0;
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: #080b18;
-    color: #fff;
-    min-height: 100vh;
-    padding-bottom: 85px;
+    background:
+        radial-gradient(ellipse at 75% -10%,#202052 0,transparent 36%),
+        var(--bg);
+    color:var(--text);
+    font-family:'DM Sans',sans-serif;
+    min-height:100vh;
+    padding-bottom:90px;
+}
+
+a {
+    color:inherit;
+    text-decoration:none;
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px;
-    border-bottom: 1px solid #20253b;
+    height:65px;
+    padding:0 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:rgba(9,14,30,.92);
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:10;
+    backdrop-filter:blur(15px);
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    font-size: 20px;
-    font-weight: bold;
+.brand {
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:19px;
+    font-weight:800;
 }
 
-.logo img {
-    width: 34px;
-    height: 34px;
-    object-fit: contain;
+.brand img {
+    width:35px;
+    height:35px;
+    object-fit:contain;
 }
 
 .header-link {
-    color: #b69cff;
-    text-decoration: none;
-    font-size: 12px;
+    font-size:12px;
+    color:#c1adff;
 }
 
-.container {
-    max-width: 650px;
-    margin: auto;
-    padding: 24px 15px;
+main {
+    width:min(850px,92%);
+    margin:27px auto 40px;
 }
 
 .heading {
-    margin-bottom: 22px;
+    margin-bottom:22px;
 }
 
 .heading h1 {
-    font-size: 23px;
-    margin-bottom: 7px;
+    font-size:25px;
+    margin-bottom:7px;
+    letter-spacing:-.5px;
 }
 
 .heading p {
-    color: #9299b1;
-    font-size: 12px;
+    font-size:12px;
+    color:var(--muted);
+    line-height:1.6;
 }
 
-.summary {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin-bottom: 25px;
+.overview {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin-bottom:23px;
 }
 
-.summary-card {
-    background: #12172a;
-    border: 1px solid #292e45;
-    border-radius: 13px;
-    padding: 16px;
+.overview-card {
+    background:linear-gradient(145deg,#171f39,#11182c);
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:18px;
+    min-height:112px;
 }
 
-.summary-card p {
-    color: #9299b1;
-    font-size: 11px;
-    margin-bottom: 9px;
+.overview-card .label {
+    display:block;
+    font-size:11px;
+    color:var(--muted);
+    margin-bottom:13px;
 }
 
-.summary-card h2 {
-    font-size: 20px;
+.overview-card strong {
+    display:block;
+    font-size:22px;
+    font-weight:800;
+    overflow-wrap:anywhere;
 }
 
-.section-title {
-    font-size: 16px;
-    margin-bottom: 15px;
+.overview-card small {
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-top:7px;
+}
+
+.overview-card.highlight {
+    background:linear-gradient(130deg,#38216f,#244b9d);
+    border-color:#7653e9;
+}
+
+.overview-card.highlight .label,
+.overview-card.highlight small {
+    color:#ded5ff;
+}
+
+.overview-card.highlight strong {
+    color:#fff;
+}
+
+.info-note {
+    background:#171a30;
+    border:1px solid #34365a;
+    border-radius:12px;
+    padding:14px;
+    margin-bottom:28px;
+    color:#b9bfd4;
+    font-size:11px;
+    line-height:1.7;
+}
+
+.info-note strong {
+    color:#c5b3ff;
+}
+
+.section-head {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin:27px 0 14px;
+}
+
+.section-head h2 {
+    font-size:16px;
+}
+
+.section-head a {
+    font-size:11px;
+    color:#bca8ff;
+    white-space:nowrap;
 }
 
 .investment-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
 }
 
 .investment-card {
-    background: #12172a;
-    border: 1px solid #292e45;
-    border-radius: 15px;
-    padding: 17px;
+    background:linear-gradient(145deg,#171f39,#11182c);
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:17px;
 }
 
 .card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 17px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:17px;
 }
 
 .package-info {
-    display: flex;
-    align-items: center;
-    gap: 11px;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    min-width:0;
 }
 
 .package-icon {
-    width: 43px;
-    height: 43px;
-    border-radius: 12px;
-    background: linear-gradient(135deg,#743bff,#258cff);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
+    width:43px;
+    height:43px;
+    flex-shrink:0;
+    border-radius:12px;
+    background:linear-gradient(135deg,#743bff,#258cff);
+    display:grid;
+    place-items:center;
+    font-size:20px;
 }
 
 .package-info h3 {
-    font-size: 14px;
-    margin-bottom: 5px;
+    font-size:13px;
+    margin-bottom:5px;
 }
 
 .package-info p {
-    color: #9299b1;
-    font-size: 10px;
+    color:var(--muted);
+    font-size:10px;
 }
 
 .status {
-    padding: 6px 10px;
-    border-radius: 20px;
-    font-size: 10px;
-    background: #202b36;
-    color: #a6d9bd;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:10px;
+    color:#70e3b8;
+    background:#15372f;
+    white-space:nowrap;
 }
 
-.status.pending {
-    background: #302a1b;
-    color: #eacb82;
-}
-
-.status.completed {
-    background: #202044;
-    color: #b69cff;
-}
-
-.investment-amount {
-    font-size: 23px;
-    font-weight: bold;
-    margin-bottom: 15px;
+.amount {
+    font-size:24px;
+    font-weight:800;
+    margin-bottom:15px;
 }
 
 .details {
-    border-top: 1px solid #292e45;
+    border-top:1px solid var(--border);
 }
 
 .detail-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 11px 0;
-    border-bottom: 1px solid #252b40;
-    font-size: 11px;
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    padding:11px 0;
+    border-bottom:1px solid var(--border);
+    font-size:11px;
 }
 
 .detail-row:last-child {
-    border-bottom: none;
+    border-bottom:none;
 }
 
 .detail-row span:first-child {
-    color: #9299b1;
+    color:var(--muted);
 }
 
 .detail-row span:last-child {
-    text-align: right;
+    text-align:right;
+    overflow-wrap:anywhere;
 }
 
 .empty-state {
-    background: #12172a;
-    border: 1px solid #292e45;
-    border-radius: 16px;
-    padding: 35px 20px;
-    text-align: center;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:35px 20px;
+    text-align:center;
 }
 
 .empty-icon {
-    width: 65px;
-    height: 65px;
-    margin: 0 auto 17px;
-    border-radius: 18px;
-    background: #282044;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 29px;
+    width:62px;
+    height:62px;
+    margin:0 auto 16px;
+    border-radius:17px;
+    background:#282044;
+    display:grid;
+    place-items:center;
+    font-size:27px;
 }
 
 .empty-state h3 {
-    font-size: 16px;
-    margin-bottom: 9px;
+    font-size:15px;
+    margin-bottom:8px;
 }
 
 .empty-state p {
-    color: #9299b1;
-    font-size: 12px;
-    line-height: 1.6;
-    margin-bottom: 20px;
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.7;
+    margin-bottom:19px;
 }
 
 .button {
-    display: inline-block;
-    padding: 12px 22px;
-    border-radius: 10px;
-    background: linear-gradient(100deg,#743bff,#287cff);
-    color: white;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: bold;
+    display:inline-block;
+    padding:12px 21px;
+    border-radius:10px;
+    background:linear-gradient(100deg,#743bff,#287cff);
+    color:white;
+    font-size:12px;
+    font-weight:700;
 }
 
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #101426;
-    border-top: 1px solid #292e45;
-    display: flex;
-    justify-content: space-around;
-    padding: 11px 3px;
+.loading,
+.error-message {
+    padding:22px;
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.7;
 }
 
-.bottom-nav a {
-    text-decoration: none;
-    color: #858ca7;
-    font-size: 10px;
-    text-align: center;
+.error-message {
+    color:#ffaaaa;
 }
 
-.bottom-nav a span {
-    display: block;
-    font-size: 19px;
-    margin-bottom: 4px;
-}
+@media(max-width:480px) {
+    main {
+        width:91%;
+        margin-top:22px;
+    }
 
-.bottom-nav a.active {
-    color: #a98cff;
+    .heading h1 {
+        font-size:22px;
+    }
+
+    .overview {
+        gap:9px;
+    }
+
+    .overview-card {
+        padding:15px 12px;
+        min-height:105px;
+    }
+
+    .overview-card strong {
+        font-size:19px;
+    }
+
+    .card-top {
+        align-items:flex-start;
+    }
 }
-</style></head><body><header>
-    <div class="logo">
+</style>
+</head>
+
+<body>
+
+<header>
+    <a class="brand" href="dashboard.html">
         <img src="fundora-logo.png" alt="Fundora">
         <span>Fundora</span>
-    </div><a href="dashboard.html" class="header-link">Dashboard</a>
+    </a>
 
-</header><main class="container"><section class="heading">
-    <h1>My Investments</h1>
-    <p>View and track your purchased packages.</p>
-</section>
+    <a href="dashboard.html" class="header-link">
+        ← Dashboard
+    </a>
+</header>
 
-<section class="summary">
-    <div class="summary-card">
-        <p>Total Investments</p>
-        <h2 id="totalInvestments">0</h2>
+<main>
+
+    <section class="heading">
+        <h1>Investment Overview</h1>
+        <p>
+            Track your purchased packages and account earnings.
+        </p>
+    </section>
+
+    <section class="overview">
+
+        <div class="overview-card highlight">
+            <span class="label">Total Invested</span>
+            <strong id="totalInvested">Loading...</strong>
+            <small>Total verified package purchases</small>
+        </div>
+
+        <div class="overview-card">
+            <span class="label">Active Investments</span>
+            <strong id="activeInvestments">Loading...</strong>
+            <small>Verified purchases recorded</small>
+        </div>
+
+        <div class="overview-card">
+            <span class="label">Completed Investments</span>
+            <strong id="completedInvestments">—</strong>
+            <small>Completion tracking not yet configured</small>
+        </div>
+
+        <div class="overview-card">
+            <span class="label">Total Earnings</span>
+            <strong id="totalEarnings">Loading...</strong>
+            <small>Verified affiliate commissions</small>
+        </div>
+
+    </section>
+
+    <div class="info-note">
+        <strong>Account information</strong><br>
+        Your investment records show verified package purchases.
+        Earnings displayed here are approved or paid affiliate
+        commissions, not guaranteed investment returns.
+        Completed investment tracking will be added when the
+        investment-period records are configured.
     </div>
 
-    <div class="summary-card">
-        <p>Active Investments</p>
-        <h2 id="activeInvestments">0</h2>
-    </div>
-</section>
+    <section>
 
-<h2 class="section-title">Investment History</h2>
+        <div class="section-head">
+            <h2>My Investments</h2>
+            <a href="packages.html">Explore packages →</a>
+        </div>
 
-<section class="investment-list" id="investmentList"></section>
+        <div class="investment-list" id="investmentList">
+            <div class="investment-card loading">
+                Loading your investment records...
+            </div>
+        </div>
 
-<section class="empty-state" id="emptyState">
-    <div class="empty-icon">📊</div>
-    <h3>No Investments Yet</h3>
-    <p>
-        Your purchased packages will appear here.
-        Start by exploring the available packages.
-    </p>
-    <a href="packages.html" class="button">Explore Packages</a>
-</section>
+        <div class="empty-state" id="emptyState" hidden>
 
-</main><nav class="bottom-nav">
-    <a href="dashboard.html">
-        <span>⌂</span>Home
-    </a><a href="packages.html">
-    <span>▦</span>Packages
-</a>
+            <div class="empty-icon">📊</div>
 
-<a href="investments.html" class="active">
-    <span>◈</span>Investments
-</a>
+            <h3>No Investments Yet</h3>
 
-</nav><script>
-/*
-Investment records will be loaded from the secure
-Fundora backend after payment integration.
+            <p>
+                Your verified package purchases will appear here.
+                Explore the available packages to get started.
+            </p>
 
-Never create an active investment from a browser
-redirect alone. Payment must first be verified.
-*/
+            <a href="packages.html" class="button">
+                Explore Packages
+            </a>
 
-const investments = [];
+        </div>
 
-const list = document.getElementById("investmentList");
-const emptyState = document.getElementById("emptyState");
+    </section>
 
-document.getElementById("totalInvestments").textContent =
-    investments.length;
+</main>
 
-document.getElementById("activeInvestments").textContent =
-    investments.filter(item => item.status === "Active").length;
+<script type="module">
 
-if (investments.length > 0) {
-    emptyState.style.display = "none";
+import { supabase } from "./supabase.js";
 
-    investments.forEach(item => {
+const el = id => document.getElementById(id);
+
+const money = value => new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    maximumFractionDigits: 0
+}).format(Number(value || 0));
+
+const number = value =>
+    new Intl.NumberFormat("en-NG").format(Number(value || 0));
+
+
+function formatDate(value) {
+
+    if (!value) return "Date unavailable";
+
+    return new Date(value).toLocaleDateString(
+        "en-NG",
+        {
+            day: "numeric",
+            month: "short",
+            year: "numeric"
+        }
+    );
+}
+
+
+function createDetail(label, value) {
+
+    const row = document.createElement("div");
+    row.className = "detail-row";
+
+    const left = document.createElement("span");
+    left.textContent = label;
+
+    const right = document.createElement("span");
+    right.textContent = value;
+
+    row.append(left, right);
+
+    return row;
+}
+
+
+function showEmpty() {
+
+    el("investmentList").hidden = true;
+    el("emptyState").hidden = false;
+}
+
+
+function showError(message) {
+
+    el("investmentList").innerHTML = "";
+
+    const box = document.createElement("div");
+    box.className = "investment-card error-message";
+    box.textContent = message;
+
+    el("investmentList").appendChild(box);
+}
+
+
+async function loadInvestments() {
+
+    const { data: sessionData, error: sessionError } =
+        await supabase.auth.getSession();
+
+    if (sessionError) throw sessionError;
+
+    const user = sessionData.session?.user;
+
+    if (!user) {
+        window.location.replace("login.html");
+        return;
+    }
+
+
+    const [
+        purchasesResult,
+        commissionsResult
+    ] = await Promise.all([
+
+        supabase
+            .from("package_purchases")
+            .select(`
+                id,
+                amount_ngn,
+                payment_status,
+                purchased_at,
+                paid_at,
+                affiliate_packages (
+                    name,
+                    code,
+                    icon
+                )
+            `)
+            .eq("user_id", user.id)
+            .eq("payment_status", "successful")
+            .order("purchased_at", {
+                ascending: false
+            }),
+
+        supabase
+            .from("commissions")
+            .select("id, amount_ngn, status")
+            .eq("user_id", user.id)
+            .in("status", ["approved", "paid"])
+
+    ]);
+
+
+    if (purchasesResult.error) {
+        throw purchasesResult.error;
+    }
+
+    if (commissionsResult.error) {
+        throw commissionsResult.error;
+    }
+
+
+    const purchases = purchasesResult.data || [];
+    const commissions = commissionsResult.data || [];
+
+
+    const totalInvested = purchases.reduce(
+        (sum, item) =>
+            sum + Number(item.amount_ngn || 0),
+        0
+    );
+
+
+    const totalEarnings = commissions.reduce(
+        (sum, item) =>
+            sum + Number(item.amount_ngn || 0),
+        0
+    );
+
+
+    // A successful package purchase is counted as active.
+    // Completion is not inferred without completion records.
+    const activeInvestments = purchases.length;
+
+
+    el("totalInvested").textContent =
+        money(totalInvested);
+
+    el("activeInvestments").textContent =
+        number(activeInvestments);
+
+    el("completedInvestments").textContent = "0";
+
+    el("totalEarnings").textContent =
+        money(totalEarnings);
+
+
+    const list = el("investmentList");
+
+    list.innerHTML = "";
+
+
+    if (!purchases.length) {
+        showEmpty();
+        return;
+    }
+
+    el("emptyState").hidden = true;
+    list.hidden = false;
+
+
+    purchases.forEach(item => {
+
+        const pkg = item.affiliate_packages || {};
+
         const card = document.createElement("article");
         card.className = "investment-card";
 
-        const statusClass =
-            item.status === "Completed" ? "completed" :
-            item.status === "Pending" ? "pending" : "";
 
-        card.innerHTML = `
-            <div class="card-top">
-                <div class="package-info">
-                    <div class="package-icon">💎</div>
-                    <div>
-                        <h3></h3>
-                        <p>Fundora Package</p>
-                    </div>
-                </div>
-                <span class="status ${statusClass}"></span>
-            </div>
+        const top = document.createElement("div");
+        top.className = "card-top";
 
-            <div class="investment-amount"></div>
 
-            <div class="details">
-                <div class="detail-row">
-                    <span>Purchase date</span>
-                    <span class="purchase-date"></span>
-                </div>
-                <div class="detail-row">
-                    <span>Duration</span>
-                    <span class="duration"></span>
-                </div>
-                <div class="detail-row">
-                    <span>Expected completion</span>
-                    <span class="completion-date"></span>
-                </div>
-            </div>
-        `;
+        const packageInfo = document.createElement("div");
+        packageInfo.className = "package-info";
 
-        card.querySelector(".package-info h3").textContent = item.name;
-        card.querySelector(".status").textContent = item.status;
-        card.querySelector(".investment-amount").textContent =
-            "₦" + Number(item.amount).toLocaleString("en-NG");
-        card.querySelector(".purchase-date").textContent = item.purchaseDate;
-        card.querySelector(".duration").textContent = item.duration;
-        card.querySelector(".completion-date").textContent = item.completionDate;
+
+        const icon = document.createElement("div");
+        icon.className = "package-icon";
+        icon.textContent = pkg.icon || "◇";
+
+
+        const packageText = document.createElement("div");
+
+        const name = document.createElement("h3");
+        name.textContent = pkg.name || "Fundora Package";
+
+        const description = document.createElement("p");
+        description.textContent = "Verified package purchase";
+
+        packageText.append(name, description);
+        packageInfo.append(icon, packageText);
+
+
+        const status = document.createElement("span");
+        status.className = "status";
+        status.textContent = "Active";
+
+
+        top.append(packageInfo, status);
+
+
+        const amount = document.createElement("div");
+        amount.className = "amount";
+        amount.textContent = money(item.amount_ngn);
+
+
+        const details = document.createElement("div");
+        details.className = "details";
+
+        details.append(
+            createDetail(
+                "Purchase date",
+                formatDate(item.purchased_at || item.paid_at)
+            ),
+
+            createDetail(
+                "Payment status",
+                "Successful"
+            ),
+
+            createDetail(
+                "Package code",
+                pkg.code || "—"
+            )
+        );
+
+
+        card.append(top, amount, details);
 
         list.appendChild(card);
+
     });
-} else {
-    emptyState.style.display = "block";
+
 }
+
+
+loadInvestments().catch(error => {
+
+    console.error("Investment page error:", error);
+
+    showError(
+        error.message ||
+        "We couldn't load your investment records. Please refresh."
+    );
+
+});
+
 </script>
+
 <script src="shared-menu.js"></script>
+
 </body>
 </html>
