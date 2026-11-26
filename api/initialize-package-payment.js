@@ -72,10 +72,16 @@ const databaseHeaders = {
                 headers: databaseHeaders
             }
         );
+if (!packageResponse.ok) {
+    const errorDetails = await packageResponse.text();
 
-        if (!packageResponse.ok) {
-            throw new Error("Could not verify the selected package.");
-        }
+    console.error("SUPABASE PACKAGE ERROR:", {
+        status: packageResponse.status,
+        details: errorDetails
+    });
+
+    throw new Error("Package lookup failed. Check server logs.");
+}
 
         const packages = await packageResponse.json();
 
