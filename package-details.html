@@ -282,9 +282,9 @@ if (selected) {
             const result = await response.json();
 
             if (!response.ok || !result.authorization_url) {
-                throw new Error(
-                    result.error || "Unable to start payment. Please try again."
-                );
+               throw new Error(
+    `${result.error || "Payment error"} | Status: ${result.supabase_status || response.status} | Details: ${result.supabase_details || "No details returned"}`
+);
             }
 
             window.location.href = result.authorization_url;
