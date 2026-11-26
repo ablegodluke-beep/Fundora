@@ -75,12 +75,11 @@ const databaseHeaders = {
 if (!packageResponse.ok) {
     const errorDetails = await packageResponse.text();
 
-    console.error("SUPABASE PACKAGE ERROR:", {
-        status: packageResponse.status,
-        details: errorDetails
+    return res.status(500).json({
+        error: "Supabase package lookup failed",
+        supabase_status: packageResponse.status,
+        supabase_details: errorDetails
     });
-
-    throw new Error("Package lookup failed. Check server logs.");
 }
 
         const packages = await packageResponse.json();
