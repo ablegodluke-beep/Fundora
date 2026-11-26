@@ -1,0 +1,513 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings | Fundora</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
+:root {
+    --bg:#080b18;
+    --card:#11172a;
+    --purple:#8057f5;
+    --blue:#3985ff;
+    --text:#f5f6ff;
+    --muted:#929bb5;
+    --border:rgba(255,255,255,.08);
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body {
+    background:var(--bg);
+    color:var(--text);
+    font-family:'DM Sans',sans-serif;
+    min-height:100vh;
+    padding-bottom:90px;
+}
+
+header {
+    height:68px;
+    padding:0 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#0b1020;
+    border-bottom:1px solid var(--border);
+}
+
+.brand {
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:20px;
+    font-weight:800;
+}
+
+.brand img {
+    width:35px;
+    height:35px;
+    object-fit:contain;
+}
+
+.header-link {
+    color:#b49cff;
+    text-decoration:none;
+    font-size:12px;
+}
+
+main {
+    width:min(800px,92%);
+    margin:27px auto;
+}
+
+.heading {
+    margin-bottom:23px;
+}
+
+.heading h1 {
+    font-size:25px;
+    margin-bottom:7px;
+}
+
+.heading p {
+    color:var(--muted);
+    font-size:13px;
+}
+
+.section-label {
+    color:var(--muted);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1px;
+    margin:25px 0 11px;
+    text-transform:uppercase;
+}
+
+.panel {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:18px;
+    margin-bottom:15px;
+}
+
+.panel-title {
+    display:flex;
+    align-items:center;
+    gap:11px;
+    margin-bottom:17px;
+}
+
+.panel-icon {
+    width:38px;
+    height:38px;
+    border-radius:11px;
+    background:rgba(128,87,245,.15);
+    display:grid;
+    place-items:center;
+    font-size:18px;
+}
+
+.panel-title h2 {
+    font-size:15px;
+}
+
+.panel-title p {
+    color:var(--muted);
+    font-size:11px;
+    margin-top:4px;
+}
+
+.field {
+    margin-bottom:14px;
+}
+
+.field:last-child {
+    margin-bottom:0;
+}
+
+.field label {
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    margin-bottom:7px;
+}
+
+.field input,
+.field select {
+    width:100%;
+    padding:13px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:#090e1e;
+    color:white;
+    font-family:inherit;
+    font-size:13px;
+    outline:none;
+}
+
+.field input:focus,
+.field select:focus {
+    border-color:var(--purple);
+}
+
+.action-row {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:13px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.action-row:last-child {
+    border-bottom:0;
+}
+
+.action-info strong {
+    display:block;
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.action-info small {
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.5;
+}
+
+.btn {
+    border:0;
+    border-radius:9px;
+    padding:11px 16px;
+    font-family:inherit;
+    font-size:11px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.btn-primary {
+    color:white;
+    background:linear-gradient(100deg,var(--purple),var(--blue));
+}
+
+.btn-secondary {
+    color:#c9baff;
+    background:#292044;
+    border:1px solid #493875;
+}
+
+.save-button {
+    width:100%;
+    margin-top:16px;
+    padding:13px;
+}
+
+.toggle {
+    width:43px;
+    height:24px;
+    appearance:none;
+    background:#30384f;
+    border-radius:20px;
+    position:relative;
+    cursor:pointer;
+    flex-shrink:0;
+    transition:.2s;
+}
+
+.toggle:before {
+    content:"";
+    position:absolute;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:white;
+    top:3px;
+    left:3px;
+    transition:.2s;
+}
+
+.toggle:checked {
+    background:var(--purple);
+}
+
+.toggle:checked:before {
+    transform:translateX(19px);
+}
+
+.logout-button {
+    width:100%;
+    padding:13px;
+    border-radius:10px;
+    border:1px solid rgba(255,90,110,.25);
+    background:rgba(255,70,90,.08);
+    color:#ff8192;
+    font-family:inherit;
+    font-weight:700;
+    font-size:12px;
+    cursor:pointer;
+}
+
+.demo-notice {
+    background:rgba(128,87,245,.09);
+    border:1px solid rgba(128,87,245,.2);
+    border-radius:11px;
+    padding:13px;
+    color:#c8c1e8;
+    font-size:11px;
+    line-height:1.7;
+    margin-top:20px;
+}
+
+.bottom-nav {
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:70px;
+    background:#101629;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:10;
+}
+
+.bottom-nav a {
+    color:var(--muted);
+    text-decoration:none;
+    text-align:center;
+    font-size:10px;
+}
+
+.bottom-nav a span {
+    display:block;
+    font-size:19px;
+    margin-bottom:4px;
+}
+
+.bottom-nav a.active {
+    color:#b49cff;
+}
+
+@media(max-width:400px) {
+    main {
+        width:91%;
+    }
+
+    .heading h1 {
+        font-size:22px;
+    }
+
+    .panel {
+        padding:15px;
+    }
+}
+</style></head><body><header>
+    <div class="brand">
+        <img src="fundora-logo.png" alt="Fundora">
+        <span>Fundora</span>
+    </div>
+    <a href="dashboard.html" class="header-link">Dashboard</a>
+</header><main><section class="heading">
+    <h1>Settings</h1>
+    <p>Manage your Fundora account and preferences.</p>
+</section>
+
+<div class="section-label">Personal information</div>
+
+<section class="panel">
+
+    <div class="panel-title">
+        <div class="panel-icon">👤</div>
+        <div>
+            <h2>Profile information</h2>
+            <p>Manage your personal details.</p>
+        </div>
+    </div>
+
+    <div class="field">
+        <label>Full name</label>
+        <input type="text" id="fullName" placeholder="Your full name">
+    </div>
+
+    <div class="field">
+        <label>Email address</label>
+        <input type="email" id="email" placeholder="Your email address">
+    </div>
+
+    <div class="field">
+        <label>Phone number</label>
+        <input type="tel" id="phone" placeholder="Your phone number">
+    </div>
+
+    <button class="btn btn-primary save-button" onclick="demoNotice()">
+        Save Changes
+    </button>
+
+</section>
+
+<div class="section-label">Security</div>
+
+<section class="panel">
+
+    <div class="panel-title">
+        <div class="panel-icon">🔐</div>
+        <div>
+            <h2>Account security</h2>
+            <p>Keep your account protected.</p>
+        </div>
+    </div>
+
+    <div class="action-row">
+        <div class="action-info">
+            <strong>Password</strong>
+            <small>Update your account password.</small>
+        </div>
+        <button class="btn btn-secondary" onclick="demoNotice()">
+            Change
+        </button>
+    </div>
+
+    <div class="action-row">
+        <div class="action-info">
+            <strong>Login activity</strong>
+            <small>Review your account login sessions.</small>
+        </div>
+        <button class="btn btn-secondary" onclick="demoNotice()">
+            View
+        </button>
+    </div>
+
+</section>
+
+<div class="section-label">Notifications</div>
+
+<section class="panel">
+
+    <div class="panel-title">
+        <div class="panel-icon">🔔</div>
+        <div>
+            <h2>Notification preferences</h2>
+            <p>Choose which updates you want to receive.</p>
+        </div>
+    </div>
+
+    <div class="action-row">
+        <div class="action-info">
+            <strong>Email notifications</strong>
+            <small>Receive important account updates by email.</small>
+        </div>
+        <input type="checkbox" class="toggle" checked>
+    </div>
+
+    <div class="action-row">
+        <div class="action-info">
+            <strong>Transaction alerts</strong>
+            <small>Get updates about account transactions.</small>
+        </div>
+        <input type="checkbox" class="toggle" checked>
+    </div>
+
+    <div class="action-row">
+        <div class="action-info">
+            <strong>Promotional updates</strong>
+            <small>Receive Fundora news and announcements.</small>
+        </div>
+        <input type="checkbox" class="toggle">
+    </div>
+
+    <button class="btn btn-primary save-button" onclick="demoNotice()">
+        Save Preferences
+    </button>
+
+</section>
+
+<div class="section-label">Preferences</div>
+
+<section class="panel">
+
+    <div class="panel-title">
+        <div class="panel-icon">⚙️</div>
+        <div>
+            <h2>Display preferences</h2>
+            <p>Manage how your account is displayed.</p>
+        </div>
+    </div>
+
+    <div class="field">
+        <label>Language</label>
+        <select id="language">
+            <option value="English">English</option>
+        </select>
+    </div>
+
+    <div class="field">
+        <label>Currency</label>
+        <select id="currency">
+            <option value="NGN">Nigerian Naira (₦)</option>
+        </select>
+    </div>
+
+    <button class="btn btn-primary save-button" onclick="demoNotice()">
+        Save Preferences
+    </button>
+
+</section>
+
+<div class="section-label">Account</div>
+
+<section class="panel">
+
+    <div class="panel-title">
+        <div class="panel-icon">🚪</div>
+        <div>
+            <h2>Log out</h2>
+            <p>Sign out of your Fundora account.</p>
+        </div>
+    </div>
+
+    <button class="logout-button" onclick="logoutDemo()">
+        Log Out
+    </button>
+
+</section>
+
+<div class="demo-notice">
+    <strong>Demo notice:</strong> Settings are currently displayed as a frontend preview. Saving profile changes, changing passwords, notification preferences and login activity will become functional when account authentication and backend integration are completed.
+</div>
+
+</main><nav class="bottom-nav">
+    <a href="dashboard.html">
+        <span>⌂</span>Home
+    </a><a href="packages.html">
+    <span>▦</span>Packages
+</a>
+
+<a href="investments.html">
+    <span>◈</span>Investments
+</a>
+
+<a href="transactions.html">
+    <span>▤</span>History
+</a>
+
+<a href="settings.html" class="active">
+    <span>⚙</span>Settings
+</a>
+
+</nav><script>
+function demoNotice() {
+    alert("This setting will become active after Fundora's backend is connected.");
+}
+
+function logoutDemo() {
+    if (confirm("Are you sure you want to log out?")) {
+        alert("Logout will become active after account authentication is connected.");
+    }
+}
+</script></body>
+</html>
