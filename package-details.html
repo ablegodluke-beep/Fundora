@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Package Details | Fundora</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #080b18;
+    color: #fff;
+    min-height: 100vh;
+    padding-bottom: 85px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #20253b;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.logo img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+}
+
+.back {
+    color: #b69cff;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.container {
+    max-width: 650px;
+    margin: auto;
+    padding: 22px 15px;
+}
+
+.package-banner {
+    background: linear-gradient(135deg,#34206f,#172d63,#101a36);
+    border: 1px solid #55418f;
+    border-radius: 18px;
+    padding: 25px 20px;
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+.package-icon {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 15px;
+    border-radius: 16px;
+    background: linear-gradient(135deg,#743bff,#258cff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}
+
+.package-banner small {
+    color: #c0aaff;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.package-banner h1 {
+    font-size: 25px;
+    margin: 10px 0;
+}
+
+.amount {
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 13px;
+}
+
+.status {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 7px 13px;
+    border-radius: 20px;
+    background: #292044;
+    color: #c4adff;
+    font-size: 11px;
+}
+
+.section {
+    background: #12172a;
+    border: 1px solid #292e45;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 15px;
+}
+
+.section h2 {
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.section p {
+    color: #9da5bd;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 0;
+    border-bottom: 1px solid #252b40;
+    font-size: 12px;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-row span:first-child {
+    color: #9299b1;
+}
+
+.detail-row span:last-child {
+    color: #e3e5f1;
+    text-align: right;
+}
+
+.notice {
+    background: #171a30;
+    border: 1px solid #34365a;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.notice strong {
+    display: block;
+    color: #b69cff;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.notice p {
+    color: #a6adc3;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 11px;
+    background: linear-gradient(100deg,#743bff,#287cff);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #101426;
+    border-top: 1px solid #292e45;
+    display: flex;
+    justify-content: space-around;
+    padding: 11px 3px;
+}
+
+.bottom-nav a {
+    text-decoration: none;
+    color: #858ca7;
+    font-size: 10px;
+    text-align: center;
+}
+
+.bottom-nav a span {
+    display: block;
+    font-size: 19px;
+    margin-bottom: 4px;
+}
+
+.bottom-nav a.active {
+    color: #a98cff;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <img src="fundora-logo.png" alt="Fundora">
+        <span>Fundora</span>
+    </div>
+
+    <a href="packages.html" class="back">← Packages</a>
+</header>
+
+<main class="container">
+
+    <section class="package-banner">
+        <div class="package-icon" id="packageIcon">🌱</div>
+
+        <small id="packageLabel">Starter Package</small>
+
+        <h1 id="packageTitle">Package Details</h1>
+
+        <div class="amount" id="packageAmount">₦3,000</div>
+
+        <span class="status">Package Preview</span>
+    </section>
+
+    <section class="section">
+        <h2>About This Package</h2>
+        <p id="packageDescription">
+            Explore this Fundora package and its features.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>Package Information</h2>
+
+        <div class="detail-row">
+            <span>Package name</span>
+            <span id="infoName">Starter</span>
+        </div>
+
+        <div class="detail-row">
+            <span>Package amount</span>
+            <span id="infoAmount">₦3,000</span>
+        </div>
+
+        <div class="detail-row">
+            <span>Investment duration</span>
+            <span>To be confirmed</span>
+        </div>
+
+        <div class="detail-row">
+            <span>Returns and terms</span>
+            <span>To be confirmed</span>
+        </div>
+
+        <div class="detail-row">
+            <span>Availability</span>
+            <span>Preview</span>
+        </div>
+    </section>
+
+    <div class="notice">
+        <strong>Important Information</strong>
+        <p>
+            This package is currently displayed for preview.
+            Full investment terms, conditions and eligibility
+            information will be provided before any investment
+            feature is activated.
+        </p>
+    </div>
+
+    <a href="packages.html" class="button">
+        Back to Packages
+    </a>
+
+</main>
+
+<nav class="bottom-nav">
+    <a href="dashboard.html">
+        <span>⌂</span>Home
+    </a>
+
+    <a href="packages.html" class="active">
+        <span>▦</span>Packages
+    </a>
+</nav>
+
+<script>
+const packages = {
+    3000: {
+        name: "Starter",
+        icon: "🌱",
+        description: "An entry-level package for members exploring Fundora."
+    },
+    5000: {
+        name: "Basic",
+        icon: "🌿",
+        description: "A basic package level available for member review."
+    },
+    8000: {
+        name: "Basic Plus",
+        icon: "⚡",
+        description: "An additional package level within Fundora."
+    },
+    10000: {
+        name: "Standard",
+        icon: "💠",
+        description: "A standard package level for Fundora members."
+    },
+    15000: {
+        name: "Standard Plus",
+        icon: "💎",
+        description: "An expanded package level within Fundora."
+    },
+    20000: {
+        name: "Advanced",
+        icon: "🔷",
+        description: "An advanced package level for members."
+    },
+    30000: {
+        name: "Growth",
+        icon: "🚀",
+        description: "A growth-level package available for review."
+    },
+    50000: {
+        name: "Premium",
+        icon: "⭐",
+        description: "A premium package level within Fundora."
+    },
+    60000: {
+        name: "Premium Plus",
+        icon: "🌟",
+        description: "An extended premium package level."
+    },
+    80000: {
+        name: "Elite",
+        icon: "👑",
+        description: "An elite package level within Fundora."
+    },
+    100000: {
+        name: "Ultimate",
+        icon: "🏆",
+        description: "The highest package level currently listed."
+    }
+};
+
+const params = new URLSearchParams(window.location.search);
+const amount = params.get("amount");
+const selected = packages[amount];
+
+if (selected) {
+    const formattedAmount = "₦" + Number(amount).toLocaleString("en-NG");
+
+    document.getElementById("packageIcon").textContent = selected.icon;
+    document.getElementById("packageLabel").textContent = selected.name + " Package";
+    document.getElementById("packageTitle").textContent = selected.name + " Package";
+    document.getElementById("packageAmount").textContent = formattedAmount;
+    document.getElementById("packageDescription").textContent = selected.description;
+    document.getElementById("infoName").textContent = selected.name;
+    document.getElementById("infoAmount").textContent = formattedAmount;
+} else {
+    document.getElementById("packageTitle").textContent = "Package Not Found";
+    document.getElementById("packageAmount").textContent = "—";
+    document.getElementById("packageDescription").textContent =
+        "Please return to the packages page and select a valid package.";
+
+    document.querySelector(".button").textContent = "View Packages";
+}
+</script>
+
+</body>
+</html>
