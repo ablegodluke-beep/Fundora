@@ -116,10 +116,15 @@ if (!packageResponse.ok) {
                 })
             }
         );
+if (!purchaseResponse.ok) {
+    const purchaseError = await purchaseResponse.text();
 
-        if (!purchaseResponse.ok) {
-            throw new Error("Could not create your purchase record.");
-        }
+    return res.status(500).json({
+        error: "Could not create your purchase record.",
+        supabase_status: purchaseResponse.status,
+        supabase_details: purchaseError
+    });
+}
 
         // Initialize Paystack checkout
         const paymentResponse = await fetch(
