@@ -83,14 +83,8 @@ if (!packageResponse.ok) {
 }
 
         const packages = await packageResponse.json();
-        return res.status(200).json({
-    diagnostic: true,
-    package_count: packages.length,
-    packages: packages.map(p => ({
-        name: p.name,
-        price_ngn: p.price_ngn
-    }))
-});
+       
+    
 
         if (packages.length !== 1) {
             return res.status(404).json({
