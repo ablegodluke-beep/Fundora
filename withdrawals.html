@@ -93,8 +93,6 @@ main {
     border-radius:18px;
     padding:23px;
     margin-bottom:17px;
-    position:relative;
-    overflow:hidden;
 }
 
 .balance-card small {
@@ -137,10 +135,14 @@ main {
     border:1px solid rgba(128,87,245,.2);
     color:#d1c6ff;
     border-radius:11px;
-    padding:13px;
-    font-size:11px;
-    line-height:1.7;
+    padding:14px;
+    font-size:12px;
+    line-height:1.8;
     margin-bottom:20px;
+}
+
+.notice strong {
+    color:white;
 }
 
 .section-label {
@@ -442,10 +444,10 @@ main {
     </section>
 
     <div class="notice">
-        <strong>Withdrawal information:</strong>
-        Your balance is calculated from successful wallet credits.
-        Pending withdrawal requests are reserved until they are
-        completed or rejected.
+        <strong>Withdrawal information</strong><br>
+        You can place a withdrawal request once every 24 hours.
+        After placing your request, payment is expected to arrive
+        in your bank account within <strong>20–30 minutes.</strong>
     </div>
 
     <div id="pageMessage" class="message"></div>
@@ -464,11 +466,9 @@ main {
         <form id="withdrawalForm">
 
             <div class="field">
-
                 <label for="bank">Bank / Financial Institution</label>
 
                 <select id="bank" required>
-
                     <option value="">Select your bank</option>
 
                     <optgroup label="Traditional Banks">
@@ -509,13 +509,10 @@ main {
                         <option>Eyowo</option>
                         <option>SmartCash PSB</option>
                     </optgroup>
-
                 </select>
-
             </div>
 
             <div class="field">
-
                 <label for="accountNumber">Account number</label>
 
                 <input
@@ -527,11 +524,9 @@ main {
                     pattern="[0-9]{10}"
                     required
                 >
-
             </div>
 
             <div class="field">
-
                 <label for="accountName">Account name</label>
 
                 <input
@@ -540,11 +535,9 @@ main {
                     placeholder="Enter the account holder's name"
                     required
                 >
-
             </div>
 
             <div class="field">
-
                 <label for="amount">Withdrawal amount (₦)</label>
 
                 <input
@@ -560,7 +553,6 @@ main {
                     Maximum available amount:
                     <strong id="maximumAmount">₦0.00</strong>
                 </small>
-
             </div>
 
             <button
@@ -582,22 +574,13 @@ main {
         <h2>Your requests</h2>
 
         <div class="history-list" id="historyList">
-
             <div class="empty">
                 <span>🏦</span>
                 Loading withdrawal history...
             </div>
-
         </div>
 
     </section>
-
-    <div class="notice">
-        <strong>Processing:</strong>
-        Requests are submitted for admin review. A pending request
-        does not mean that a bank transfer has been completed.
-        No automatic bank transfer is performed by this page.
-    </div>
 
 </main>
 
@@ -655,9 +638,9 @@ const pageMessage =
 
 let currentUser = null;
 let currentBalance = 0;
-
 let walletTransactions = [];
 let withdrawalRequests = [];
+let cooldownTimer = null;
 
 function money(amount) {
     return new Intl.NumberFormat("en-NG", {
@@ -686,9 +669,49 @@ function showMessage(message, type) {
     });
 }
 
-function calculateBalances() {
+function getLastRequest() {
+    if (!withdrawalRequests.length) return null;
 
-    // Successful wallet credits only
+    return withdrawalRequests.reduce((latest, request) => {
+        if (!request.requested_at) return latest;
+
+        if (!latest) return request;
+
+        return new Date(request.requested_at) >
+               new Date(latest.requested_at)
+            ? request
+            : latest;
+    }, null);
+}
+
+function updateCooldown() {
+    const lastRequest = getLastRequest();
+
+    if (!lastRequest || !lastRequest.requested_at) {
+        submitButton.disabled = currentBalance < 1;
+        submitButton.textContent = "Submit Withdrawal Request";
+        return;
+    }
+
+    const nextAllowed = new Date(lastRequest.requested_at).getTime()
+        + 24 * 60 * 60 * 1000;
+
+    const remaining = nextAllowed - Date.now();
+
+    if (remaining > 0) {
+        const hours = Math.floor(remaining / 3600000);
+        const minutes = Math.floor((remaining % 3600000) / 60000);
+
+        submitButton.disabled = true;
+        submitButton.textContent =
+            `Available in ${hours}h ${minutes}m`;
+    } else {
+        submitButton.disabled = currentBalance < 1;
+        submitButton.textContent = "Submit Withdrawal Request";
+    }
+}
+
+function calculateBalances() {
     const credits = walletTransactions
         .filter(transaction =>
             !String(transaction.transaction_type || "")
@@ -699,7 +722,6 @@ function calculateBalances() {
             total + Number(transaction.amount_ngn || 0), 0
         );
 
-    // Requests not rejected or cancelled still reserve funds
     const reserved = withdrawalRequests
         .filter(request => {
             const status = String(request.status).toLowerCase();
@@ -742,6 +764,8 @@ function calculateBalances() {
     maximumAmount.textContent = money(currentBalance);
 
     document.getElementById("amount").max = currentBalance;
+
+    updateCooldown();
 }
 
 function maskAccount(number) {
@@ -753,7 +777,6 @@ function maskAccount(number) {
 }
 
 function renderHistory() {
-
     if (!withdrawalRequests.length) {
         historyList.innerHTML = `
             <div class="empty">
@@ -766,7 +789,6 @@ function renderHistory() {
     }
 
     historyList.innerHTML = withdrawalRequests.map(request => {
-
         const status = String(request.status || "pending")
             .toLowerCase();
 
@@ -776,10 +798,8 @@ function renderHistory() {
 
         return `
             <div class="history-item">
-
                 <div class="history-left">
                     <strong>${escapeHTML(request.bank_name)}</strong>
-
                     <small>
                         ${escapeHTML(maskAccount(request.account_number))}
                         <br>
@@ -789,20 +809,16 @@ function renderHistory() {
 
                 <div class="history-right">
                     <strong>${money(request.amount_ngn)}</strong>
-
                     <span class="status ${escapeHTML(status)}">
                         ${escapeHTML(status)}
                     </span>
                 </div>
-
             </div>
         `;
-
     }).join("");
 }
 
 async function loadWithdrawals() {
-
     submitButton.disabled = true;
 
     const {
@@ -817,9 +833,7 @@ async function loadWithdrawals() {
         );
 
         historyList.innerHTML = `
-            <div class="empty">
-                Please log in to continue.
-            </div>
+            <div class="empty">Please log in to continue.</div>
         `;
 
         return;
@@ -828,7 +842,6 @@ async function loadWithdrawals() {
     currentUser = session.user;
 
     const [walletResult, requestsResult] = await Promise.all([
-
         supabase
             .from("wallet_transactions")
             .select("amount_ngn,transaction_type,status")
@@ -852,7 +865,6 @@ async function loadWithdrawals() {
             .order("requested_at", {
                 ascending: false
             })
-
     ]);
 
     if (walletResult.error) {
@@ -879,11 +891,12 @@ async function loadWithdrawals() {
     calculateBalances();
     renderHistory();
 
-    submitButton.disabled = false;
+    if (cooldownTimer) clearInterval(cooldownTimer);
+
+    cooldownTimer = setInterval(updateCooldown, 60000);
 }
 
 form.addEventListener("submit", async event => {
-
     event.preventDefault();
 
     if (!currentUser) {
@@ -941,7 +954,6 @@ form.addEventListener("submit", async event => {
     submitButton.textContent = "Submitting request...";
 
     try {
-
         const { data, error } = await supabase.rpc(
             "request_fundora_withdrawal",
             {
@@ -952,9 +964,7 @@ form.addEventListener("submit", async event => {
             }
         );
 
-        if (error) {
-            throw error;
-        }
+        if (error) throw error;
 
         if (!data || !data.success) {
             throw new Error(
@@ -965,26 +975,26 @@ form.addEventListener("submit", async event => {
         form.reset();
 
         showMessage(
-            "Your withdrawal request has been submitted successfully. It is awaiting admin review.",
+            "Your withdrawal request has been submitted successfully.",
             "success"
         );
 
         await loadWithdrawals();
 
     } catch (error) {
-
         showMessage(
             error.message || "Unable to submit withdrawal request.",
             "error"
         );
 
+        updateCooldown();
+
     } finally {
-
-        submitButton.disabled = false;
-        submitButton.textContent = "Submit Withdrawal Request";
-
+        if (submitButton.textContent === "Submitting request...") {
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit Withdrawal Request";
+        }
     }
-
 });
 
 loadWithdrawals();
