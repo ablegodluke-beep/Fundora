@@ -3,245 +3,402 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#080b18">
-<title>Affiliate Packages | Fundora</title><style>
+<title>Affiliate Packages | Fundora</title><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
+:root {
+    --bg:#080b18;
+    --card:#11172a;
+    --text:#f5f6ff;
+    --muted:#929bb5;
+    --border:rgba(255,255,255,.08);
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 body {
-    font-family: 'DM Sans', Arial, sans-serif;
-    background: #080b18;
-    color: #fff;
-    min-height: 100vh;
-    padding-bottom: 35px;
+    font-family:'DM Sans',sans-serif;
+    background:
+        radial-gradient(ellipse at 50% -15%,#282052 0,transparent 42%),
+        var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    padding-bottom:45px;
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px;
-    border-bottom: 1px solid #20253b;
-    background: #0b1020;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 5%;
+    border-bottom:1px solid var(--border);
+    background:rgba(11,16,32,.94);
 }
 
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    font-size: 20px;
-    font-weight: 800;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:20px;
+    font-weight:800;
+    color:white;
+    text-decoration:none;
 }
 
 .logo img {
-    width: 35px;
-    height: 35px;
-    object-fit: contain;
+    width:35px;
+    height:35px;
+    object-fit:contain;
 }
 
 .profile {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: linear-gradient(135deg,#743bff,#258cff);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#743bff,#258cff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
 }
 
 .container {
-    max-width: 850px;
-    margin: auto;
-    padding: 24px 13px;
+    max-width:1050px;
+    margin:auto;
+    padding:28px 15px;
 }
 
 .heading {
-    margin-bottom: 20px;
+    margin-bottom:22px;
 }
 
 .heading small {
-    color: #a58aff;
-    font-size: 11px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    color:#b49aff;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
 }
 
 .heading h1 {
-    font-size: 25px;
-    margin: 8px 0;
+    font-size:27px;
+    margin:8px 0;
+    letter-spacing:-.8px;
 }
 
 .heading p {
-    color: #9299b1;
-    font-size: 13px;
-    line-height: 1.6;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.7;
+    max-width:500px;
 }
 
 .notice {
-    background: #171a30;
-    border: 1px solid #34365a;
-    border-radius: 12px;
-    padding: 13px;
-    margin-bottom: 23px;
-    color: #b9bfd4;
-    font-size: 11px;
-    line-height: 1.7;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    padding:15px;
+    margin-bottom:28px;
+    border-radius:13px;
+    background:linear-gradient(110deg,#19172e,#151d32);
+    border:1px solid #39335f;
+    color:#b9bfd4;
+    font-size:11px;
+    line-height:1.7;
+}
+
+.notice-icon {
+    width:32px;
+    height:32px;
+    flex-shrink:0;
+    display:grid;
+    place-items:center;
+    border-radius:9px;
+    background:#30254f;
+    color:#c3aaff;
+    font-size:15px;
 }
 
 .notice strong {
-    color: #ad94ff;
+    display:block;
+    color:#c5adff;
+    margin-bottom:3px;
 }
 
 .section-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
 }
 
 .section-heading h2 {
-    font-size: 16px;
+    font-size:16px;
 }
 
 .section-heading span {
-    font-size: 11px;
-    color: #858ca7;
+    color:var(--muted);
+    font-size:11px;
 }
 
 .packages {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 11px;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:13px;
 }
 
 .package-card {
-    min-width: 0;
-    display: block;
-    text-decoration: none;
-    color: white;
-    background: linear-gradient(145deg,#191e38,#101426);
-    border: 1px solid #292e4b;
-    border-radius: 14px;
-    padding: 13px 11px;
-    transition: .2s ease;
+    --accent:#8c6bff;
+    --soft:rgba(140,107,255,.12);
+
+    position:relative;
+    min-width:0;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    padding:14px 12px;
+    border-radius:16px;
+    text-decoration:none;
+    color:white;
+    background:linear-gradient(150deg,#191f35,#101526 75%);
+    border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);
+    transition:transform .2s,border-color .2s;
 }
 
-.package-card.featured {
-    border-color: #7653e9;
+.package-card::before {
+    content:"";
+    position:absolute;
+    top:-48px;
+    right:-45px;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:var(--accent);
+    opacity:.10;
+    filter:blur(18px);
 }
 
 .package-card:active {
-    border-color: #a58aff;
-    transform: scale(.98);
+    transform:scale(.98);
+}
+
+.package-card:hover {
+    border-color:var(--accent);
 }
 
 .package-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 5px;
-    margin-bottom: 13px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:5px;
+    margin-bottom:17px;
 }
 
 .package-icon {
-    width: 34px;
-    height: 34px;
-    flex-shrink: 0;
-    border-radius: 10px;
-    background: linear-gradient(135deg,#743bff,#258cff);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 17px;
+    width:39px;
+    height:39px;
+    display:grid;
+    place-items:center;
+    flex-shrink:0;
+    border-radius:12px;
+    font-size:19px;
+    background:var(--soft);
+    border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
 }
 
 .badge {
-    font-size: 9px;
-    color: #b69cff;
-    background: #292044;
-    padding: 5px 7px;
-    border-radius: 20px;
+    font-size:9px;
+    font-weight:700;
+    color:var(--accent);
+    background:var(--soft);
+    border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);
+    padding:6px 8px;
+    border-radius:20px;
 }
 
 .package-card h3 {
-    font-size: 13px;
-    margin-bottom: 10px;
+    position:relative;
+    font-size:13px;
+    line-height:1.45;
+    min-height:37px;
+    margin-bottom:13px;
 }
 
 .amount-label,
 .earnings-label {
-    display: block;
-    color: #9299b1;
-    font-size: 10px;
-    margin-bottom: 4px;
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-bottom:5px;
 }
 
 .amount {
-    font-size: 18px;
-    font-weight: 800;
-    margin-bottom: 13px;
-    color: #fff;
-    overflow-wrap: anywhere;
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:-.5px;
+    margin-bottom:15px;
+    overflow-wrap:anywhere;
 }
 
 .earnings-box {
-    background: rgba(128,87,245,.12);
-    border: 1px solid rgba(128,87,245,.25);
-    border-radius: 9px;
-    padding: 10px 8px;
-    margin-bottom: 13px;
+    position:relative;
+    background:var(--soft);
+    border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);
+    border-radius:11px;
+    padding:11px 9px;
+    margin-top:auto;
+    margin-bottom:13px;
 }
 
 .earnings {
-    display: block;
-    color: #bca8ff;
-    font-size: 17px;
-    font-weight: 800;
-    overflow-wrap: anywhere;
+    display:block;
+    color:var(--accent);
+    font-size:18px;
+    font-weight:800;
+    overflow-wrap:anywhere;
 }
 
 .earnings-note {
-    display: block;
-    color: #9299b1;
-    font-size: 9px;
-    margin-top: 4px;
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    margin-top:5px;
 }
 
 .card-link {
-    display: block;
-    text-align: center;
-    font-size: 10px;
-    font-weight: bold;
-    color: #c2adff;
-    background: #292044;
-    padding: 10px 4px;
-    border-radius: 7px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    padding:11px 5px;
+    border-radius:9px;
+    background:var(--soft);
+    color:var(--accent);
+    font-size:10px;
+    font-weight:800;
+    border:1px solid color-mix(in srgb,var(--accent) 20%,transparent);
 }
 
-@media(min-width: 650px) {
+.featured {
+    border-width:1.5px;
+    box-shadow:0 8px 28px rgba(128,87,245,.10);
+}
+
+.featured .card-link {
+    background:linear-gradient(100deg,#8057f5,#3985ff);
+    border:0;
+    color:white;
+}
+
+.package-card:nth-child(1) {
+    --accent:#65d6a5;
+    --soft:rgba(101,214,165,.11);
+}
+
+.package-card:nth-child(2) {
+    --accent:#58b9ff;
+    --soft:rgba(88,185,255,.11);
+}
+
+.package-card:nth-child(3) {
+    --accent:#b28aff;
+    --soft:rgba(178,138,255,.12);
+}
+
+.package-card:nth-child(4) {
+    --accent:#4bd7d0;
+    --soft:rgba(75,215,208,.11);
+}
+
+.package-card:nth-child(5) {
+    --accent:#f0b66d;
+    --soft:rgba(240,182,109,.11);
+}
+
+.package-card:nth-child(6) {
+    --accent:#7f9fff;
+    --soft:rgba(127,159,255,.12);
+}
+
+.package-card:nth-child(7) {
+    --accent:#ff9b76;
+    --soft:rgba(255,155,118,.11);
+}
+
+.package-card:nth-child(8) {
+    --accent:#c49aff;
+    --soft:rgba(196,154,255,.12);
+}
+
+.package-card:nth-child(9) {
+    --accent:#f4a4d4;
+    --soft:rgba(244,164,212,.11);
+}
+
+.package-card:nth-child(10) {
+    --accent:#e6cb72;
+    --soft:rgba(230,203,114,.11);
+}
+
+.package-card:nth-child(11) {
+    --accent:#8dd6ff;
+    --soft:rgba(141,214,255,.11);
+}
+
+@media(min-width:650px) {
+    .container {
+        padding-top:38px;
+    }
+
     .packages {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 15px;
+        grid-template-columns:repeat(3,minmax(0,1fr));
+        gap:16px;
     }
 
     .package-card {
-        padding: 17px;
+        padding:18px;
     }
 
     .package-card h3 {
-        font-size: 15px;
+        font-size:14px;
+        min-height:40px;
     }
 
-    .amount,
+    .amount {
+        font-size:23px;
+    }
+
     .earnings {
-        font-size: 20px;
+        font-size:21px;
+    }
+}
+
+@media(max-width:350px) {
+    .packages {
+        gap:9px;
+    }
+
+    .package-card {
+        padding:11px 9px;
+    }
+
+    .package-card h3 {
+        font-size:12px;
+    }
+
+    .amount {
+        font-size:17px;
+    }
+
+    .earnings {
+        font-size:16px;
     }
 }
 </style></head><body><header>
-    <a class="logo" href="dashboard.html" style="color:inherit;text-decoration:none;">
+    <a class="logo" href="dashboard.html">
         <img src="fundora-logo.png" alt="Fundora">
         <span>Fundora</span>
     </a>
@@ -253,8 +410,11 @@ header {
 </section>
 
 <div class="notice">
-    <strong>Important earnings information</strong><br>
-    The figures displayed are potential earnings calculated at 3 times the package amount. Actual earnings depend on the applicable affiliate programme terms and qualifying activity. Earnings are not guaranteed.
+    <div class="notice-icon">ⓘ</div>
+    <div>
+        <strong>Important earnings information</strong>
+        The figures displayed are potential earnings calculated at 3 times the package amount. Actual earnings depend on the applicable affiliate programme terms and qualifying activity. Earnings are not guaranteed.
+    </div>
 </div>
 
 <div class="section-heading">
