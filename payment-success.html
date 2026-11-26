@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Confirmation | Fundora</title><style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #080b18;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 17px;
+    border-bottom: 1px solid #20253b;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+header img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.container {
+    width: 100%;
+    max-width: 450px;
+    margin: auto;
+    padding: 25px 18px;
+    text-align: center;
+}
+
+.status-icon {
+    width: 85px;
+    height: 85px;
+    margin: 0 auto 22px;
+    border-radius: 50%;
+    background: #292044;
+    border: 1px solid #55418f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+}
+
+h1 {
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+
+.description {
+    color: #9da5bd;
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.details {
+    background: #12172a;
+    border: 1px solid #292e45;
+    border-radius: 15px;
+    padding: 18px;
+    text-align: left;
+    margin-bottom: 22px;
+}
+
+.details h2 {
+    font-size: 15px;
+    margin-bottom: 14px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #252b40;
+    font-size: 12px;
+}
+
+.row:last-child {
+    border-bottom: none;
+}
+
+.row span:first-child {
+    color: #9299b1;
+}
+
+.row span:last-child {
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border-radius: 11px;
+    background: linear-gradient(100deg,#743bff,#287cff);
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.note {
+    color: #858ca7;
+    font-size: 11px;
+    line-height: 1.6;
+    margin-top: 15px;
+}
+</style></head><body><header>
+    <img src="fundora-logo.png" alt="Fundora">
+    <span>Fundora</span>
+</header><main class="container"><div class="status-icon" id="statusIcon">⏳</div>
+
+<h1 id="statusTitle">Verifying Your Payment</h1>
+
+<p class="description" id="statusDescription">
+    Please wait while Fundora securely verifies your transaction.
+    Your package will be activated after successful verification.
+</p>
+
+<section class="details">
+    <h2>Transaction Details</h2>
+
+    <div class="row">
+        <span>Amount</span>
+        <span id="paymentAmount">Checking...</span>
+    </div>
+
+    <div class="row">
+        <span>Reference</span>
+        <span id="paymentReference">Checking...</span>
+    </div>
+
+    <div class="row">
+        <span>Status</span>
+        <span id="paymentStatus">Pending verification</span>
+    </div>
+</section>
+
+<a href="dashboard.html" class="button">
+    Return to Dashboard
+</a>
+
+<p class="note">
+    Do not make another payment while your transaction is being verified.
+</p>
+
+</main><script>
+const params = new URLSearchParams(window.location.search);
+const reference = params.get("reference");
+const amount = params.get("amount");
+
+document.getElementById("paymentReference").textContent =
+    reference || "Not available";
+
+document.getElementById("paymentAmount").textContent =
+    amount ? "₦" + Number(amount).toLocaleString("en-NG") : "Awaiting verification";
+</script></body>
+</html>
