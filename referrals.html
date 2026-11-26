@@ -1,27 +1,33 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Referrals | Fundora</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
+<meta name="theme-color" content="#080b18">
+<title>Fundora | Referrals</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
 :root {
     --bg:#080b18;
-    --card:#11172a;
+    --card:#11182c;
     --purple:#8057f5;
     --blue:#3985ff;
     --text:#f5f6ff;
     --muted:#929bb5;
     --border:rgba(255,255,255,.08);
+    --green:#5ce0b0;
 }
 
 * {
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
 }
 
 body {
-    background:var(--bg);
+    background:radial-gradient(ellipse at 75% -10%,#202052 0,transparent 36%),var(--bg);
     color:var(--text);
     font-family:'DM Sans',sans-serif;
     min-height:100vh;
@@ -29,13 +35,13 @@ body {
 }
 
 header {
-    height:68px;
+    height:65px;
     padding:0 5%;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    background:#0b1020;
     border-bottom:1px solid var(--border);
+    background:#0b1020;
 }
 
 .brand {
@@ -44,6 +50,8 @@ header {
     gap:9px;
     font-size:20px;
     font-weight:800;
+    color:white;
+    text-decoration:none;
 }
 
 .brand img {
@@ -53,7 +61,7 @@ header {
 }
 
 .header-link {
-    color:#b49cff;
+    color:#c6b5ff;
     text-decoration:none;
     font-size:12px;
 }
@@ -64,110 +72,109 @@ main {
 }
 
 .heading {
-    margin-bottom:23px;
+    margin-bottom:22px;
 }
 
 .heading h1 {
-    font-size:25px;
-    margin-bottom:7px;
+    font-size:24px;
+    margin-bottom:6px;
 }
 
 .heading p {
-    font-size:13px;
+    font-size:12px;
     color:var(--muted);
     line-height:1.6;
 }
 
 .hero {
     background:linear-gradient(120deg,#38216f,#244b9d 65%,#176b8c);
-    border-radius:19px;
-    padding:25px 21px;
-    margin-bottom:20px;
-    position:relative;
-    overflow:hidden;
+    border-radius:18px;
+    padding:23px;
+    margin-bottom:17px;
 }
 
 .hero-icon {
-    font-size:29px;
-    margin-bottom:15px;
+    font-size:28px;
+    margin-bottom:12px;
 }
 
 .hero h2 {
     font-size:21px;
-    margin-bottom:9px;
+    margin-bottom:8px;
 }
 
 .hero p {
     color:#e0e2ff;
     font-size:12px;
     line-height:1.7;
-    max-width:390px;
 }
 
 .stats {
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:12px;
-    margin-bottom:25px;
+    gap:11px;
+    margin-bottom:20px;
 }
 
-.stat-card {
+.stat {
     background:var(--card);
     border:1px solid var(--border);
-    border-radius:14px;
-    padding:17px;
+    border-radius:13px;
+    padding:16px;
 }
 
-.stat-card span {
-    color:var(--muted);
+.stat span {
+    display:block;
     font-size:11px;
+    color:var(--muted);
 }
 
-.stat-card h2 {
-    font-size:23px;
-    margin-top:9px;
+.stat strong {
+    display:block;
+    font-size:22px;
+    margin-top:8px;
 }
 
 .panel {
     background:var(--card);
     border:1px solid var(--border);
-    border-radius:16px;
+    border-radius:15px;
     padding:19px;
-    margin-bottom:18px;
+    margin-bottom:16px;
 }
 
 .panel h2 {
-    font-size:16px;
+    font-size:15px;
     margin-bottom:8px;
 }
 
-.panel-description {
+.description {
     color:var(--muted);
     font-size:11px;
-    line-height:1.6;
-    margin-bottom:16px;
+    line-height:1.7;
+    margin-bottom:15px;
 }
 
 .referral-box {
     background:#080e20;
     border:1px solid #292e45;
     border-radius:11px;
-    padding:13px;
+    padding:14px;
     margin-bottom:12px;
 }
 
 .referral-box small {
+    display:block;
     color:var(--muted);
     font-size:10px;
-    display:block;
     margin-bottom:9px;
 }
 
 .referral-link {
-    font-size:12px;
     color:#c7b5ff;
+    font-size:12px;
+    line-height:1.7;
     overflow-wrap:anywhere;
-    line-height:1.6;
 }
 
 .buttons {
@@ -176,83 +183,112 @@ main {
     gap:10px;
 }
 
-.btn {
+button {
     border:0;
     border-radius:9px;
-    padding:12px 9px;
+    padding:13px 10px;
     font-family:inherit;
     font-size:11px;
     font-weight:700;
     cursor:pointer;
 }
 
-.btn-primary {
+.primary {
     color:white;
     background:linear-gradient(100deg,var(--purple),var(--blue));
 }
 
-.btn-secondary {
+.secondary {
     color:#c9baff;
     background:#292044;
     border:1px solid #493875;
 }
 
-.reward-card {
-    display:flex;
-    align-items:center;
-    gap:14px;
-    background:#17182f;
-    border:1px solid rgba(128,87,245,.2);
+.locked {
+    background:#171f35;
+    border:1px solid var(--border);
     border-radius:12px;
-    padding:15px;
-    margin-top:14px;
-}
-
-.reward-icon {
-    width:44px;
-    height:44px;
-    border-radius:12px;
-    display:grid;
-    place-items:center;
-    background:#302251;
-    font-size:22px;
-    flex-shrink:0;
-}
-
-.reward-card h3 {
-    font-size:14px;
-    margin-bottom:5px;
-}
-
-.reward-card p {
+    padding:17px;
     color:var(--muted);
-    font-size:11px;
-    line-height:1.5;
+    font-size:12px;
+    line-height:1.7;
 }
 
-.rules {
+.locked strong {
+    display:block;
+    color:white;
+    margin-bottom:7px;
+}
+
+.notice {
+    display:none;
+    padding:12px;
+    margin-bottom:14px;
+    border-radius:10px;
+    font-size:11px;
+    line-height:1.6;
+    background:#172b35;
+    border:1px solid #28604e;
+    color:#b6f5d9;
+}
+
+.notice.show {
+    display:block;
+}
+
+.history-row {
     display:flex;
-    flex-direction:column;
-    gap:15px;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    padding:13px 0;
+    border-bottom:1px solid var(--border);
+    font-size:12px;
+}
+
+.history-row:last-child {
+    border-bottom:0;
+}
+
+.history-row small {
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-top:5px;
+}
+
+.badge {
+    background:#282044;
+    color:#c9baff;
+    padding:6px 9px;
+    border-radius:20px;
+    font-size:10px;
+}
+
+.empty {
+    text-align:center;
+    color:var(--muted);
+    padding:23px 10px;
+    font-size:12px;
+    line-height:1.7;
 }
 
 .rule {
     display:flex;
-    align-items:flex-start;
     gap:12px;
+    margin-top:16px;
 }
 
 .rule-number {
     width:27px;
     height:27px;
+    flex-shrink:0;
+    display:grid;
+    place-items:center;
     border-radius:50%;
     background:#292044;
     color:#c4adff;
-    display:grid;
-    place-items:center;
     font-size:11px;
-    font-weight:700;
-    flex-shrink:0;
 }
 
 .rule h3 {
@@ -261,34 +297,9 @@ main {
 }
 
 .rule p {
-    font-size:11px;
     color:var(--muted);
+    font-size:11px;
     line-height:1.6;
-}
-
-.notice {
-    color:#c8c1e8;
-    background:rgba(128,87,245,.09);
-    border:1px solid rgba(128,87,245,.2);
-    border-radius:11px;
-    padding:13px;
-    font-size:11px;
-    line-height:1.7;
-    margin-bottom:18px;
-}
-
-.history-empty {
-    text-align:center;
-    padding:28px 10px;
-    color:var(--muted);
-    font-size:12px;
-    line-height:1.7;
-}
-
-.history-empty span {
-    display:block;
-    font-size:28px;
-    margin-bottom:10px;
 }
 
 .bottom-nav {
@@ -296,7 +307,7 @@ main {
     bottom:0;
     left:0;
     right:0;
-    height:70px;
+    height:67px;
     background:#101629;
     border-top:1px solid var(--border);
     display:flex;
@@ -306,8 +317,8 @@ main {
 }
 
 .bottom-nav a {
-    color:var(--muted);
     text-decoration:none;
+    color:var(--muted);
     text-align:center;
     font-size:10px;
 }
@@ -327,172 +338,390 @@ main {
         width:91%;
     }
 
-    .heading h1 {
-        font-size:22px;
-    }
-
     .panel {
         padding:15px;
     }
 }
-</style></head><body><header>
-    <div class="brand">
+</style>
+</head>
+
+<body>
+
+<header>
+    <a class="brand" href="dashboard.html">
         <img src="fundora-logo.png" alt="Fundora">
-        <span>Fundora</span>
-    </div>
-    <a href="dashboard.html" class="header-link">Dashboard</a>
-</header><main><section class="heading">
+        Fundora
+    </a>
+
+    <a class="header-link" href="dashboard.html">Dashboard</a>
+</header>
+
+<main>
+
+<section class="heading">
     <h1>Refer & Earn</h1>
-    <p>Invite people to Fundora and track your successful referrals.</p>
+    <p>Invite people to Fundora and earn rewards from qualifying referrals.</p>
 </section>
+
+<div id="notice" class="notice"></div>
 
 <section class="hero">
     <div class="hero-icon">🎁</div>
     <h2>Earn ₦500 per successful referral</h2>
-    <p>Share your referral link. When someone joins through your link and successfully purchases an eligible package, your referral reward can be recorded.</p>
+    <p>Share your personal referral link. When someone joins through your link and completes a qualifying package purchase, the referral can be recorded.</p>
 </section>
 
 <section class="stats">
-    <div class="stat-card">
+
+    <div class="stat">
         <span>Total Referrals</span>
-        <h2 id="totalReferrals">0</h2>
+        <strong id="totalReferrals">—</strong>
     </div>
 
-    <div class="stat-card">
+    <div class="stat">
         <span>Successful Referrals</span>
-        <h2 id="successfulReferrals">0</h2>
+        <strong id="successfulReferrals">—</strong>
     </div>
 
-    <div class="stat-card">
+    <div class="stat">
         <span>Pending Referrals</span>
-        <h2 id="pendingReferrals">0</h2>
+        <strong id="pendingReferrals">—</strong>
     </div>
 
-    <div class="stat-card">
-        <span>Recorded Bonuses</span>
-        <h2>₦0</h2>
+    <div class="stat">
+        <span>Potential Referral Rewards</span>
+        <strong id="referralRewards">—</strong>
     </div>
+
 </section>
 
 <section class="panel">
-    <h2>Your Referral Link</h2>
-    <p class="panel-description">
-        Your personal invitation link will be generated after your account is connected and referral eligibility is confirmed.
+
+    <h2>Your Personal Referral Link</h2>
+
+    <p class="description">
+        Share this link with friends, customers and other people.
+    </p>
+
+    <div id="lockedBox" class="locked">
+        <strong>🔒 Referral access locked</strong>
+        Purchase your first eligible package to unlock your personal referral link.
+    </div>
+
+    <div id="activeBox" hidden>
+
+        <div class="referral-box">
+            <small>YOUR PERSONAL LINK</small>
+            <div class="referral-link" id="referralLink"></div>
+        </div>
+
+        <div class="buttons">
+            <button class="primary" id="copyButton">
+                Copy Link
+            </button>
+
+            <button class="secondary" id="shareButton">
+                Share on WhatsApp
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="panel">
+
+    <h2>Referral Reward</h2>
+
+    <p class="description">
+        Your referral reward is subject to a qualifying package purchase and successful payment verification.
     </p>
 
     <div class="referral-box">
-        <small>Personal referral link</small>
-        <div class="referral-link" id="referralLink">
-            Available after account activation
+        <small>REWARD PER QUALIFIED REFERRAL</small>
+        <div style="font-size:23px;font-weight:800;color:#c7b5ff">
+            ₦500
         </div>
     </div>
 
-    <div class="buttons">
-        <button class="btn btn-primary" id="copyButton" type="button">
-            Copy Link
-        </button>
-
-        <button class="btn btn-secondary" id="shareButton" type="button">
-            Share Link
-        </button>
-    </div>
 </section>
 
 <section class="panel">
-    <h2>Referral Reward</h2>
-    <p class="panel-description">
-        The referral reward is subject to successful purchase verification and the applicable referral terms.
-    </p>
 
-    <div class="reward-card">
-        <div class="reward-icon">💰</div>
-        <div>
-            <h3>₦500 Reward</h3>
-            <p>For each eligible referral whose package purchase is successfully verified.</p>
-        </div>
-    </div>
-</section>
-
-<section class="panel">
     <h2>How It Works</h2>
-    <p class="panel-description">Follow these steps to participate in the referral programme.</p>
 
-    <div class="rules">
-        <div class="rule">
-            <div class="rule-number">1</div>
-            <div>
-                <h3>Activate Your Account</h3>
-                <p>Purchase your first eligible package to unlock referral access.</p>
-            </div>
-        </div>
-
-        <div class="rule">
-            <div class="rule-number">2</div>
-            <div>
-                <h3>Share Your Link</h3>
-                <p>Invite friends and other people using your personal referral link.</p>
-            </div>
-        </div>
-
-        <div class="rule">
-            <div class="rule-number">3</div>
-            <div>
-                <h3>They Purchase a Package</h3>
-                <p>The referred person's eligible package purchase must be successfully verified.</p>
-            </div>
-        </div>
-
-        <div class="rule">
-            <div class="rule-number">4</div>
-            <div>
-                <h3>Referral Is Recorded</h3>
-                <p>Your eligible ₦500 reward is recorded after verification, subject to the programme terms.</p>
-            </div>
+    <div class="rule">
+        <div class="rule-number">1</div>
+        <div>
+            <h3>Purchase a Package</h3>
+            <p>Complete your first eligible package purchase.</p>
         </div>
     </div>
-</section>
 
-<div class="notice">
-    <strong>Demo notice:</strong> Referral statistics, links and bonuses are not live yet. They will become active after account authentication and secure backend integration. No referral reward is currently being credited.
-</div>
+    <div class="rule">
+        <div class="rule-number">2</div>
+        <div>
+            <h3>Get Your Referral Link</h3>
+            <p>Your personal referral link becomes available.</p>
+        </div>
+    </div>
+
+    <div class="rule">
+        <div class="rule-number">3</div>
+        <div>
+            <h3>Invite People</h3>
+            <p>Share your link with people you want to invite.</p>
+        </div>
+    </div>
+
+    <div class="rule">
+        <div class="rule-number">4</div>
+        <div>
+            <h3>Earn Referral Rewards</h3>
+            <p>Qualifying referrals are recorded after their package payment is verified.</p>
+        </div>
+    </div>
+
+</section>
 
 <section class="panel">
+
     <h2>Referral History</h2>
-    <div class="history-empty">
-        <span>👥</span>
-        No referral records yet.<br>
-        Your referral activity will appear here.
+
+    <div id="referralHistory">
+        <div class="empty">Loading referral records...</div>
     </div>
+
 </section>
 
-</main><nav class="bottom-nav">
+</main>
+
+<nav class="bottom-nav">
+
     <a href="dashboard.html">
         <span>⌂</span>Home
-    </a><a href="packages.html">
-    <span>▦</span>Packages
-</a>
+    </a>
 
-<a href="investments.html">
-    <span>◈</span>Investments
-</a>
+    <a href="packages.html">
+        <span>▦</span>Packages
+    </a>
 
-<a href="transactions.html">
-    <span>▤</span>History
-</a>
+    <a href="transactions.html">
+        <span>▤</span>History
+    </a>
 
-<a href="referrals.html" class="active">
-    <span>♧</span>Referrals
-</a>
+    <a href="referrals.html" class="active">
+        <span>♧</span>Referrals
+    </a>
 
-</nav><script>
-document.getElementById("copyButton").addEventListener("click", function() {
-    alert("Your personal referral link will be available after account activation.");
+</nav>
+
+<script type="module">
+
+import { supabase } from "./supabase.js";
+
+const el = id => document.getElementById(id);
+
+const money = value => new Intl.NumberFormat("en-NG", {
+    style:"currency",
+    currency:"NGN",
+    maximumFractionDigits:0
+}).format(Number(value || 0));
+
+let personalLink = "";
+
+function showNotice(message) {
+    el("notice").textContent = message;
+    el("notice").classList.add("show");
+}
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+    })[char]);
+}
+
+async function loadReferrals() {
+
+    const { data: sessionData, error: sessionError } =
+        await supabase.auth.getSession();
+
+    if (sessionError) throw sessionError;
+
+    const user = sessionData.session?.user;
+
+    if (!user) {
+        window.location.replace("login.html");
+        return;
+    }
+
+    const [profileResult, purchasesResult, referralsResult] =
+        await Promise.all([
+
+            supabase.from("profiles")
+                .select("full_name, referral_code")
+                .eq("id", user.id)
+                .maybeSingle(),
+
+            supabase.from("package_purchases")
+                .select("id")
+                .eq("user_id", user.id)
+                .eq("payment_status", "successful")
+                .limit(1),
+
+            supabase.from("referrals")
+                .select("id, status, created_at")
+                .eq("referrer_user_id", user.id)
+                .order("created_at", {ascending:false})
+
+        ]);
+
+    if (profileResult.error) throw profileResult.error;
+    if (purchasesResult.error) throw purchasesResult.error;
+    if (referralsResult.error) throw referralsResult.error;
+
+    const profile = profileResult.data;
+    const purchases = purchasesResult.data || [];
+    const referrals = referralsResult.data || [];
+
+    if (!profile) {
+        showNotice("Your profile could not be found. Please contact support.");
+        return;
+    }
+
+    if (purchases.length === 0) {
+
+        el("lockedBox").hidden = false;
+        el("activeBox").hidden = true;
+
+    } else {
+
+        el("lockedBox").hidden = true;
+        el("activeBox").hidden = false;
+
+        let code = profile.referral_code;
+
+        if (!code) {
+            code = "F" + user.id.replaceAll("-", "").slice(0,10).toUpperCase();
+
+            const { error: updateError } = await supabase
+                .from("profiles")
+                .update({referral_code:code})
+                .eq("id", user.id);
+
+            if (updateError) {
+                throw updateError;
+            }
+        }
+
+        personalLink =
+            window.location.origin +
+            "/register.html?ref=" +
+            encodeURIComponent(code);
+
+        el("referralLink").textContent = personalLink;
+    }
+
+    const successful = referrals.filter(item =>
+        ["qualified","successful","completed"].includes(
+            String(item.status || "").toLowerCase()
+        )
+    ).length;
+
+    const pending = referrals.length - successful;
+
+    el("totalReferrals").textContent = referrals.length;
+    el("successfulReferrals").textContent = successful;
+    el("pendingReferrals").textContent = pending;
+    el("referralRewards").textContent = money(successful * 500);
+
+    const history = el("referralHistory");
+
+    if (!referrals.length) {
+
+        history.innerHTML = `
+            <div class="empty">
+                👥<br><br>
+                No referrals yet.<br>
+                Share your personal link to get started.
+            </div>
+        `;
+
+    } else {
+
+        history.innerHTML = referrals.map(item => {
+
+            const status = String(item.status || "pending");
+
+            const date = item.created_at
+                ? new Date(item.created_at).toLocaleDateString(
+                    "en-NG",
+                    {day:"numeric",month:"short",year:"numeric"}
+                )
+                : "Date unavailable";
+
+            return `
+                <div class="history-row">
+                    <div>
+                        <strong>Referral</strong>
+                        <small>${escapeHTML(date)}</small>
+                    </div>
+                    <span class="badge">${escapeHTML(status)}</span>
+                </div>
+            `;
+
+        }).join("");
+    }
+}
+
+el("copyButton").addEventListener("click", async () => {
+
+    if (!personalLink) return;
+
+    try {
+        await navigator.clipboard.writeText(personalLink);
+        showNotice("Your referral link has been copied!");
+    } catch {
+        showNotice("Unable to copy automatically. Please select and copy the link.");
+    }
+
 });
 
-document.getElementById("shareButton").addEventListener("click", function() {
-    alert("Referral sharing will be available after your personal link is generated.");
+el("shareButton").addEventListener("click", () => {
+
+    if (!personalLink) return;
+
+    const message =
+        "Join me on Fundora using my referral link: " + personalLink;
+
+    window.open(
+        "https://wa.me/?text=" + encodeURIComponent(message),
+        "_blank"
+    );
+
 });
+
+loadReferrals().catch(error => {
+
+    console.error("Referral loading error:", error);
+
+    showNotice(
+        "Could not load your referral information: " +
+        (error.message || "Please refresh the page.")
+    );
+
+    el("referralHistory").innerHTML =
+        '<div class="empty">Unable to load referral history.</div>';
+
+});
+
 </script>
-    <script src="shared-nav.js"></script>
+
+<script src="shared-nav.js"></script>
+
 </body>
 </html>
