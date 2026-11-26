@@ -1,0 +1,464 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transaction History | Fundora</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
+:root {
+    --bg:#080b18;
+    --card:#11172a;
+    --purple:#8057f5;
+    --blue:#3985ff;
+    --text:#f5f6ff;
+    --muted:#929bb5;
+    --border:rgba(255,255,255,.08);
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body {
+    background:var(--bg);
+    color:var(--text);
+    font-family:'DM Sans',sans-serif;
+    min-height:100vh;
+    padding-bottom:90px;
+}
+
+header {
+    height:70px;
+    padding:0 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#0b1020;
+    border-bottom:1px solid var(--border);
+}
+
+.brand {
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:20px;
+    font-weight:800;
+}
+
+.brand img {
+    width:36px;
+    height:36px;
+    object-fit:contain;
+}
+
+.header-link {
+    color:#b49cff;
+    text-decoration:none;
+    font-size:13px;
+}
+
+main {
+    width:min(850px,92%);
+    margin:30px auto;
+}
+
+.heading {
+    margin-bottom:25px;
+}
+
+.heading h1 {
+    font-size:25px;
+    margin-bottom:7px;
+}
+
+.heading p {
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.6;
+}
+
+.summary {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin-bottom:28px;
+}
+
+.summary-card {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:18px;
+}
+
+.summary-card span {
+    color:var(--muted);
+    font-size:12px;
+}
+
+.summary-card h2 {
+    font-size:23px;
+    margin-top:9px;
+}
+
+.section-title {
+    font-size:17px;
+    margin-bottom:15px;
+}
+
+.filters {
+    display:flex;
+    gap:9px;
+    overflow-x:auto;
+    padding-bottom:12px;
+    margin-bottom:15px;
+    scrollbar-width:none;
+}
+
+.filters::-webkit-scrollbar {
+    display:none;
+}
+
+.filter-btn {
+    flex-shrink:0;
+    border:1px solid #292e45;
+    background:#11172a;
+    color:var(--muted);
+    padding:9px 15px;
+    border-radius:22px;
+    font-size:11px;
+    font-family:inherit;
+    cursor:pointer;
+}
+
+.filter-btn.active {
+    background:linear-gradient(100deg,var(--purple),var(--blue));
+    border-color:transparent;
+    color:white;
+    font-weight:700;
+}
+
+.transaction-list {
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.transaction-card {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.transaction-left {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-width:0;
+}
+
+.transaction-icon {
+    width:43px;
+    height:43px;
+    border-radius:12px;
+    background:#292044;
+    display:grid;
+    place-items:center;
+    font-size:20px;
+    flex-shrink:0;
+}
+
+.transaction-info {
+    min-width:0;
+}
+
+.transaction-info h3 {
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.transaction-info p {
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.5;
+    overflow-wrap:anywhere;
+}
+
+.transaction-right {
+    text-align:right;
+    flex-shrink:0;
+}
+
+.amount {
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:6px;
+}
+
+.status {
+    display:inline-block;
+    padding:5px 8px;
+    border-radius:20px;
+    font-size:9px;
+    font-weight:700;
+}
+
+.success {
+    color:#63dfa2;
+    background:rgba(53,190,125,.12);
+}
+
+.pending {
+    color:#f3c56b;
+    background:rgba(243,197,107,.12);
+}
+
+.failed {
+    color:#ff8585;
+    background:rgba(255,100,100,.12);
+}
+
+.empty {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:45px 20px;
+    text-align:center;
+}
+
+.empty-icon {
+    width:70px;
+    height:70px;
+    margin:0 auto 18px;
+    border-radius:20px;
+    background:#292044;
+    display:grid;
+    place-items:center;
+    font-size:32px;
+}
+
+.empty h2 {
+    font-size:17px;
+    margin-bottom:9px;
+}
+
+.empty p {
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.7;
+    max-width:310px;
+    margin:auto;
+}
+
+.bottom-nav {
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:70px;
+    background:#101629;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:10;
+}
+
+.bottom-nav a {
+    color:var(--muted);
+    text-decoration:none;
+    text-align:center;
+    font-size:10px;
+}
+
+.bottom-nav a span {
+    display:block;
+    font-size:19px;
+    margin-bottom:4px;
+}
+
+.bottom-nav a.active {
+    color:#b49cff;
+}
+
+@media(max-width:400px) {
+    main {
+        width:91%;
+        margin:24px auto;
+    }
+
+    .heading h1 {
+        font-size:22px;
+    }
+
+    .summary-card {
+        padding:14px;
+    }
+
+    .summary-card h2 {
+        font-size:20px;
+    }
+
+    .transaction-card {
+        padding:13px 11px;
+    }
+}
+</style></head><body><header>
+    <div class="brand">
+        <img src="fundora-logo.png" alt="Fundora">
+        <span>Fundora</span>
+    </div>
+    <a href="dashboard.html" class="header-link">Dashboard</a>
+</header><main><section class="heading">
+    <h1>Transaction History</h1>
+    <p>View and track your account transactions.</p>
+</section>
+
+<section class="summary">
+    <div class="summary-card">
+        <span>Total Transactions</span>
+        <h2 id="totalCount">0</h2>
+    </div>
+
+    <div class="summary-card">
+        <span>Successful Transactions</span>
+        <h2 id="successCount">0</h2>
+    </div>
+</section>
+
+<h2 class="section-title">All Transactions</h2>
+
+<div class="filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="purchase">Purchases</button>
+    <button class="filter-btn" data-filter="topup">Top Ups</button>
+    <button class="filter-btn" data-filter="withdrawal">Withdrawals</button>
+    <button class="filter-btn" data-filter="referral">Referral Bonuses</button>
+</div>
+
+<section class="transaction-list" id="transactionList">
+
+    <div class="empty">
+        <div class="empty-icon">🧾</div>
+        <h2>No Transactions Yet</h2>
+        <p>Your purchases, top-ups, withdrawals and other account transactions will appear here.</p>
+    </div>
+
+</section>
+
+</main><nav class="bottom-nav">
+    <a href="dashboard.html">
+        <span>⌂</span>Home
+    </a><a href="packages.html">
+    <span>▦</span>Packages
+</a>
+
+<a href="investments.html">
+    <span>◈</span>Investments
+</a>
+
+<a href="transactions.html" class="active">
+    <span>▤</span>History
+</a>
+
+</nav><script>
+/*
+Transactions will be loaded from the secure backend later.
+No sample financial records are displayed.
+*/
+
+const transactions = [];
+
+const filterButtons = document.querySelectorAll(".filter-btn");
+const transactionList = document.getElementById("transactionList");
+
+document.getElementById("totalCount").textContent = transactions.length;
+
+document.getElementById("successCount").textContent =
+    transactions.filter(item => item.status === "success").length;
+
+function displayTransactions(filter = "all") {
+
+    const filtered = filter === "all"
+        ? transactions
+        : transactions.filter(item => item.type === filter);
+
+    if (filtered.length === 0) {
+
+        const messages = {
+            all: ["No Transactions Yet", "Your purchases, top-ups, withdrawals and other account transactions will appear here."],
+            purchase: ["No Purchases Yet", "Your verified package purchases will appear here."],
+            topup: ["No Top Ups Yet", "Your verified account top-ups will appear here."],
+            withdrawal: ["No Withdrawals Yet", "Your withdrawal records will appear here."],
+            referral: ["No Referral Bonuses Yet", "Your verified referral bonus records will appear here."]
+        };
+
+        const message = messages[filter];
+
+        transactionList.innerHTML = `
+            <div class="empty">
+                <div class="empty-icon">🧾</div>
+                <h2>${message[0]}</h2>
+                <p>${message[1]}</p>
+            </div>
+        `;
+
+        return;
+    }
+
+    transactionList.innerHTML = filtered.map(item => {
+
+        const icons = {
+            purchase: "📦",
+            topup: "💳",
+            withdrawal: "🏦",
+            referral: "🎁"
+        };
+
+        const statuses = {
+            success: "Successful",
+            pending: "Pending",
+            failed: "Failed"
+        };
+
+        return `
+            <article class="transaction-card">
+                <div class="transaction-left">
+                    <div class="transaction-icon">${icons[item.type] || "🧾"}</div>
+                    <div class="transaction-info">
+                        <h3>${item.title}</h3>
+                        <p>${item.date}<br>Ref: ${item.reference}</p>
+                    </div>
+                </div>
+
+                <div class="transaction-right">
+                    <div class="amount">${item.amount}</div>
+                    <span class="status ${item.status}">
+                        ${statuses[item.status] || "Unknown"}
+                    </span>
+                </div>
+            </article>
+        `;
+    }).join("");
+}
+
+filterButtons.forEach(button => {
+    button.addEventListener("click", () => {
+
+        filterButtons.forEach(item => item.classList.remove("active"));
+
+        button.classList.add("active");
+
+        displayTransactions(button.dataset.filter);
+    });
+});
+
+displayTransactions();
+</script></body>
+</html>
