@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Packages | Fundora</title>
+<title>Investment Packages | Fundora</title>
 
 <style>
 * {
@@ -17,36 +17,36 @@ body {
     background: #080b18;
     color: #fff;
     min-height: 100vh;
-    padding-bottom: 100px;
+    padding-bottom: 85px;
 }
 
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 16px;
     border-bottom: 1px solid #20253b;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 21px;
+    gap: 9px;
+    font-size: 20px;
     font-weight: bold;
 }
 
 .logo img {
-    width: 35px;
-    height: 35px;
+    width: 34px;
+    height: 34px;
     object-fit: contain;
 }
 
 .profile {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #743bff, #258cff);
+    background: linear-gradient(135deg,#743bff,#258cff);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,140 +56,147 @@ header {
 .container {
     max-width: 850px;
     margin: auto;
-    padding: 25px 18px;
+    padding: 22px 13px;
 }
 
 .heading {
-    margin-bottom: 25px;
+    margin-bottom: 19px;
 }
 
 .heading small {
-    color: #9b83ff;
-    font-size: 12px;
+    color: #a58aff;
+    font-size: 11px;
     letter-spacing: 1px;
     text-transform: uppercase;
 }
 
 .heading h1 {
-    font-size: 27px;
-    margin: 10px 0;
+    font-size: 25px;
+    margin: 8px 0;
 }
 
 .heading p {
     color: #9299b1;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.6;
 }
 
 .notice {
     background: #171a30;
     border: 1px solid #34365a;
-    border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 25px;
-    color: #c5c8dc;
-    font-size: 13px;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 22px;
+    color: #b9bfd4;
+    font-size: 11px;
     line-height: 1.6;
 }
 
 .notice strong {
-    color: #a993ff;
+    color: #ad94ff;
 }
 
-.section-title {
-    font-size: 18px;
-    margin-bottom: 16px;
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 13px;
+}
+
+.section-heading h2 {
+    font-size: 16px;
+}
+
+.section-heading span {
+    font-size: 11px;
+    color: #858ca7;
 }
 
 .packages {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 17px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px;
 }
 
 .package-card {
-    background: linear-gradient(145deg, #171b32, #101426);
+    min-width: 0;
+    display: block;
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(145deg,#191e38,#101426);
     border: 1px solid #292e4b;
-    border-radius: 18px;
-    padding: 21px;
-    position: relative;
-    overflow: hidden;
+    border-radius: 13px;
+    padding: 13px 11px;
+    transition: border-color .2s;
 }
 
 .package-card.featured {
-    border-color: #7550e8;
+    border-color: #7653e9;
+}
+
+.package-card:active {
+    border-color: #a58aff;
+    transform: scale(.98);
 }
 
 .package-top {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 18px;
+    justify-content: space-between;
+    gap: 5px;
+    margin-bottom: 13px;
 }
 
 .package-icon {
-    width: 45px;
-    height: 45px;
-    border-radius: 13px;
-    background: linear-gradient(135deg, #743bff, #258cff);
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: linear-gradient(135deg,#743bff,#258cff);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 21px;
+    font-size: 17px;
 }
 
 .badge {
-    font-size: 10px;
-    padding: 6px 10px;
-    border-radius: 20px;
-    background: #292044;
+    font-size: 9px;
     color: #b69cff;
+    background: #292044;
+    padding: 5px 7px;
+    border-radius: 20px;
 }
 
-.package-card h2 {
-    font-size: 19px;
-    margin-bottom: 9px;
+.package-card h3 {
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.amount {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #fff;
+    overflow-wrap: anywhere;
 }
 
 .package-card p {
+    font-size: 10px;
     color: #9299b1;
-    font-size: 13px;
-    line-height: 1.7;
-    margin-bottom: 18px;
+    line-height: 1.5;
+    min-height: 30px;
+    margin-bottom: 12px;
 }
 
-.divider {
-    height: 1px;
-    background: #292e45;
-    margin-bottom: 17px;
-}
-
-.details-label {
-    color: #777f9c;
-    font-size: 12px;
-    margin-bottom: 7px;
-}
-
-.details-value {
-    color: #d9dcef;
-    font-size: 13px;
-    margin-bottom: 18px;
-}
-
-button {
-    width: 100%;
-    border: none;
-    padding: 13px;
-    border-radius: 10px;
-    background: linear-gradient(100deg, #743bff, #287cff);
-    color: white;
-    font-size: 14px;
+.card-link {
+    display: block;
+    text-align: center;
+    font-size: 10px;
     font-weight: bold;
-    cursor: pointer;
-}
-
-button:active {
-    opacity: 0.8;
+    color: #c2adff;
+    background: #292044;
+    padding: 9px 4px;
+    border-radius: 7px;
 }
 
 .bottom-nav {
@@ -201,30 +208,44 @@ button:active {
     border-top: 1px solid #292e45;
     display: flex;
     justify-content: space-around;
-    padding: 13px 5px;
+    padding: 11px 3px;
     z-index: 10;
 }
 
 .bottom-nav a {
     text-decoration: none;
     color: #858ca7;
-    font-size: 11px;
+    font-size: 10px;
     text-align: center;
+    min-width: 45px;
 }
 
 .bottom-nav a span {
     display: block;
     font-size: 19px;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
 }
 
 .bottom-nav a.active {
     color: #a98cff;
 }
 
-@media (min-width: 650px) {
+@media(min-width: 650px) {
     .packages {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+    }
+
+    .package-card {
+        padding: 18px;
+    }
+
+    .package-card h3 {
+        font-size: 16px;
+    }
+
+    .amount {
+        font-size: 22px;
     }
 }
 </style>
@@ -245,68 +266,143 @@ button:active {
     <section class="heading">
         <small>Explore opportunities</small>
         <h1>Investment Packages</h1>
-        <p>Explore the packages available on Fundora and learn more about each one.</p>
+        <p>Explore the available package levels on Fundora.</p>
     </section>
 
     <div class="notice">
-        <strong>Important notice</strong><br>
-        This is a demonstration of the Fundora packages page.
-        Package amounts, terms and investment features are not yet active.
+        <strong>Prototype notice</strong><br>
+        These are demonstration package amounts. Investment terms,
+        eligibility and financial features require verification
+        and regulatory approval before activation.
     </div>
 
-    <h3 class="section-title">Available Packages</h3>
+    <div class="section-heading">
+        <h2>Available Packages</h2>
+        <span>11 packages</span>
+    </div>
 
     <section class="packages">
 
-        <div class="package-card">
+        <a class="package-card" href="package-details.html?amount=3000">
             <div class="package-top">
                 <div class="package-icon">🌱</div>
                 <span class="badge">Starter</span>
             </div>
+            <h3>₦3,000 Package</h3>
+            <div class="amount">₦3,000</div>
+            <p>Entry-level package.</p>
+            <span class="card-link">View Details →</span>
+        </a>
 
-            <h2>Starter Package</h2>
-            <p>
-                An entry-level package designed for members
-                exploring the Fundora platform.
-            </p>
+        <a class="package-card" href="package-details.html?amount=5000">
+            <div class="package-top">
+                <div class="package-icon">🌿</div>
+                <span class="badge">Basic</span>
+            </div>
+            <h3>₦5,000 Package</h3>
+            <div class="amount">₦5,000</div>
+            <p>Explore this package level.</p>
+            <span class="card-link">View Details →</span>
+        </a>
 
-            <div class="divider"></div>
+        <a class="package-card" href="package-details.html?amount=8000">
+            <div class="package-top">
+                <div class="package-icon">⚡</div>
+                <span class="badge">Basic Plus</span>
+            </div>
+            <h3>₦8,000 Package</h3>
+            <div class="amount">₦8,000</div>
+            <p>Explore this package level.</p>
+            <span class="card-link">View Details →</span>
+        </a>
 
-            <div class="details-label">Package amount</div>
-            <div class="details-value">To be announced</div>
+        <a class="package-card" href="package-details.html?amount=10000">
+            <div class="package-top">
+                <div class="package-icon">💠</div>
+                <span class="badge">Standard</span>
+            </div>
+            <h3>₦10,000 Package</h3>
+            <div class="amount">₦10,000</div>
+            <p>Explore this package level.</p>
+            <span class="card-link">View Details →</span>
+        </a>
 
-            <div class="details-label">Package terms</div>
-            <div class="details-value">Coming soon</div>
+        <a class="package-card" href="package-details.html?amount=15000">
+            <div class="package-top">
+                <div class="package-icon">💎</div>
+                <span class="badge">Standard Plus</span>
+            </div>
+            <h3>₦15,000 Package</h3>
+            <div class="amount">₦15,000</div>
+            <p>Explore this package level.</p>
+            <span class="card-link">View Details →</span>
+        </a>
 
-            <button onclick="showDetails('Starter Package')">
-                View Details
-            </button>
-        </div>
+        <a class="package-card" href="package-details.html?amount=20000">
+            <div class="package-top">
+                <div class="package-icon">🔷</div>
+                <span class="badge">Advanced</span>
+            </div>
+            <h3>₦20,000 Package</h3>
+            <div class="amount">₦20,000</div>
+            <p>Explore this package level.</p>
+            <span class="card-link">View Details →</span>
+        </a>
 
-        <div class="package-card featured">
+        <a class="package-card" href="package-details.html?amount=30000">
             <div class="package-top">
                 <div class="package-icon">🚀</div>
                 <span class="badge">Growth</span>
             </div>
+            <h3>₦30,000 Package</h3>
+            <div class="amount">₦30,000</div>
+            <p>Explore this package level.</p>
+            <span class="card-link">View Details →</span>
+        </a>
 
-            <h2>Growth Package</h2>
-            <p>
-                A package designed for members interested
-                in exploring more opportunities on Fundora.
-            </p>
+        <a class="package-card featured" href="package-details.html?amount=50000">
+            <div class="package-top">
+                <div class="package-icon">⭐</div>
+                <span class="badge">Premium</span>
+            </div>
+            <h3>₦50,000 Package</h3>
+            <div class="amount">₦50,000</div>
+            <p>Explore this package level.</p>
+            <span class="card-link">View Details →</span>
+        </a>
 
-            <div class="divider"></div>
+        <a class="package-card" href="package-details.html?amount=60000">
+            <div class="package-top">
+                <div class="package-icon">🌟</div>
+                <span class="badge">Premium Plus</span>
+            </div>
+            <h3>₦60,000 Package</h3>
+            <div class="amount">₦60,000</div>
+            <p>Explore this package level.</p>
+            <span class="card-link">View Details →</span>
+        </a>
 
-            <div class="details-label">Package amount</div>
-            <div class="details-value">To be announced</div>
+        <a class="package-card" href="package-details.html?amount=80000">
+            <div class="package-top">
+                <div class="package-icon">👑</div>
+                <span class="badge">Elite</span>
+            </div>
+            <h3>₦80,000 Package</h3>
+            <div class="amount">₦80,000</div>
+            <p>Explore this package level.</p>
+            <span class="card-link">View Details →</span>
+        </a>
 
-            <div class="details-label">Package terms</div>
-            <div class="details-value">Coming soon</div>
-
-            <button onclick="showDetails('Growth Package')">
-                View Details
-            </button>
-        </div>
+        <a class="package-card" href="package-details.html?amount=100000">
+            <div class="package-top">
+                <div class="package-icon">🏆</div>
+                <span class="badge">Ultimate</span>
+            </div>
+            <h3>₦100,000 Package</h3>
+            <div class="amount">₦100,000</div>
+            <p>Explore this package level.</p>
+            <span class="card-link">View Details →</span>
+        </a>
 
     </section>
 
@@ -320,28 +416,7 @@ button:active {
     <a href="packages.html" class="active">
         <span>▦</span>Packages
     </a>
-
-    <a href="investments.html">
-        <span>◈</span>Investments
-    </a>
-
-    <a href="referrals.html">
-        <span>♧</span>Referrals
-    </a>
-
-    <a href="settings.html">
-        <span>⚙</span>Settings
-    </a>
 </nav>
-
-<script>
-function showDetails(packageName) {
-    alert(
-        packageName +
-        "\n\nPackage details are not available yet."
-    );
-}
-</script>
 
 </body>
 </html>
