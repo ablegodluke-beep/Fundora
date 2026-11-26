@@ -1,0 +1,492 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Withdrawals | Fundora</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
+:root {
+    --bg:#080b18;
+    --card:#11172a;
+    --purple:#8057f5;
+    --blue:#3985ff;
+    --text:#f5f6ff;
+    --muted:#929bb5;
+    --border:rgba(255,255,255,.08);
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body {
+    background:var(--bg);
+    color:var(--text);
+    font-family:'DM Sans',sans-serif;
+    min-height:100vh;
+    padding-bottom:90px;
+}
+
+header {
+    height:68px;
+    padding:0 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#0b1020;
+    border-bottom:1px solid var(--border);
+}
+
+.brand {
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:20px;
+    font-weight:800;
+}
+
+.brand img {
+    width:35px;
+    height:35px;
+    object-fit:contain;
+}
+
+.header-link {
+    color:#b49cff;
+    text-decoration:none;
+    font-size:12px;
+}
+
+main {
+    width:min(800px,92%);
+    margin:27px auto;
+}
+
+.heading {
+    margin-bottom:22px;
+}
+
+.heading h1 {
+    font-size:25px;
+    margin-bottom:7px;
+}
+
+.heading p {
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.6;
+}
+
+.balance-card {
+    background:linear-gradient(120deg,#38216f,#244b9d 65%,#176b8c);
+    border-radius:18px;
+    padding:23px;
+    margin-bottom:17px;
+}
+
+.balance-card small {
+    color:#e0e2ff;
+    font-size:12px;
+}
+
+.balance {
+    font-size:32px;
+    font-weight:800;
+    margin:10px 0 18px;
+}
+
+.balance-stats {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.balance-stat {
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:11px;
+    padding:12px;
+}
+
+.balance-stat span {
+    display:block;
+    color:#e0e2ff;
+    font-size:10px;
+    margin-bottom:7px;
+}
+
+.balance-stat strong {
+    font-size:16px;
+}
+
+.notice {
+    background:rgba(128,87,245,.09);
+    border:1px solid rgba(128,87,245,.2);
+    color:#d1c6ff;
+    border-radius:11px;
+    padding:13px;
+    font-size:11px;
+    line-height:1.7;
+    margin-bottom:20px;
+}
+
+.section-label {
+    color:var(--muted);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1px;
+    margin:25px 0 11px;
+    text-transform:uppercase;
+}
+
+.panel {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:19px;
+    margin-bottom:16px;
+}
+
+.panel h2 {
+    font-size:16px;
+    margin-bottom:7px;
+}
+
+.panel-description {
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.6;
+    margin-bottom:18px;
+}
+
+.field {
+    margin-bottom:15px;
+}
+
+.field label {
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    margin-bottom:7px;
+}
+
+.field input,
+.field select {
+    width:100%;
+    padding:13px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:#090e1e;
+    color:white;
+    font-family:inherit;
+    font-size:13px;
+    outline:none;
+}
+
+.field input:focus,
+.field select:focus {
+    border-color:var(--purple);
+}
+
+.field input::placeholder {
+    color:#68728e;
+}
+
+.field select option {
+    background:#11172a;
+    color:white;
+}
+
+.field-hint {
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-top:7px;
+}
+
+.primary-button {
+    width:100%;
+    border:0;
+    border-radius:10px;
+    padding:14px;
+    color:white;
+    background:linear-gradient(100deg,var(--purple),var(--blue));
+    font-family:inherit;
+    font-size:12px;
+    font-weight:700;
+    cursor:pointer;
+    margin-top:5px;
+}
+
+.history-empty {
+    text-align:center;
+    padding:28px 10px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.7;
+}
+
+.history-empty span {
+    display:block;
+    font-size:29px;
+    margin-bottom:10px;
+}
+
+.history-row {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:14px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.history-row:last-child {
+    border-bottom:0;
+}
+
+.history-row strong {
+    display:block;
+    font-size:12px;
+    margin-bottom:5px;
+}
+
+.history-row small {
+    color:var(--muted);
+    font-size:10px;
+}
+
+.status {
+    display:inline-block;
+    padding:6px 9px;
+    border-radius:20px;
+    background:rgba(255,190,70,.1);
+    color:#ffc96b;
+    font-size:10px;
+}
+
+.bottom-nav {
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:70px;
+    background:#101629;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:10;
+}
+
+.bottom-nav a {
+    color:var(--muted);
+    text-decoration:none;
+    text-align:center;
+    font-size:10px;
+}
+
+.bottom-nav a span {
+    display:block;
+    font-size:19px;
+    margin-bottom:4px;
+}
+
+.bottom-nav a.active {
+    color:#b49cff;
+}
+
+@media(max-width:400px) {
+    main {
+        width:91%;
+    }
+
+    .heading h1 {
+        font-size:22px;
+    }
+
+    .panel {
+        padding:15px;
+    }
+
+    .balance {
+        font-size:29px;
+    }
+}
+</style></head><body><header>
+    <div class="brand">
+        <img src="fundora-logo.png" alt="Fundora">
+        <span>Fundora</span>
+    </div>
+    <a href="dashboard.html" class="header-link">Dashboard</a>
+</header><main><section class="heading">
+    <h1>Withdrawals</h1>
+    <p>Request a withdrawal to your Nigerian bank account.</p>
+</section>
+
+<section class="balance-card">
+    <small>Available withdrawal balance</small>
+    <div class="balance">₦0.00</div>
+
+    <div class="balance-stats">
+        <div class="balance-stat">
+            <span>Pending withdrawals</span>
+            <strong>₦0.00</strong>
+        </div>
+
+        <div class="balance-stat">
+            <span>Total withdrawn</span>
+            <strong>₦0.00</strong>
+        </div>
+    </div>
+</section>
+
+<div class="notice">
+    <strong>Account notice:</strong> Your available balance and withdrawal eligibility will be calculated from verified account records. Demo balances shown here are not real funds.
+</div>
+
+<div class="section-label">Bank details</div>
+
+<section class="panel">
+
+    <h2>Withdrawal account</h2>
+    <p class="panel-description">
+        Enter the Nigerian bank account where you want to receive your withdrawals.
+    </p>
+
+    <form id="withdrawalForm">
+
+        <div class="field">
+            <label for="bank">Bank name</label>
+            <select id="bank" required>
+                <option value="">Select your bank</option>
+                <option>Access Bank</option>
+                <option>Citibank Nigeria</option>
+                <option>Ecobank Nigeria</option>
+                <option>Fidelity Bank</option>
+                <option>First Bank of Nigeria</option>
+                <option>First City Monument Bank (FCMB)</option>
+                <option>Globus Bank</option>
+                <option>Guaranty Trust Bank (GTBank)</option>
+                <option>Keystone Bank</option>
+                <option>Moniepoint Microfinance Bank</option>
+                <option>Opay</option>
+                <option>Palmpay</option>
+                <option>Polaris Bank</option>
+                <option>Premium Trust Bank</option>
+                <option>Providus Bank</option>
+                <option>Stanbic IBTC Bank</option>
+                <option>Standard Chartered Bank</option>
+                <option>Sterling Bank</option>
+                <option>SunTrust Bank</option>
+                <option>Union Bank</option>
+                <option>United Bank for Africa (UBA)</option>
+                <option>Unity Bank</option>
+                <option>Wema Bank</option>
+                <option>Zenith Bank</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="accountNumber">Account number</label>
+            <input
+                type="text"
+                id="accountNumber"
+                inputmode="numeric"
+                maxlength="10"
+                placeholder="Enter your 10-digit account number"
+                pattern="[0-9]{10}"
+                required
+            >
+            <small class="field-hint">Enter your correct 10-digit Nigerian bank account number.</small>
+        </div>
+
+        <div class="field">
+            <label for="accountName">Account name</label>
+            <input
+                type="text"
+                id="accountName"
+                placeholder="Enter the account holder's name"
+                required
+            >
+            <small class="field-hint">This should match the name registered with your bank.</small>
+        </div>
+
+        <div class="field">
+            <label for="amount">Withdrawal amount (₦)</label>
+            <input
+                type="number"
+                id="amount"
+                min="1"
+                step="1"
+                placeholder="Enter amount"
+                required
+            >
+        </div>
+
+        <button type="submit" class="primary-button">
+            Submit Withdrawal Request
+        </button>
+
+    </form>
+
+</section>
+
+<div class="section-label">Withdrawal history</div>
+
+<section class="panel">
+
+    <h2>Your requests</h2>
+
+    <div class="history-empty">
+        <span>🏦</span>
+        No withdrawal requests yet.<br>
+        Your withdrawal history will appear here.
+    </div>
+
+</section>
+
+<div class="notice">
+    <strong>Processing:</strong> Withdrawal requests will be securely submitted for review. Their status will show as pending, approved, or rejected. No payment is processed by this demo page.
+</div>
+
+</main><nav class="bottom-nav"><a href="dashboard.html">
+    <span>⌂</span>Home
+</a>
+
+<a href="packages.html">
+    <span>▦</span>Packages
+</a>
+
+<a href="investments.html">
+    <span>◈</span>Investments
+</a>
+
+<a href="transactions.html">
+    <span>▤</span>History
+</a>
+
+<a href="settings.html">
+    <span>⚙</span>Settings
+</a>
+
+</nav><script>
+document.getElementById("withdrawalForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const bank = document.getElementById("bank").value;
+    const accountNumber = document.getElementById("accountNumber").value.trim();
+    const accountName = document.getElementById("accountName").value.trim();
+    const amount = Number(document.getElementById("amount").value);
+
+    if (!bank || !/^[0-9]{10}$/.test(accountNumber) || !accountName || amount <= 0) {
+        alert("Please enter valid bank details and withdrawal amount.");
+        return;
+    }
+
+    alert("Withdrawal requests are not active yet. Your details have not been submitted or saved. They will become available after secure backend integration.");
+});
+</script></body>
+</html>
