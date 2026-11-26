@@ -1,0 +1,434 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top Up Wallet | Fundora</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
+:root {
+    --bg:#080b18;
+    --card:#11172a;
+    --purple:#8057f5;
+    --blue:#3985ff;
+    --text:#f5f6ff;
+    --muted:#929bb5;
+    --border:rgba(255,255,255,.08);
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body {
+    background:var(--bg);
+    color:var(--text);
+    font-family:'DM Sans',sans-serif;
+    min-height:100vh;
+    padding-bottom:90px;
+}
+
+header {
+    height:68px;
+    padding:0 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#0b1020;
+    border-bottom:1px solid var(--border);
+}
+
+.brand {
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:20px;
+    font-weight:800;
+}
+
+.brand img {
+    width:35px;
+    height:35px;
+    object-fit:contain;
+}
+
+.header-link {
+    color:#b49cff;
+    text-decoration:none;
+    font-size:12px;
+}
+
+main {
+    width:min(650px,92%);
+    margin:28px auto;
+}
+
+.heading {
+    margin-bottom:22px;
+}
+
+.heading h1 {
+    font-size:25px;
+    margin-bottom:7px;
+}
+
+.heading p {
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.6;
+}
+
+.wallet-card {
+    background:linear-gradient(120deg,#38216f,#244b9d 65%,#176b8c);
+    border-radius:18px;
+    padding:23px;
+    margin-bottom:20px;
+}
+
+.wallet-card small {
+    color:#e0e2ff;
+    font-size:12px;
+}
+
+.wallet-balance {
+    font-size:32px;
+    font-weight:800;
+    margin-top:10px;
+}
+
+.panel {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:17px;
+}
+
+.panel h2 {
+    font-size:16px;
+    margin-bottom:7px;
+}
+
+.description {
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.6;
+    margin-bottom:19px;
+}
+
+.field {
+    margin-bottom:17px;
+}
+
+.field label {
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    margin-bottom:8px;
+}
+
+.amount-input {
+    position:relative;
+}
+
+.amount-input span {
+    position:absolute;
+    left:14px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:15px;
+    font-weight:700;
+}
+
+.amount-input input {
+    width:100%;
+    padding:15px 14px 15px 36px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:#090e1e;
+    color:white;
+    font-family:inherit;
+    font-size:18px;
+    font-weight:700;
+    outline:none;
+}
+
+.amount-input input:focus {
+    border-color:var(--purple);
+}
+
+.quick-amounts {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:9px;
+    margin-top:12px;
+}
+
+.quick-amounts button {
+    padding:11px 5px;
+    border:1px solid var(--border);
+    border-radius:9px;
+    background:#0c1223;
+    color:#d8d2ff;
+    font-family:inherit;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.quick-amounts button:active {
+    border-color:var(--purple);
+    background:#21183e;
+}
+
+.payment-method {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px;
+    background:#090e1e;
+    border:1px solid var(--border);
+    border-radius:10px;
+}
+
+.payment-method strong {
+    font-size:13px;
+}
+
+.payment-method small {
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-top:5px;
+}
+
+.paystack-label {
+    color:#9e8aff;
+    font-size:12px;
+    font-weight:800;
+}
+
+.primary-button {
+    width:100%;
+    border:0;
+    border-radius:10px;
+    padding:15px;
+    color:white;
+    background:linear-gradient(100deg,var(--purple),var(--blue));
+    font-family:inherit;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+    margin-top:19px;
+}
+
+.notice {
+    background:rgba(128,87,245,.09);
+    border:1px solid rgba(128,87,245,.2);
+    color:#d1c6ff;
+    border-radius:11px;
+    padding:13px;
+    font-size:11px;
+    line-height:1.7;
+    margin-bottom:20px;
+}
+
+.section-label {
+    color:var(--muted);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1px;
+    margin:25px 0 11px;
+    text-transform:uppercase;
+}
+
+.history-empty {
+    text-align:center;
+    padding:28px 10px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.7;
+}
+
+.history-empty span {
+    display:block;
+    font-size:29px;
+    margin-bottom:10px;
+}
+
+.bottom-nav {
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:70px;
+    background:#101629;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:10;
+}
+
+.bottom-nav a {
+    color:var(--muted);
+    text-decoration:none;
+    text-align:center;
+    font-size:10px;
+}
+
+.bottom-nav a span {
+    display:block;
+    font-size:19px;
+    margin-bottom:4px;
+}
+
+.bottom-nav a.active {
+    color:#b49cff;
+}
+
+@media(max-width:400px) {
+    .heading h1 {
+        font-size:22px;
+    }
+
+    .panel {
+        padding:16px;
+    }
+
+    .wallet-balance {
+        font-size:29px;
+    }
+}
+</style></head><body><header>
+    <div class="brand">
+        <img src="fundora-logo.png" alt="Fundora">
+        <span>Fundora</span>
+    </div>
+    <a href="dashboard.html" class="header-link">Dashboard</a>
+</header><main><section class="heading">
+    <h1>Top Up Wallet</h1>
+    <p>Add money to your Fundora wallet securely.</p>
+</section>
+
+<section class="wallet-card">
+    <small>Current wallet balance</small>
+    <div class="wallet-balance">₦0.00</div>
+</section>
+
+<section class="panel">
+
+    <h2>Add money</h2>
+    <p class="description">
+        Enter the amount you want to add to your Fundora wallet.
+    </p>
+
+    <form id="topupForm">
+
+        <div class="field">
+            <label for="amount">Enter amount</label>
+
+            <div class="amount-input">
+                <span>₦</span>
+                <input
+                    type="number"
+                    id="amount"
+                    min="100"
+                    step="1"
+                    placeholder="0.00"
+                    required
+                >
+            </div>
+
+            <div class="quick-amounts">
+                <button type="button" data-amount="3000">₦3,000</button>
+                <button type="button" data-amount="5000">₦5,000</button>
+                <button type="button" data-amount="10000">₦10,000</button>
+                <button type="button" data-amount="20000">₦20,000</button>
+                <button type="button" data-amount="50000">₦50,000</button>
+                <button type="button" data-amount="100000">₦100,000</button>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Payment method</label>
+
+            <div class="payment-method">
+                <div>
+                    <strong>Paystack</strong>
+                    <small>Secure online payment</small>
+                </div>
+
+                <span class="paystack-label">PAYSTACK</span>
+            </div>
+        </div>
+
+        <button type="submit" class="primary-button">
+            Top Up Wallet
+        </button>
+
+    </form>
+
+</section>
+
+<div class="notice">
+    <strong>Secure payments:</strong> Your wallet will only be credited after Fundora's backend verifies a successful payment. A payment return page alone does not confirm payment.
+</div>
+
+<div class="section-label">Top up history</div>
+
+<section class="panel">
+
+    <h2>Recent top ups</h2>
+
+    <div class="history-empty">
+        <span>💳</span>
+        No top-up transactions yet.<br>
+        Your confirmed transactions will appear here.
+    </div>
+
+</section>
+
+</main><nav class="bottom-nav"><a href="dashboard.html">
+    <span>⌂</span>Home
+</a>
+
+<a href="packages.html">
+    <span>▦</span>Packages
+</a>
+
+<a href="investments.html">
+    <span>◈</span>Investments
+</a>
+
+<a href="transactions.html">
+    <span>▤</span>History
+</a>
+
+<a href="settings.html">
+    <span>⚙</span>Settings
+</a>
+
+</nav><script>
+const amountInput = document.getElementById("amount");
+
+document.querySelectorAll(".quick-amounts button").forEach(button => {
+    button.addEventListener("click", () => {
+        amountInput.value = button.dataset.amount;
+    });
+});
+
+document.getElementById("topupForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const amount = Number(amountInput.value);
+
+    if (!Number.isFinite(amount) || amount < 100) {
+        alert("Please enter a valid amount of at least ₦100.");
+        return;
+    }
+
+    alert("Paystack top-up is not connected yet. No payment has been initiated and your wallet has not been credited.");
+});
+</script></body>
+</html>
