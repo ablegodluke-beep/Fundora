@@ -14,7 +14,7 @@ body {
     background: #080b18;
     color: #fff;
     min-height: 100vh;
-    padding-bottom: 85px;
+    padding-bottom: 40px;
 }
 
 header {
@@ -141,8 +141,12 @@ header {
     color: white;
     font-size: 15px;
     font-weight: bold;
-    text-align: center;
     cursor: pointer;
+}
+
+.buy-button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
 }
 
 .payment-note {
@@ -153,34 +157,22 @@ header {
     line-height: 1.5;
 }
 
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #101426;
-    border-top: 1px solid #292e45;
-    display: flex;
-    justify-content: space-around;
-    padding: 11px 3px;
-}
-
-.bottom-nav a {
-    text-decoration: none;
-    color: #858ca7;
-    font-size: 10px;
+.status-message {
+    display: none;
+    padding: 13px;
+    border-radius: 10px;
+    margin-top: 15px;
+    font-size: 13px;
+    line-height: 1.5;
     text-align: center;
+    background: #251c3c;
+    color: #d8c8ff;
 }
 
-.bottom-nav a span {
+.status-message.show {
     display: block;
-    font-size: 19px;
-    margin-bottom: 4px;
 }
 
-.bottom-nav a.active {
-    color: #a98cff;
-}
 </style></head><body><header>
     <div class="logo">
         <img src="fundora-logo.png" alt="Fundora">
@@ -218,18 +210,15 @@ header {
     Buy Package
 </button>
 
+<div class="status-message" id="statusMessage"></div>
+
 <p class="payment-note">
-    Secure payment through Paystack will be available once payment integration is connected.
+    Secure checkout is handled by Paystack. Your package will only be recorded after payment is verified.
 </p>
 
-</main><nav class="bottom-nav">
-    <a href="dashboard.html">
-        <span>⌂</span>Home
-    </a><a href="packages.html" class="active">
-    <span>▦</span>Packages
-</a>
+</main><script type="module">
+import { supabase } from "./supabase.js";
 
-</nav><script>
 const packages = {
     3000: { name: "Starter", icon: "🌱" },
     5000: { name: "Basic", icon: "🌿" },
@@ -245,29 +234,74 @@ const packages = {
 };
 
 const params = new URLSearchParams(window.location.search);
-const amount = params.get("amount");
+const amount = Number(params.get("amount"));
 const selected = packages[amount];
 
+const buyButton = document.getElementById("buyButton");
+const statusMessage = document.getElementById("statusMessage");
+
+function showMessage(message) {
+    statusMessage.textContent = message;
+    statusMessage.classList.add("show");
+}
+
 if (selected) {
-    const formattedAmount = "₦" + Number(amount).toLocaleString("en-NG");
+    const formattedAmount = "₦" + amount.toLocaleString("en-NG");
 
     document.getElementById("packageIcon").textContent = selected.icon;
     document.getElementById("packageLabel").textContent = selected.name + " Package";
     document.getElementById("packageTitle").textContent = selected.name + " Package";
     document.getElementById("packageAmount").textContent = formattedAmount;
 
-    document.getElementById("buyButton").addEventListener("click", function() {
-        alert("Paystack payment is not connected yet. Your selected package is " + formattedAmount + ".");
+    buyButton.addEventListener("click", async function() {
+        buyButton.disabled = true;
+        buyButton.textContent = "Preparing secure checkout...";
+        statusMessage.classList.remove("show");
+
+        try {
+            const { data, error } = await supabase.auth.getSession();
+
+            if (error || !data.session) {
+                showMessage("Please log in before purchasing a package.");
+                buyButton.disabled = false;
+                buyButton.textContent = "Buy Package";
+                return;
+            }
+
+            const response = await fetch("/api/initialize-package-payment", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${data.session.access_token}`
+                },
+                body: JSON.stringify({
+                    amount: amount
+                })
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || !result.authorization_url) {
+                throw new Error(
+                    result.error || "Unable to start payment. Please try again."
+                );
+            }
+
+            window.location.href = result.authorization_url;
+
+        } catch (error) {
+            showMessage(error.message || "Something went wrong. Please try again.");
+            buyButton.disabled = false;
+            buyButton.textContent = "Try Again";
+        }
     });
 
 } else {
     document.getElementById("packageTitle").textContent = "Package Not Found";
     document.getElementById("packageAmount").textContent = "—";
     document.getElementById("packageLabel").textContent = "Please select a package";
-    document.getElementById("buyButton").disabled = true;
-    document.getElementById("buyButton").textContent = "Select a Valid Package";
+    buyButton.disabled = true;
+    buyButton.textContent = "Select a Valid Package";
 }
-</script>
-<script src="shared-menu.js"></script>
-</body>
+</script><script src="shared-menu.js"></script></body>
 </html>
