@@ -1,9 +1,12 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Top Up Wallet | Fundora</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
 :root {
     --bg:#080b18;
     --card:#11172a;
@@ -222,6 +225,11 @@ main {
     margin-top:19px;
 }
 
+.primary-button:disabled {
+    opacity:.6;
+    cursor:not-allowed;
+}
+
 .notice {
     background:rgba(128,87,245,.09);
     border:1px solid rgba(128,87,245,.2);
@@ -242,6 +250,48 @@ main {
     text-transform:uppercase;
 }
 
+.history-item {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:14px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.history-item:last-child {
+    border-bottom:0;
+}
+
+.history-item strong {
+    font-size:13px;
+}
+
+.history-item small {
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-top:5px;
+}
+
+.history-amount {
+    text-align:right;
+    font-size:13px;
+    font-weight:700;
+}
+
+.success-status {
+    color:#45d69a;
+    font-size:10px;
+    margin-top:5px;
+}
+
+.pending-status {
+    color:#f5bd58;
+    font-size:10px;
+    margin-top:5px;
+}
+
 .history-empty {
     text-align:center;
     padding:28px 10px;
@@ -256,35 +306,13 @@ main {
     margin-bottom:10px;
 }
 
-.bottom-nav {
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    height:70px;
-    background:#101629;
-    border-top:1px solid var(--border);
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-    z-index:10;
-}
-
-.bottom-nav a {
-    color:var(--muted);
-    text-decoration:none;
-    text-align:center;
-    font-size:10px;
-}
-
-.bottom-nav a span {
-    display:block;
-    font-size:19px;
-    margin-bottom:4px;
-}
-
-.bottom-nav a.active {
-    color:#b49cff;
+#statusMessage {
+    display:none;
+    padding:12px;
+    border-radius:9px;
+    font-size:12px;
+    line-height:1.5;
+    margin-top:12px;
 }
 
 @media(max-width:400px) {
@@ -300,25 +328,36 @@ main {
         font-size:29px;
     }
 }
-</style></head><body><header>
+</style>
+</head>
+
+<body>
+
+<header>
     <div class="brand">
         <img src="fundora-logo.png" alt="Fundora">
         <span>Fundora</span>
     </div>
+
     <a href="dashboard.html" class="header-link">Dashboard</a>
-</header><main><section class="heading">
+</header>
+
+<main>
+
+<section class="heading">
     <h1>Top Up Wallet</h1>
     <p>Add money to your Fundora wallet securely.</p>
 </section>
 
 <section class="wallet-card">
     <small>Current wallet balance</small>
-    <div class="wallet-balance">₦0.00</div>
+    <div class="wallet-balance" id="walletBalance">Loading...</div>
 </section>
 
 <section class="panel">
 
     <h2>Add money</h2>
+
     <p class="description">
         Enter the amount you want to add to your Fundora wallet.
     </p>
@@ -363,74 +402,224 @@ main {
             </div>
         </div>
 
-        <button type="submit" class="primary-button">
+        <button type="submit" class="primary-button" id="topupButton">
             Top Up Wallet
         </button>
+
+        <div id="statusMessage"></div>
 
     </form>
 
 </section>
 
 <div class="notice">
-    <strong>Secure payments:</strong> Your wallet will only be credited after Fundora's backend verifies a successful payment. A payment return page alone does not confirm payment.
+    <strong>Secure payments:</strong>
+    Your wallet will only be credited after Paystack confirms your payment.
 </div>
 
 <div class="section-label">Top up history</div>
 
 <section class="panel">
-
     <h2>Recent top ups</h2>
 
-    <div class="history-empty">
-        <span>💳</span>
-        No top-up transactions yet.<br>
-        Your confirmed transactions will appear here.
+    <div id="topupHistory">
+        <div class="history-empty">
+            <span>💳</span>
+            Loading transactions...
+        </div>
     </div>
-
 </section>
 
-</main><nav class="bottom-nav"><a href="dashboard.html">
-    <span>⌂</span>Home
-</a>
+</main>
 
-<a href="packages.html">
-    <span>▦</span>Packages
-</a>
+<script type="module">
+import { supabase } from "./supabase.js";
 
-<a href="investments.html">
-    <span>◈</span>Investments
-</a>
-
-<a href="transactions.html">
-    <span>▤</span>History
-</a>
-
-<a href="settings.html">
-    <span>⚙</span>Settings
-</a>
-
-</nav><script>
 const amountInput = document.getElementById("amount");
+const form = document.getElementById("topupForm");
+const button = document.getElementById("topupButton");
+const statusMessage = document.getElementById("statusMessage");
+const walletBalance = document.getElementById("walletBalance");
+const topupHistory = document.getElementById("topupHistory");
 
-document.querySelectorAll(".quick-amounts button").forEach(button => {
-    button.addEventListener("click", () => {
-        amountInput.value = button.dataset.amount;
+function formatMoney(amount) {
+    return "₦" + Number(amount || 0).toLocaleString("en-NG", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+function showMessage(message, success = false) {
+    statusMessage.style.display = "block";
+    statusMessage.style.background = success
+        ? "rgba(40,190,130,.12)"
+        : "rgba(255,80,80,.12)";
+    statusMessage.style.color = success ? "#45d69a" : "#ff9999";
+    statusMessage.textContent = message;
+}
+
+document.querySelectorAll(".quick-amounts button").forEach(item => {
+    item.addEventListener("click", () => {
+        amountInput.value = item.dataset.amount;
     });
 });
 
-document.getElementById("topupForm").addEventListener("submit", function(event) {
+async function loadWallet() {
+    const { data: sessionData, error: sessionError } =
+        await supabase.auth.getSession();
+
+    if (sessionError || !sessionData.session) {
+        walletBalance.textContent = "₦0.00";
+        topupHistory.innerHTML =
+            '<div class="history-empty">Please log in to view your wallet.</div>';
+        return;
+    }
+
+    const user = sessionData.session.user;
+
+    const { data, error } = await supabase
+        .from("wallet_transactions")
+        .select("amount_ngn, transaction_type, status")
+        .eq("user_id", user.id)
+        .eq("status", "successful");
+
+    if (error) {
+        walletBalance.textContent = "Unavailable";
+        console.error(error);
+        return;
+    }
+
+    let balance = 0;
+
+    (data || []).forEach(transaction => {
+        const amount = Number(transaction.amount_ngn || 0);
+
+        if (transaction.transaction_type === "withdrawal") {
+            balance -= amount;
+        } else {
+            balance += amount;
+        }
+    });
+
+    walletBalance.textContent = formatMoney(balance);
+}
+
+async function loadHistory() {
+    const { data: sessionData } = await supabase.auth.getSession();
+
+    if (!sessionData.session) return;
+
+    const user = sessionData.session.user;
+
+    const { data, error } = await supabase
+        .from("wallet_transactions")
+        .select("id, amount_ngn, status, description, created_at, payment_reference")
+        .eq("user_id", user.id)
+        .eq("transaction_type", "topup")
+        .order("created_at", { ascending: false })
+        .limit(10);
+
+    if (error) {
+        topupHistory.innerHTML =
+            '<div class="history-empty">Could not load top-up history.</div>';
+        console.error(error);
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        topupHistory.innerHTML = `
+            <div class="history-empty">
+                <span>💳</span>
+                No top-up transactions yet.
+            </div>
+        `;
+        return;
+    }
+
+    topupHistory.innerHTML = data.map(item => {
+        const date = new Date(item.created_at).toLocaleString("en-NG", {
+            dateStyle: "medium",
+            timeStyle: "short"
+        });
+
+        const status = String(item.status || "").toLowerCase();
+
+        return `
+            <div class="history-item">
+                <div>
+                    <strong>Wallet top up</strong>
+                    <small>${date}</small>
+                    <small>${item.description || "Paystack wallet deposit"}</small>
+                </div>
+
+                <div class="history-amount">
+                    ${formatMoney(item.amount_ngn)}
+                    <div class="${status === "successful" ? "success-status" : "pending-status"}">
+                        ${status.toUpperCase()}
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join("");
+}
+
+form.addEventListener("submit", async event => {
     event.preventDefault();
 
     const amount = Number(amountInput.value);
 
-    if (!Number.isFinite(amount) || amount < 100) {
-        alert("Please enter a valid amount of at least ₦100.");
+    if (!Number.isInteger(amount) || amount < 100) {
+        showMessage("Enter a valid amount of at least ₦100.");
         return;
     }
 
-    alert("Paystack top-up is not connected yet. No payment has been initiated and your wallet has not been credited.");
+    if (amount > 1000000) {
+        showMessage("The maximum top-up amount is ₦1,000,000.");
+        return;
+    }
+
+    const { data: sessionData, error: sessionError } =
+        await supabase.auth.getSession();
+
+    if (sessionError || !sessionData.session) {
+        showMessage("Please log in before topping up your wallet.");
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Connecting to Paystack...";
+    statusMessage.style.display = "none";
+
+    try {
+        const response = await fetch("/api/initialize-topup-payment", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${sessionData.session.access_token}`
+            },
+            body: JSON.stringify({ amount })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || !result.authorization_url) {
+            throw new Error(result.error || "Could not start payment.");
+        }
+
+        window.location.href = result.authorization_url;
+
+    } catch (error) {
+        showMessage(error.message || "Payment could not be started.");
+        button.disabled = false;
+        button.textContent = "Top Up Wallet";
+    }
 });
+
+loadWallet();
+loadHistory();
 </script>
-    <script src="shared-menu.js"></script>
+
+<script src="shared-menu.js"></script>
+
 </body>
 </html>
