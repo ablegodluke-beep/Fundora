@@ -2,616 +2,563 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fundora Admin Dashboard</title>
+<meta name="theme-color" content="#080b18">
+<title>Fundora | Admin Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
-:root {
-    --bg:#080b18;
-    --card:#11172a;
-    --purple:#8057f5;
-    --blue:#3985ff;
-    --text:#f5f6ff;
-    --muted:#929bb5;
-    --border:rgba(255,255,255,.08);
-    --green:#25c98a;
-    --red:#ff647c;
-    --orange:#ffb454;
+:root{
+--bg:#080b18;
+--card:#11182c;
+--purple:#8057f5;
+--blue:#3985ff;
+--text:#f5f6ff;
+--muted:#929bb5;
+--border:rgba(255,255,255,.08);
+--green:#35d6a0;
+--orange:#ffb454;
+--red:#ff647c;
 }
-
-* {
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+background:radial-gradient(ellipse at 80% -10%,#202052 0,transparent 35%),var(--bg);
+color:var(--text);
+font-family:'DM Sans',sans-serif;
+min-height:100vh;
+padding-bottom:35px;
 }
-
-body {
-    background:var(--bg);
-    color:var(--text);
-    font-family:'DM Sans',sans-serif;
-    min-height:100vh;
-    padding-bottom:85px;
+button,input{font:inherit}
+header{
+height:68px;
+padding:0 5%;
+display:flex;
+align-items:center;
+justify-content:space-between;
+background:#0b1020;
+border-bottom:1px solid var(--border);
+position:sticky;
+top:0;
+z-index:10;
 }
-
-header {
-    height:68px;
-    padding:0 5%;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    background:#0b1020;
-    border-bottom:1px solid var(--border);
-    position:sticky;
-    top:0;
-    z-index:20;
+.brand{display:flex;align-items:center;gap:9px;font-size:20px;font-weight:800}
+.brand img{width:35px;height:35px;object-fit:contain}
+.admin-label{
+color:#c6b7ff;
+background:#8057f522;
+border:1px solid #8057f544;
+padding:7px 11px;
+border-radius:20px;
+font-size:10px;
+font-weight:800;
 }
-
-.brand {
-    display:flex;
-    align-items:center;
-    gap:9px;
-    font-size:20px;
-    font-weight:800;
+main{width:min(1100px,92%);margin:25px auto}
+.topline{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+margin-bottom:20px;
 }
-
-.brand img {
-    width:35px;
-    height:35px;
-    object-fit:contain;
+h1{font-size:24px;margin-bottom:5px}
+.subtitle{font-size:11px;color:var(--muted)}
+.refresh{
+border:1px solid var(--border);
+background:#151d34;
+color:white;
+padding:10px 13px;
+border-radius:9px;
+font-size:11px;
+cursor:pointer;
 }
-
-.admin-label {
-    color:#c6b7ff;
-    background:rgba(128,87,245,.13);
-    border:1px solid rgba(128,87,245,.25);
-    padding:7px 11px;
-    border-radius:20px;
-    font-size:10px;
-    font-weight:700;
+.message{
+padding:13px;
+border-radius:10px;
+font-size:11px;
+line-height:1.6;
+margin-bottom:16px;
+background:#8057f51b;
+border:1px solid #8057f544;
+color:#d8ccff;
 }
-
-main {
-    width:min(1000px,94%);
-    margin:25px auto;
+.message.error{
+background:#ff647c12;
+border-color:#ff647c44;
+color:#ffb2bf;
 }
-
-.welcome {
-    margin-bottom:22px;
+.stats{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin-bottom:24px;
 }
-
-.welcome h1 {
-    font-size:25px;
-    margin-bottom:7px;
+.stat{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:13px;
+padding:16px;
+min-width:0;
 }
-
-.welcome p {
-    color:var(--muted);
-    font-size:12px;
-    line-height:1.6;
+.stat-icon{font-size:19px;margin-bottom:10px}
+.stat small{display:block;color:var(--muted);font-size:10px;margin-bottom:7px}
+.stat strong{font-size:21px;overflow-wrap:anywhere}
+.section-title{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin:25px 0 13px;
 }
-
-.demo-notice {
-    padding:13px;
-    border-radius:11px;
-    background:rgba(255,180,84,.08);
-    border:1px solid rgba(255,180,84,.2);
-    color:#ffd49c;
-    font-size:11px;
-    line-height:1.6;
-    margin-bottom:22px;
+.section-title h2{font-size:16px}
+.section-title small{font-size:10px;color:var(--muted)}
+.tabs{
+display:flex;
+gap:8px;
+overflow-x:auto;
+padding-bottom:8px;
+margin-bottom:13px;
 }
-
-.section-heading {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin:25px 0 13px;
+.tab{
+flex-shrink:0;
+padding:9px 14px;
+border-radius:20px;
+border:1px solid var(--border);
+background:#10172a;
+color:var(--muted);
+font-size:10px;
+cursor:pointer;
 }
-
-.section-heading h2 {
-    font-size:16px;
+.tab.active{
+background:#8057f533;
+border-color:var(--purple);
+color:white;
 }
-
-.section-heading small {
-    color:var(--muted);
-    font-size:10px;
+.search{
+width:100%;
+padding:13px;
+border:1px solid var(--border);
+border-radius:10px;
+background:#0b1122;
+color:white;
+font-size:12px;
+outline:none;
+margin-bottom:12px;
 }
-
-.stats-grid {
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:11px;
+.search:focus{border-color:var(--purple)}
+.panel{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:14px;
+overflow:hidden;
 }
-
-.stat-card {
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:13px;
-    padding:16px;
+.record{
+padding:15px;
+border-bottom:1px solid var(--border);
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+gap:12px;
 }
-
-.stat-icon {
-    font-size:20px;
-    margin-bottom:12px;
+.record:last-child{border-bottom:0}
+.record-main{min-width:0}
+.record-main strong{
+display:block;
+font-size:12px;
+margin-bottom:5px;
+overflow-wrap:anywhere;
 }
-
-.stat-card small {
-    display:block;
-    color:var(--muted);
-    font-size:10px;
-    margin-bottom:7px;
+.record-main small{
+display:block;
+color:var(--muted);
+font-size:10px;
+line-height:1.7;
+overflow-wrap:anywhere;
 }
-
-.stat-card strong {
-    font-size:23px;
+.record-side{text-align:right;flex-shrink:0}
+.amount{font-size:12px;font-weight:800;margin-bottom:7px}
+.badge{
+display:inline-block;
+padding:5px 8px;
+border-radius:20px;
+font-size:9px;
+font-weight:700;
+background:#ffffff12;
+color:#d5d9e8;
 }
-
-.stat-card .subtext {
-    display:block;
-    font-size:9px;
-    color:var(--muted);
-    margin-top:6px;
+.badge.successful,.badge.completed,.badge.approved,.badge.paid{
+background:#35d6a01a;color:var(--green)
 }
-
-.panel {
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:14px;
-    padding:17px;
-    margin-bottom:15px;
+.badge.pending{background:#ffb4541a;color:var(--orange)}
+.badge.failed,.badge.rejected,.badge.cancelled{
+background:#ff647c1a;color:var(--red)
 }
-
-.panel h3 {
-    font-size:14px;
-    margin-bottom:7px;
+.empty{
+padding:30px 15px;
+text-align:center;
+color:var(--muted);
+font-size:11px;
+line-height:1.7;
 }
-
-.panel-description {
-    color:var(--muted);
-    font-size:11px;
-    line-height:1.6;
-    margin-bottom:15px;
+.empty span{display:block;font-size:25px;margin-bottom:8px}
+.hidden{display:none!important}
+.footer-note{
+color:var(--muted);
+font-size:10px;
+line-height:1.6;
+margin-top:14px;
+text-align:center;
 }
-
-.search-box {
-    width:100%;
-    padding:13px;
-    border:1px solid var(--border);
-    border-radius:9px;
-    background:#090e1e;
-    color:white;
-    font-family:inherit;
-    font-size:12px;
-    outline:none;
-    margin-bottom:12px;
-}
-
-.search-box:focus {
-    border-color:var(--purple);
-}
-
-.filters {
-    display:flex;
-    gap:8px;
-    overflow-x:auto;
-    padding-bottom:5px;
-    margin-bottom:13px;
-}
-
-.filter {
-    flex-shrink:0;
-    border:1px solid var(--border);
-    background:#0b1122;
-    color:var(--muted);
-    padding:8px 12px;
-    border-radius:20px;
-    font-family:inherit;
-    font-size:10px;
-    cursor:pointer;
-}
-
-.filter.active {
-    color:white;
-    background:rgba(128,87,245,.2);
-    border-color:var(--purple);
-}
-
-.empty-state {
-    text-align:center;
-    padding:25px 10px;
-    color:var(--muted);
-    font-size:11px;
-    line-height:1.7;
-}
-
-.empty-state span {
-    display:block;
-    font-size:28px;
-    margin-bottom:9px;
-}
-
-.notification-list {
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.notification-item {
-    display:flex;
-    align-items:flex-start;
-    gap:11px;
-    background:#0b1122;
-    border:1px solid var(--border);
-    border-radius:10px;
-    padding:13px;
-}
-
-.notification-icon {
-    width:35px;
-    height:35px;
-    display:grid;
-    place-items:center;
-    background:rgba(128,87,245,.15);
-    border-radius:9px;
-    flex-shrink:0;
-}
-
-.notification-item strong {
-    font-size:11px;
-    display:block;
-    margin-bottom:5px;
-}
-
-.notification-item p {
-    color:var(--muted);
-    font-size:10px;
-    line-height:1.5;
-}
-
-.notification-item small {
-    color:#a995ff;
-    display:block;
-    font-size:9px;
-    margin-top:6px;
-}
-
-.quick-actions {
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-}
-
-.action-card {
-    padding:15px;
-    background:#0b1122;
-    border:1px solid var(--border);
-    border-radius:11px;
-}
-
-.action-card span {
-    display:block;
-    font-size:21px;
-    margin-bottom:9px;
-}
-
-.action-card strong {
-    font-size:11px;
-    display:block;
-    margin-bottom:5px;
-}
-
-.action-card small {
-    color:var(--muted);
-    font-size:9px;
-    line-height:1.5;
-}
-
-.status-tag {
-    display:inline-block;
-    border-radius:20px;
-    padding:5px 9px;
-    font-size:9px;
-    font-weight:700;
-}
-
-.status-pending {
-    color:var(--orange);
-    background:rgba(255,180,84,.1);
-}
-
-.status-success {
-    color:var(--green);
-    background:rgba(37,201,138,.1);
-}
-
-.status-danger {
-    color:var(--red);
-    background:rgba(255,100,124,.1);
-}
-
-.bottom-nav {
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    height:68px;
-    background:#101629;
-    border-top:1px solid var(--border);
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-    z-index:20;
-}
-
-.bottom-nav a {
-    color:var(--muted);
-    text-decoration:none;
-    text-align:center;
-    font-size:9px;
-}
-
-.bottom-nav a span {
-    display:block;
-    font-size:19px;
-    margin-bottom:4px;
-}
-
-.bottom-nav a.active {
-    color:#b49cff;
-}
-
-@media(min-width:650px) {
-    .stats-grid {
-        grid-template-columns:repeat(4,1fr);
-    }
-
-    .quick-actions {
-        grid-template-columns:repeat(4,1fr);
-    }
+@media(min-width:650px){
+.stats{grid-template-columns:repeat(4,1fr)}
 }
 </style></head><body><header>
-    <div class="brand">
-        <img src="fundora-logo.png" alt="Fundora">
-        <span>Fundora</span>
-    </div><span class="admin-label">ADMIN PANEL</span>
-
-</header><main><section class="welcome">
-    <h1>Admin Dashboard</h1>
-    <p>Monitor members, manage accounts and keep track of platform activities.</p>
-</section>
-
-<div class="demo-notice">
-    <strong>Preview mode:</strong> This dashboard is not connected to live member records or payments yet. Administrative actions will become active after secure backend integration.
+<div class="brand">
+<img src="fundora-logo.png" alt="Fundora">
+<span>Fundora</span>
 </div>
-
-<div class="section-heading">
-    <h2>Platform Overview</h2>
-    <small>Live figures after connection</small>
+<span class="admin-label">ADMIN PANEL</span>
+</header><main><div class="topline">
+<div>
+<h1>Admin Dashboard</h1>
+<p class="subtitle">Monitor members, purchases and withdrawals.</p>
 </div>
-
-<section class="stats-grid">
-
-    <div class="stat-card">
-        <div class="stat-icon">👥</div>
-        <small>Total Members</small>
-        <strong>0</strong>
-        <span class="subtext">Registered accounts</span>
-    </div>
-
-    <div class="stat-card">
-        <div class="stat-icon">🟢</div>
-        <small>Active Members</small>
-        <strong>0</strong>
-        <span class="subtext">Accounts in good standing</span>
-    </div>
-
-    <div class="stat-card">
-        <div class="stat-icon">⛔</div>
-        <small>Suspended Members</small>
-        <strong>0</strong>
-        <span class="subtext">Restricted accounts</span>
-    </div>
-
-    <div class="stat-card">
-        <div class="stat-icon">🚩</div>
-        <small>Flagged Accounts</small>
-        <strong>0</strong>
-        <span class="subtext">Require admin review</span>
-    </div>
-
-</section>
-
-<div class="section-heading">
-    <h2>Admin Notifications</h2>
-    <small>Payment and account alerts</small>
+<button class="refresh" id="refreshBtn">↻ Refresh</button>
+</div><div id="message" class="message">Checking administrator access...</div><section class="stats">
+<div class="stat">
+<div class="stat-icon">👥</div>
+<small>Total Members</small>
+<strong id="memberCount">—</strong>
+</div><div class="stat">
+<div class="stat-icon">📦</div>
+<small>Package Purchases</small>
+<strong id="purchaseCount">—</strong>
+</div><div class="stat">
+<div class="stat-icon">💰</div>
+<small>Successful Purchases</small>
+<strong id="purchaseTotal">—</strong>
+</div><div class="stat">
+<div class="stat-icon">🏦</div>
+<small>Withdrawal Requests</small>
+<strong id="withdrawalCount">—</strong>
 </div>
+</section><div class="section-title">
+<h2>Platform Records</h2>
+<small id="lastUpdated">Waiting for records</small>
+</div><div class="tabs">
+<button class="tab active" data-tab="members">Members</button>
+<button class="tab" data-tab="purchases">Package Purchases</button>
+<button class="tab" data-tab="withdrawals">Withdrawals</button>
+</div><input
+class="search"
+id="search"
+type="search"
+placeholder="Search records..."
+
+«»
 
 <section class="panel">
-
-    <h3>Recent Notifications</h3>
-    <p class="panel-description">
-        Important platform activities will appear here automatically.
-    </p>
-
-    <div class="notification-list">
-
-        <div class="notification-item">
-            <div class="notification-icon">📦</div>
-            <div>
-                <strong>Package Purchases</strong>
-                <p>Get notified when a member successfully purchases a package.</p>
-                <small>Awaiting backend connection</small>
-            </div>
-        </div>
-
-        <div class="notification-item">
-            <div class="notification-icon">💳</div>
-            <div>
-                <strong>Wallet Top Ups</strong>
-                <p>Get notified when a member's wallet top-up payment is verified.</p>
-                <small>Awaiting backend connection</small>
-            </div>
-        </div>
-
-        <div class="notification-item">
-            <div class="notification-icon">🏦</div>
-            <div>
-                <strong>Withdrawal Requests</strong>
-                <p>See new withdrawal requests and their review status.</p>
-                <small>Awaiting backend connection</small>
-            </div>
-        </div>
-
-        <div class="notification-item">
-            <div class="notification-icon">🚩</div>
-            <div>
-                <strong>Suspicious Activity</strong>
-                <p>Review accounts reported for suspicious or abusive behaviour.</p>
-                <small>Awaiting backend connection</small>
-            </div>
-        </div>
-
-    </div>
-
-</section>
-
-<div class="section-heading">
-    <h2>Member Management</h2>
-    <small>Manage platform accounts</small>
+<div id="records">
+<div class="empty">
+<span>⏳</span>
+Loading platform records...
 </div>
-
-<section class="panel">
-
-    <h3>Find a Member</h3>
-    <p class="panel-description">
-        Search registered members by name, email or member ID.
-    </p>
-
-    <input
-        type="search"
-        class="search-box"
-        id="memberSearch"
-        placeholder="Search members..."
-    >
-
-    <div class="filters">
-        <button class="filter active" data-filter="all">All Members</button>
-        <button class="filter" data-filter="active">Active</button>
-        <button class="filter" data-filter="suspended">Suspended</button>
-        <button class="filter" data-filter="flagged">Flagged</button>
-    </div>
-
-    <div class="empty-state">
-        <span>👤</span>
-        Member records will appear here after Supabase is connected.
-    </div>
-
-</section>
-
-<div class="section-heading">
-    <h2>Account Security</h2>
 </div>
+</section><p class="footer-note">
+Records refresh automatically every 30 seconds.
+Only authorized administrators can access this dashboard.
+</p></main><script type="module">
+import { supabase } from "./supabase.js";
 
-<section class="quick-actions">
+const $ = id => document.getElementById(id);
 
-    <div class="action-card">
-        <span>🚫</span>
-        <strong>Suspend Account</strong>
-        <small>Temporarily restrict a member's access.</small>
-    </div>
+let members = [];
+let purchases = [];
+let withdrawals = [];
+let activeTab = "members";
+let isAdmin = false;
 
-    <div class="action-card">
-        <span>♻️</span>
-        <strong>Restore Account</strong>
-        <small>Restore an account after review.</small>
-    </div>
+const money = value => new Intl.NumberFormat("en-NG",{
+    style:"currency",
+    currency:"NGN",
+    maximumFractionDigits:0
+}).format(Number(value || 0));
 
-    <div class="action-card">
-        <span>🗑️</span>
-        <strong>Delete Account</strong>
-        <small>Remove an account when deletion is justified.</small>
-    </div>
+const dateText = value => {
+    if(!value) return "Date unavailable";
+    const date = new Date(value);
+    if(Number.isNaN(date.getTime())) return "Date unavailable";
+    return date.toLocaleString("en-NG",{
+        day:"numeric",
+        month:"short",
+        year:"numeric",
+        hour:"2-digit",
+        minute:"2-digit"
+    });
+};
 
-    <div class="action-card">
-        <span>🚩</span>
-        <strong>Review Reports</strong>
-        <small>Investigate reported members and activity.</small>
-    </div>
+const safe = value => String(value ?? "").replace(/[&<>"']/g,char=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+}[char]));
 
-</section>
+function showMessage(text,error=false){
+    $("message").textContent=text;
+    $("message").classList.toggle("error",error);
+    $("message").classList.remove("hidden");
+}
 
-<div class="section-heading">
-    <h2>Admin Activity Logs</h2>
-    <small>Accountability records</small>
-</div>
+function statusBadge(status){
+    const value=String(status || "unknown").toLowerCase();
+    return `<span class="badge ${safe(value)}">${safe(value.replaceAll("_"," "))}</span>`;
+}
 
-<section class="panel">
+function empty(text){
+    $("records").innerHTML=`
+        <div class="empty">
+            <span>📂</span>${safe(text)}
+        </div>`;
+}
 
-    <h3>Recent Admin Actions</h3>
-    <p class="panel-description">
-        Important actions performed by administrators will be recorded with the administrator's identity, date, time and reason.
-    </p>
+async function checkAdmin(){
+    const {data,error}=await supabase.auth.getSession();
 
-    <div class="empty-state">
-        <span>📋</span>
-        No admin activity recorded yet.
-    </div>
+    if(error) throw error;
 
-</section>
+    const user=data.session?.user;
 
-<div class="section-heading">
-    <h2>Admin Settings</h2>
-</div>
+    if(!user){
+        window.location.replace("login.html");
+        return false;
+    }
 
-<section class="panel">
+    const {data:allowed,error:roleError}=await supabase.rpc("is_fundora_admin");
 
-    <h3>Administrator Account</h3>
-    <p class="panel-description">
-        Manage administrator access, account security and authorized admin roles.
-    </p>
+    if(roleError) throw roleError;
 
-    <div class="notification-item">
-        <div class="notification-icon">🔐</div>
-        <div>
-            <strong>Secure Admin Access</strong>
-            <p>Only authorized administrator accounts will be able to access this dashboard.</p>
-        </div>
-    </div>
+    if(allowed!==true){
+        showMessage("Access denied. This account does not have administrator permission.",true);
+        $("records").innerHTML=`
+            <div class="empty">
+                <span>🔒</span>
+                This account is not authorized to view the admin dashboard.
+            </div>`;
+        return false;
+    }
 
-</section>
+    isAdmin=true;
+    return true;
+}
 
-</main><nav class="bottom-nav"><a href="admin.html" class="active">
-    <span>⌂</span>Overview
-</a>
+async function loadRecords(){
+    if(!isAdmin){
+        const allowed=await checkAdmin();
+        if(!allowed) return;
+    }
 
-<a href="#members">
-    <span>👥</span>Members
-</a>
+    showMessage("Loading the latest platform records...");
 
-<a href="#notifications">
-    <span>🔔</span>Alerts
-</a>
+    const [memberResult,purchaseResult,withdrawalResult]=await Promise.all([
 
-<a href="#security">
-    <span>🛡</span>Security
-</a>
+        supabase.from("profiles")
+            .select("*")
+            .order("created_at",{ascending:false}),
 
-<a href="dashboard.html">
-    <span>↗</span>Member Site
-</a>
+        supabase.from("package_purchases")
+            .select("*")
+            .order("paid_at",{ascending:false}),
 
-</nav><script>
-const filters = document.querySelectorAll(".filter");
+        supabase.from("withdrawal_requests")
+            .select("*")
+            .order("requested_at",{ascending:false})
 
-filters.forEach(button => {
-    button.addEventListener("click", () => {
-        filters.forEach(item => item.classList.remove("active"));
+    ]);
+
+    if(memberResult.error) throw memberResult.error;
+    if(purchaseResult.error) throw purchaseResult.error;
+    if(withdrawalResult.error) throw withdrawalResult.error;
+
+    members=memberResult.data || [];
+    purchases=purchaseResult.data || [];
+    withdrawals=withdrawalResult.data || [];
+
+    $("memberCount").textContent=members.length.toLocaleString("en-NG");
+    $("purchaseCount").textContent=purchases.length.toLocaleString("en-NG");
+
+    const successful=purchases.filter(item=>
+        String(item.payment_status).toLowerCase()==="successful"
+    );
+
+    const total=successful.reduce((sum,item)=>
+        sum+Number(item.amount_ngn || 0),0
+    );
+
+    $("purchaseTotal").textContent=money(total);
+    $("withdrawalCount").textContent=withdrawals.length.toLocaleString("en-NG");
+
+    $("lastUpdated").textContent="Updated "+new Date().toLocaleTimeString("en-NG");
+
+    showMessage("Dashboard connected. Platform records loaded successfully.");
+
+    renderRecords();
+}
+
+function memberName(member){
+    return member.full_name ||
+        member.name ||
+        member.username ||
+        member.email ||
+        "Member";
+}
+
+function renderMembers(list){
+    if(!list.length){
+        empty("No member profiles found.");
+        return;
+    }
+
+    $("records").innerHTML=list.map(member=>{
+        const name=memberName(member);
+        const email=member.email || member.contact_email || "";
+        const joined=member.created_at || member.updated_at;
+        const id=member.id || member.user_id || "";
+
+        return `
+        <article class="record">
+            <div class="record-main">
+                <strong>${safe(name)}</strong>
+                <small>${safe(email || "Email not stored in profile")}</small>
+                <small>Member ID: ${safe(id)}</small>
+                <small>Joined: ${safe(dateText(joined))}</small>
+            </div>
+            <div class="record-side">
+                ${statusBadge(member.status || "registered")}
+            </div>
+        </article>`;
+    }).join("");
+}
+
+function renderPurchases(list){
+    if(!list.length){
+        empty("No package purchases found.");
+        return;
+    }
+
+    $("records").innerHTML=list.map(item=>{
+        const member=members.find(person=>
+            (person.id || person.user_id)===item.user_id
+        );
+
+        return `
+        <article class="record">
+            <div class="record-main">
+                <strong>${safe(member ? memberName(member) : "Member")}</strong>
+                <small>Package ID: ${safe(item.package_id || "Unavailable")}</small>
+                <small>Member ID: ${safe(item.user_id || "")}</small>
+                <small>Reference: ${safe(item.payment_reference || "Unavailable")}</small>
+                <small>Payment date: ${safe(dateText(item.paid_at || item.created_at))}</small>
+            </div>
+            <div class="record-side">
+                <div class="amount">${money(item.amount_ngn)}</div>
+                ${statusBadge(item.payment_status)}
+            </div>
+        </article>`;
+    }).join("");
+}
+
+function renderWithdrawals(list){
+    if(!list.length){
+        empty("No withdrawal requests found.");
+        return;
+    }
+
+    $("records").innerHTML=list.map(item=>{
+        const member=members.find(person=>
+            (person.id || person.user_id)===item.user_id
+        );
+
+        return `
+        <article class="record">
+            <div class="record-main">
+                <strong>${safe(member ? memberName(member) : "Member")}</strong>
+                <small>Bank: ${safe(item.bank_name || "Unavailable")}</small>
+                <small>Account name: ${safe(item.account_name || "Unavailable")}</small>
+                <small>Account number: ${safe(item.account_number || "Unavailable")}</small>
+                <small>Requested: ${safe(dateText(item.requested_at))}</small>
+            </div>
+            <div class="record-side">
+                <div class="amount">${money(item.amount_ngn)}</div>
+                ${statusBadge(item.status)}
+            </div>
+        </article>`;
+    }).join("");
+}
+
+function renderRecords(){
+    const query=$("search").value.trim().toLowerCase();
+
+    if(activeTab==="members"){
+        const filtered=members.filter(item=>
+            JSON.stringify(item).toLowerCase().includes(query)
+        );
+        renderMembers(filtered);
+    }
+
+    if(activeTab==="purchases"){
+        const filtered=purchases.filter(item=>
+            JSON.stringify(item).toLowerCase().includes(query)
+        );
+        renderPurchases(filtered);
+    }
+
+    if(activeTab==="withdrawals"){
+        const filtered=withdrawals.filter(item=>
+            JSON.stringify(item).toLowerCase().includes(query)
+        );
+        renderWithdrawals(filtered);
+    }
+}
+
+document.querySelectorAll(".tab").forEach(button=>{
+    button.addEventListener("click",()=>{
+        document.querySelectorAll(".tab").forEach(tab=>
+            tab.classList.remove("active")
+        );
+
         button.classList.add("active");
-
-        alert("Member filtering will become active when member records are connected.");
+        activeTab=button.dataset.tab;
+        $("search").value="";
+        renderRecords();
     });
 });
 
-document.getElementById("memberSearch").addEventListener("input", () => {
-    // Live member search will be connected to the database later.
+$("search").addEventListener("input",renderRecords);
+
+$("refreshBtn").addEventListener("click",()=>{
+    loadRecords().catch(error=>{
+        console.error(error);
+        showMessage(error.message || "Could not load platform records.",true);
+    });
 });
+
+async function start(){
+    try{
+        const allowed=await checkAdmin();
+        if(allowed) await loadRecords();
+    }catch(error){
+        console.error("Admin dashboard error:",error);
+        showMessage(error.message || "Could not connect to the database.",true);
+    }
+}
+
+start();
+
+setInterval(()=>{
+    if(isAdmin){
+        loadRecords().catch(error=>{
+            console.error(error);
+            showMessage(error.message || "Automatic refresh failed.",true);
+        });
+    }
+},30000);
 </script></body>
 </html>
