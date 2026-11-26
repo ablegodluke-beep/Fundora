@@ -1,0 +1,496 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Referrals | Fundora</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
+:root {
+    --bg:#080b18;
+    --card:#11172a;
+    --purple:#8057f5;
+    --blue:#3985ff;
+    --text:#f5f6ff;
+    --muted:#929bb5;
+    --border:rgba(255,255,255,.08);
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body {
+    background:var(--bg);
+    color:var(--text);
+    font-family:'DM Sans',sans-serif;
+    min-height:100vh;
+    padding-bottom:90px;
+}
+
+header {
+    height:68px;
+    padding:0 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#0b1020;
+    border-bottom:1px solid var(--border);
+}
+
+.brand {
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:20px;
+    font-weight:800;
+}
+
+.brand img {
+    width:35px;
+    height:35px;
+    object-fit:contain;
+}
+
+.header-link {
+    color:#b49cff;
+    text-decoration:none;
+    font-size:12px;
+}
+
+main {
+    width:min(850px,92%);
+    margin:27px auto;
+}
+
+.heading {
+    margin-bottom:23px;
+}
+
+.heading h1 {
+    font-size:25px;
+    margin-bottom:7px;
+}
+
+.heading p {
+    font-size:13px;
+    color:var(--muted);
+    line-height:1.6;
+}
+
+.hero {
+    background:linear-gradient(120deg,#38216f,#244b9d 65%,#176b8c);
+    border-radius:19px;
+    padding:25px 21px;
+    margin-bottom:20px;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero-icon {
+    font-size:29px;
+    margin-bottom:15px;
+}
+
+.hero h2 {
+    font-size:21px;
+    margin-bottom:9px;
+}
+
+.hero p {
+    color:#e0e2ff;
+    font-size:12px;
+    line-height:1.7;
+    max-width:390px;
+}
+
+.stats {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin-bottom:25px;
+}
+
+.stat-card {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:17px;
+}
+
+.stat-card span {
+    color:var(--muted);
+    font-size:11px;
+}
+
+.stat-card h2 {
+    font-size:23px;
+    margin-top:9px;
+}
+
+.panel {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:19px;
+    margin-bottom:18px;
+}
+
+.panel h2 {
+    font-size:16px;
+    margin-bottom:8px;
+}
+
+.panel-description {
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.6;
+    margin-bottom:16px;
+}
+
+.referral-box {
+    background:#080e20;
+    border:1px solid #292e45;
+    border-radius:11px;
+    padding:13px;
+    margin-bottom:12px;
+}
+
+.referral-box small {
+    color:var(--muted);
+    font-size:10px;
+    display:block;
+    margin-bottom:9px;
+}
+
+.referral-link {
+    font-size:12px;
+    color:#c7b5ff;
+    overflow-wrap:anywhere;
+    line-height:1.6;
+}
+
+.buttons {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.btn {
+    border:0;
+    border-radius:9px;
+    padding:12px 9px;
+    font-family:inherit;
+    font-size:11px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.btn-primary {
+    color:white;
+    background:linear-gradient(100deg,var(--purple),var(--blue));
+}
+
+.btn-secondary {
+    color:#c9baff;
+    background:#292044;
+    border:1px solid #493875;
+}
+
+.reward-card {
+    display:flex;
+    align-items:center;
+    gap:14px;
+    background:#17182f;
+    border:1px solid rgba(128,87,245,.2);
+    border-radius:12px;
+    padding:15px;
+    margin-top:14px;
+}
+
+.reward-icon {
+    width:44px;
+    height:44px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    background:#302251;
+    font-size:22px;
+    flex-shrink:0;
+}
+
+.reward-card h3 {
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.reward-card p {
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.5;
+}
+
+.rules {
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.rule {
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+}
+
+.rule-number {
+    width:27px;
+    height:27px;
+    border-radius:50%;
+    background:#292044;
+    color:#c4adff;
+    display:grid;
+    place-items:center;
+    font-size:11px;
+    font-weight:700;
+    flex-shrink:0;
+}
+
+.rule h3 {
+    font-size:12px;
+    margin-bottom:5px;
+}
+
+.rule p {
+    font-size:11px;
+    color:var(--muted);
+    line-height:1.6;
+}
+
+.notice {
+    color:#c8c1e8;
+    background:rgba(128,87,245,.09);
+    border:1px solid rgba(128,87,245,.2);
+    border-radius:11px;
+    padding:13px;
+    font-size:11px;
+    line-height:1.7;
+    margin-bottom:18px;
+}
+
+.history-empty {
+    text-align:center;
+    padding:28px 10px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.7;
+}
+
+.history-empty span {
+    display:block;
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.bottom-nav {
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:70px;
+    background:#101629;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:10;
+}
+
+.bottom-nav a {
+    color:var(--muted);
+    text-decoration:none;
+    text-align:center;
+    font-size:10px;
+}
+
+.bottom-nav a span {
+    display:block;
+    font-size:19px;
+    margin-bottom:4px;
+}
+
+.bottom-nav a.active {
+    color:#b49cff;
+}
+
+@media(max-width:400px) {
+    main {
+        width:91%;
+    }
+
+    .heading h1 {
+        font-size:22px;
+    }
+
+    .panel {
+        padding:15px;
+    }
+}
+</style></head><body><header>
+    <div class="brand">
+        <img src="fundora-logo.png" alt="Fundora">
+        <span>Fundora</span>
+    </div>
+    <a href="dashboard.html" class="header-link">Dashboard</a>
+</header><main><section class="heading">
+    <h1>Refer & Earn</h1>
+    <p>Invite people to Fundora and track your successful referrals.</p>
+</section>
+
+<section class="hero">
+    <div class="hero-icon">🎁</div>
+    <h2>Earn ₦500 per successful referral</h2>
+    <p>Share your referral link. When someone joins through your link and successfully purchases an eligible package, your referral reward can be recorded.</p>
+</section>
+
+<section class="stats">
+    <div class="stat-card">
+        <span>Total Referrals</span>
+        <h2 id="totalReferrals">0</h2>
+    </div>
+
+    <div class="stat-card">
+        <span>Successful Referrals</span>
+        <h2 id="successfulReferrals">0</h2>
+    </div>
+
+    <div class="stat-card">
+        <span>Pending Referrals</span>
+        <h2 id="pendingReferrals">0</h2>
+    </div>
+
+    <div class="stat-card">
+        <span>Recorded Bonuses</span>
+        <h2>₦0</h2>
+    </div>
+</section>
+
+<section class="panel">
+    <h2>Your Referral Link</h2>
+    <p class="panel-description">
+        Your personal invitation link will be generated after your account is connected and referral eligibility is confirmed.
+    </p>
+
+    <div class="referral-box">
+        <small>Personal referral link</small>
+        <div class="referral-link" id="referralLink">
+            Available after account activation
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button class="btn btn-primary" id="copyButton" type="button">
+            Copy Link
+        </button>
+
+        <button class="btn btn-secondary" id="shareButton" type="button">
+            Share Link
+        </button>
+    </div>
+</section>
+
+<section class="panel">
+    <h2>Referral Reward</h2>
+    <p class="panel-description">
+        The referral reward is subject to successful purchase verification and the applicable referral terms.
+    </p>
+
+    <div class="reward-card">
+        <div class="reward-icon">💰</div>
+        <div>
+            <h3>₦500 Reward</h3>
+            <p>For each eligible referral whose package purchase is successfully verified.</p>
+        </div>
+    </div>
+</section>
+
+<section class="panel">
+    <h2>How It Works</h2>
+    <p class="panel-description">Follow these steps to participate in the referral programme.</p>
+
+    <div class="rules">
+        <div class="rule">
+            <div class="rule-number">1</div>
+            <div>
+                <h3>Activate Your Account</h3>
+                <p>Purchase your first eligible package to unlock referral access.</p>
+            </div>
+        </div>
+
+        <div class="rule">
+            <div class="rule-number">2</div>
+            <div>
+                <h3>Share Your Link</h3>
+                <p>Invite friends and other people using your personal referral link.</p>
+            </div>
+        </div>
+
+        <div class="rule">
+            <div class="rule-number">3</div>
+            <div>
+                <h3>They Purchase a Package</h3>
+                <p>The referred person's eligible package purchase must be successfully verified.</p>
+            </div>
+        </div>
+
+        <div class="rule">
+            <div class="rule-number">4</div>
+            <div>
+                <h3>Referral Is Recorded</h3>
+                <p>Your eligible ₦500 reward is recorded after verification, subject to the programme terms.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="notice">
+    <strong>Demo notice:</strong> Referral statistics, links and bonuses are not live yet. They will become active after account authentication and secure backend integration. No referral reward is currently being credited.
+</div>
+
+<section class="panel">
+    <h2>Referral History</h2>
+    <div class="history-empty">
+        <span>👥</span>
+        No referral records yet.<br>
+        Your referral activity will appear here.
+    </div>
+</section>
+
+</main><nav class="bottom-nav">
+    <a href="dashboard.html">
+        <span>⌂</span>Home
+    </a><a href="packages.html">
+    <span>▦</span>Packages
+</a>
+
+<a href="investments.html">
+    <span>◈</span>Investments
+</a>
+
+<a href="transactions.html">
+    <span>▤</span>History
+</a>
+
+<a href="referrals.html" class="active">
+    <span>♧</span>Referrals
+</a>
+
+</nav><script>
+document.getElementById("copyButton").addEventListener("click", function() {
+    alert("Your personal referral link will be available after account activation.");
+});
+
+document.getElementById("shareButton").addEventListener("click", function() {
+    alert("Referral sharing will be available after your personal link is generated.");
+});
+</script></body>
+</html>
