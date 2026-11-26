@@ -1,413 +1,526 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fundora | Dashboard</title><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
-:root {
-  --bg:#080b18;
-  --card:#11172a;
-  --card2:#151d34;
-  --purple:#8057f5;
-  --blue:#3985ff;
-  --text:#f5f6ff;
-  --muted:#929bb5;
-  --border:rgba(255,255,255,.07);
+<meta name="theme-color" content="#080b18">
+<title>Fundora | Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--bg:#080b18;
+--card:#11172a;
+--purple:#8057f5;
+--blue:#3985ff;
+--text:#f5f6ff;
+--muted:#929bb5;
+--border:rgba(255,255,255,.07);
 }
 
-* {box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box;margin:0;padding:0}
 
-body {
-  background:var(--bg);
-  color:var(--text);
-  font-family:'DM Sans',sans-serif;
-  min-height:100vh;
-  padding-bottom:90px;
+body{
+background:var(--bg);
+color:var(--text);
+font-family:'DM Sans',sans-serif;
+min-height:100vh;
+padding-bottom:95px;
 }
 
-button {font-family:inherit;cursor:pointer}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer}
 
-header {
-  height:70px;
-  padding:0 6%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid var(--border);
-  background:#0b1020;
+header{
+height:70px;
+padding:0 6%;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-bottom:1px solid var(--border);
+background:#0b1020;
 }
 
-.brand {
-  display:flex;
-  align-items:center;
-  gap:9px;
-  font-size:20px;
-  font-weight:800;
+.brand{
+display:flex;
+align-items:center;
+gap:9px;
+font-size:20px;
+font-weight:800;
 }
 
-.brand img {
-  width:34px;
-  height:34px;
-  object-fit:contain;
+.brand img{
+width:34px;
+height:34px;
+object-fit:contain;
 }
 
-.profile {
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  background:linear-gradient(135deg,var(--purple),var(--blue));
-  display:grid;
-  place-items:center;
-  font-weight:700;
+.profile{
+width:38px;
+height:38px;
+border-radius:50%;
+background:linear-gradient(135deg,var(--purple),var(--blue));
+display:grid;
+place-items:center;
+font-weight:700;
 }
 
-main {
-  width:min(1100px,92%);
-  margin:30px auto;
+main{
+width:min(1100px,92%);
+margin:30px auto;
 }
 
-.welcome {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:25px;
-  gap:15px;
+.welcome{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+gap:15px;
 }
 
-.welcome h1 {
-  font-size:25px;
-  margin-bottom:5px;
+.welcome h1{
+font-size:25px;
+margin-bottom:5px;
 }
 
-.welcome p,.muted {color:var(--muted);font-size:13px}
+.welcome p,.muted{color:var(--muted);font-size:13px}
 
-.demo-label {
-  color:#c6b5ff;
-  background:rgba(128,87,245,.13);
-  border:1px solid rgba(128,87,245,.25);
-  padding:8px 12px;
-  border-radius:20px;
-  font-size:11px;
+.demo-label{
+color:#c6b5ff;
+background:rgba(128,87,245,.13);
+border:1px solid rgba(128,87,245,.25);
+padding:8px 12px;
+border-radius:20px;
+font-size:11px;
+white-space:nowrap;
 }
 
-.balance-card {
-  background:linear-gradient(120deg,#38216f,#244b9d 65%,#176b8c);
-  border-radius:19px;
-  padding:25px;
-  position:relative;
-  overflow:hidden;
-  margin-bottom:22px;
+.balance-card{
+background:linear-gradient(120deg,#38216f,#244b9d 65%,#176b8c);
+border-radius:19px;
+padding:25px;
+position:relative;
+overflow:hidden;
+margin-bottom:22px;
 }
 
-.balance-card:after {
-  content:"";
-  position:absolute;
-  width:190px;
-  height:190px;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:50%;
-  right:-50px;
-  top:-75px;
-  box-shadow:0 0 0 25px rgba(255,255,255,.025),
-             0 0 0 50px rgba(255,255,255,.02);
+.balance-card:after{
+content:"";
+position:absolute;
+width:190px;
+height:190px;
+border:1px solid rgba(255,255,255,.12);
+border-radius:50%;
+right:-50px;
+top:-75px;
+box-shadow:0 0 0 25px rgba(255,255,255,.025),
+0 0 0 50px rgba(255,255,255,.02);
+pointer-events:none;
 }
 
-.balance-card small {opacity:.8;font-size:13px}
+.balance-card small{opacity:.85;font-size:13px}
 
-.balance {
-  font-size:34px;
-  font-weight:800;
-  margin:12px 0 20px;
+.balance{
+font-size:34px;
+font-weight:800;
+margin:12px 0 20px;
 }
 
-.balance-actions {
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
+.balance-actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+position:relative;
+z-index:1;
 }
 
-.action-btn {
-  border:1px solid rgba(255,255,255,.25);
-  color:white;
-  background:rgba(255,255,255,.12);
-  border-radius:9px;
-  padding:10px 16px;
-  font-size:12px;
-  font-weight:700;
+.action-btn{
+border:1px solid rgba(255,255,255,.25);
+color:white;
+background:rgba(255,255,255,.12);
+border-radius:9px;
+padding:10px 16px;
+font-size:12px;
+font-weight:700;
 }
 
-.action-btn.primary {
-  background:white;
-  color:#25204b;
+.action-btn.primary{
+background:white;
+color:#25204b;
 }
 
-.stats {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-  margin-bottom:30px;
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:14px;
+margin-bottom:30px;
 }
 
-.stat-card,.panel {
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:19px;
+.stat-card,.panel{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:15px;
+padding:19px;
 }
 
-.stat-card span {
-  color:var(--muted);
-  font-size:12px;
+.stat-card span{
+color:var(--muted);
+font-size:12px;
 }
 
-.stat-card h2 {
-  font-size:23px;
-  margin-top:10px;
+.stat-card h2{
+font-size:23px;
+margin-top:10px;
 }
 
-.section-heading {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:28px 0 15px;
-  gap:10px;
+.section-heading{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin:28px 0 15px;
+gap:10px;
 }
 
-.section-heading h2 {font-size:18px}
+.section-heading h2{font-size:18px}
 
-.section-heading a {
-  color:#a992ff;
-  text-decoration:none;
-  font-size:12px;
+.section-heading a{
+color:#a992ff;
+font-size:12px;
 }
 
-.package-grid {
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
+.package-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
 }
 
-.package-card {
-  background:linear-gradient(145deg,#171c35,#11172a);
-  border:1px solid rgba(128,87,245,.2);
-  padding:20px;
-  border-radius:15px;
+.package-card{
+background:linear-gradient(145deg,#171c35,#11172a);
+border:1px solid rgba(128,87,245,.2);
+padding:20px;
+border-radius:15px;
 }
 
-.package-icon {
-  width:39px;
-  height:39px;
-  border-radius:11px;
-  display:grid;
-  place-items:center;
-  background:rgba(128,87,245,.16);
-  font-size:19px;
-  margin-bottom:14px;
+.package-icon{
+width:39px;
+height:39px;
+border-radius:11px;
+display:grid;
+place-items:center;
+background:rgba(128,87,245,.16);
+font-size:19px;
+margin-bottom:14px;
 }
 
-.package-card h3 {font-size:15px;margin-bottom:7px}
-.package-card p {color:var(--muted);font-size:12px;line-height:1.6}
+.package-card h3{font-size:15px;margin-bottom:7px}
 
-.package-card button {
-  width:100%;
-  padding:11px;
-  margin-top:17px;
-  border:0;
-  border-radius:9px;
-  color:white;
-  background:linear-gradient(100deg,var(--purple),var(--blue));
-  font-weight:700;
-  font-size:12px;
+.package-card p{
+color:var(--muted);
+font-size:12px;
+line-height:1.6;
 }
 
-.panel {margin-bottom:15px}
-
-.empty {
-  text-align:center;
-  padding:25px 10px;
-  color:var(--muted);
-  font-size:13px;
+.package-price{
+font-size:18px;
+font-weight:800;
+margin-top:12px;
 }
 
-.empty strong {
-  display:block;
-  color:white;
-  margin-bottom:7px;
-  font-size:14px;
+.package-card button{
+width:100%;
+padding:11px;
+margin-top:17px;
+border:0;
+border-radius:9px;
+color:white;
+background:linear-gradient(100deg,var(--purple),var(--blue));
+font-weight:700;
+font-size:12px;
 }
 
-.activity-row {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:13px 0;
-  border-bottom:1px solid var(--border);
-  font-size:13px;
+.panel{margin-bottom:15px}
+
+.empty{
+text-align:center;
+padding:25px 10px;
+color:var(--muted);
+font-size:13px;
 }
 
-.activity-row:last-child {border:0}
-
-.activity-row span:last-child {color:var(--muted)}
-
-.quick-links {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
+.empty strong{
+display:block;
+color:white;
+margin-bottom:7px;
+font-size:14px;
 }
 
-.quick-link {
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:13px;
-  padding:17px 10px;
-  text-align:center;
-  color:white;
-  text-decoration:none;
-  font-size:12px;
+.quick-links{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
 }
 
-.quick-link span {
-  display:block;
-  font-size:21px;
-  margin-bottom:8px;
+.quick-link{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:13px;
+padding:17px 10px;
+text-align:center;
+font-size:12px;
+transition:.2s;
 }
 
-.bottom-nav {
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:68px;
-  background:#101629;
-  border-top:1px solid var(--border);
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  z-index:10;
+.quick-link:active{transform:scale(.97)}
+
+.quick-link span{
+display:block;
+font-size:21px;
+margin-bottom:8px;
 }
 
-.bottom-nav a {
-  color:var(--muted);
-  text-decoration:none;
-  font-size:10px;
-  text-align:center;
+.referral-note{
+margin-top:20px;
+padding:16px;
+border:1px solid rgba(128,87,245,.2);
+background:rgba(128,87,245,.08);
+border-radius:13px;
 }
 
-.bottom-nav a span {
-  display:block;
-  font-size:19px;
-  margin-bottom:4px;
+.referral-note h3{
+font-size:14px;
+margin-bottom:6px;
 }
 
-.bottom-nav a.active {color:#b49cff}
-
-@media(max-width:600px) {
-  header {height:62px;padding:0 5%}
-  main {margin:23px auto;width:91%}
-  .welcome h1 {font-size:21px}
-  .balance-card {padding:21px}
-  .balance {font-size:29px}
-  .stats {gap:8px}
-  .stat-card {padding:13px 10px}
-  .stat-card h2 {font-size:19px}
-  .stat-card span {font-size:10px}
-  .package-grid {grid-template-columns:1fr}
-  .quick-links {gap:8px}
+.referral-note p{
+font-size:12px;
+color:var(--muted);
+line-height:1.6;
 }
-</style></head><body><header>
-  <div class="brand">
-    <img src="fundora-logo.png" alt="Fundora">
-    <span>Fundora</span>
-  </div>
-  <div class="profile">M</div>
-</header><main>  <section class="welcome">
-    <div>
-      <h1>Welcome back, Member 👋</h1>
-      <p>Here's an overview of your account.</p>
-    </div>
-    <span class="demo-label">DEMO ACCOUNT</span>
-  </section>  <section class="balance-card">
-    <small>Demo account balance</small>
-    <div class="balance">₦0.00</div>
-    <div class="balance-actions">
-      <button class="action-btn primary" onclick="showNotice()">Explore packages</button>
-      <button class="action-btn" onclick="showNotice()">Account activity</button>
-    </div>
-  </section>  <section class="stats">
-    <div class="stat-card">
-      <span>Active investments</span>
-      <h2>0</h2>
-    </div>
-    <div class="stat-card">
-      <span>Total invested</span>
-      <h2>₦0</h2>
-    </div>
-    <div class="stat-card">
-      <span>Referrals</span>
-      <h2>0</h2>
-    </div>
-  </section>  <section id="packages">
-    <div class="section-heading">
-      <h2>Explore packages</h2>
-      <a href="#packages">View all →</a>
-    </div><div class="package-grid">
-  <div class="package-card">
-    <div class="package-icon">🌱</div>
-    <h3>Starter Package</h3>
-    <p>Explore the entry-level package and review its details before making a decision.</p>
-    <button onclick="showNotice()">View package</button>
-  </div>
 
-  <div class="package-card">
-    <div class="package-icon">🚀</div>
-    <h3>Growth Package</h3>
-    <p>Explore the growth package and review its details before making a decision.</p>
-    <button onclick="showNotice()">View package</button>
-  </div>
+.referral-note a{
+display:inline-block;
+margin-top:10px;
+color:#c3a1ff;
+font-size:12px;
+font-weight:700;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+height:72px;
+background:#101629;
+border-top:1px solid var(--border);
+display:flex;
+justify-content:space-around;
+align-items:center;
+z-index:10;
+padding:0 4px;
+}
+
+.bottom-nav a{
+color:var(--muted);
+font-size:10px;
+text-align:center;
+flex:1;
+}
+
+.bottom-nav a span{
+display:block;
+font-size:19px;
+margin-bottom:4px;
+}
+
+.bottom-nav a.active{color:#b49cff}
+
+@media(max-width:600px){
+header{height:62px;padding:0 5%}
+main{margin:23px auto;width:91%}
+.welcome h1{font-size:21px}
+.balance-card{padding:21px}
+.balance{font-size:29px}
+.stats{gap:8px}
+.stat-card{padding:13px 10px}
+.stat-card h2{font-size:19px}
+.stat-card span{font-size:10px}
+.package-grid{grid-template-columns:1fr}
+.quick-links{gap:8px}
+.quick-link{padding:15px 7px;font-size:11px}
+.bottom-nav a{font-size:9px}
+.bottom-nav a span{font-size:18px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<a class="brand" href="dashboard.html">
+<img src="fundora-logo.png" alt="Fundora">
+<span>Fundora</span>
+</a>
+
+<a href="settings.html" class="profile" aria-label="Open settings">M</a>
+</header>
+
+<main>
+
+<section class="welcome">
+<div>
+<h1>Welcome back, Member 👋</h1>
+<p>Here's an overview of your account.</p>
+</div>
+<span class="demo-label">DEMO ACCOUNT</span>
+</section>
+
+<section class="balance-card">
+<small>Account balance</small>
+<div class="balance">₦0.00</div>
+
+<div class="balance-actions">
+<a href="topup.html" class="action-btn primary">＋ Top Up</a>
+<a href="withdrawals.html" class="action-btn">Withdraw</a>
+<a href="packages.html" class="action-btn">Explore Packages</a>
+</div>
+</section>
+
+<section class="stats">
+
+<div class="stat-card">
+<span>Active Packages</span>
+<h2>0</h2>
 </div>
 
-  </section>  <section>
-    <div class="section-heading">
-      <h2>My investments</h2>
-      <a href="#investments">View all →</a>
-    </div>
-    <div class="panel" id="investments">
-      <div class="empty">
-        <strong>No investments yet</strong>
-        Your investment records will appear here.
-      </div>
-    </div>
-  </section>  <section>
-    <div class="section-heading">
-      <h2>Recent activity</h2>
-      <a href="#activity">View history →</a>
-    </div>
-    <div class="panel" id="activity">
-      <div class="empty">
-        <strong>No recent activity</strong>
-        Your account activity will appear here.
-      </div>
-    </div>
-  </section>  <section>
-    <div class="section-heading">
-      <h2>Quick access</h2>
-    </div>
-    <div class="quick-links">
-      <a class="quick-link" href="#packages"><span>📦</span>Packages</a>
-      <a class="quick-link" href="#investments"><span>📊</span>Investments</a>
-      <a class="quick-link" href="#activity"><span>🧾</span>History</a>
-      <a class="quick-link" href="referrals.html"><span>👥</span>Referrals</a>
-      <a class="quick-link" href="settings.html"><span>⚙️</span>Settings</a>
-      <a class="quick-link" href="login.html"><span>↪</span>Log out</a>
-    </div>
-  </section></main><nav class="bottom-nav">
-  <a class="active" href="dashboard.html"><span>⌂</span>Home</a>
-  <a href="#packages"><span>▣</span>Packages</a>
-  <a href="#investments"><span>◈</span>Investments</a>
-  <a href="referrals.html"><span>♧</span>Referrals</a>
-  <a href="settings.html"><span>⚙</span>Settings</a>
-</nav><script>
-function showNotice() {
-  alert("This feature is a frontend demo and is not active yet.");
-}
-</script></body>
+<div class="stat-card">
+<span>Total Package Purchases</span>
+<h2>₦0</h2>
+</div>
+
+<div class="stat-card">
+<span>Successful Referrals</span>
+<h2>0</h2>
+</div>
+
+</section>
+
+<section id="packages">
+
+<div class="section-heading">
+<h2>Affiliate Packages</h2>
+<a href="packages.html">View all →</a>
+</div>
+
+<div class="package-grid">
+
+<div class="package-card">
+<div class="package-icon">🌱</div>
+<h3>Starter Package</h3>
+<p>Start exploring Fundora's affiliate programme.</p>
+<div class="package-price">₦3,000</div>
+<button onclick="location.href='package-details.html?amount=3000'">
+View Package
+</button>
+</div>
+
+<div class="package-card">
+<div class="package-icon">🚀</div>
+<h3>Growth Package</h3>
+<p>Explore the Growth package and its available benefits.</p>
+<div class="package-price">₦30,000</div>
+<button onclick="location.href='package-details.html?amount=30000'">
+View Package
+</button>
+</div>
+
+</div>
+</section>
+
+<section id="activity">
+
+<div class="section-heading">
+<h2>Recent Activity</h2>
+<a href="transactions.html">View history →</a>
+</div>
+
+<div class="panel">
+<div class="empty">
+<strong>No recent activity</strong>
+Your transactions and account activity will appear here.
+</div>
+</div>
+
+</section>
+
+<section>
+
+<div class="section-heading">
+<h2>Quick Access</h2>
+</div>
+
+<div class="quick-links">
+
+<a class="quick-link" href="packages.html">
+<span>📦</span>Packages
+</a>
+
+<a class="quick-link" href="transactions.html">
+<span>🧾</span>History
+</a>
+
+<a class="quick-link" href="topup.html">
+<span>💳</span>Top Up
+</a>
+
+<a class="quick-link" href="withdrawals.html">
+<span>🏦</span>Withdrawals
+</a>
+
+<a class="quick-link" href="referrals.html">
+<span>👥</span>Referrals
+</a>
+
+<a class="quick-link" href="settings.html">
+<span>⚙️</span>Settings
+</a>
+
+</div>
+
+<div class="referral-note">
+<h3>Invite and Earn</h3>
+<p>Eligible members can earn ₦500 for each successful qualifying referral after the referred member completes a verified package purchase. Referral access unlocks after your first qualifying package purchase.</p>
+<a href="referrals.html">View Referral Programme →</a>
+</div>
+
+</section>
+
+</main>
+
+<nav class="bottom-nav">
+
+<a class="active" href="dashboard.html">
+<span>⌂</span>Home
+</a>
+
+<a href="packages.html">
+<span>▣</span>Packages
+</a>
+
+<a href="transactions.html">
+<span>▤</span>History
+</a>
+
+<a href="referrals.html">
+<span>♧</span>Referrals
+</a>
+
+<a href="settings.html">
+<span>⚙</span>Settings
+</a>
+
+</nav>
+
+</body>
 </html>
